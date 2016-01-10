@@ -43,5 +43,6 @@ fi
 cat << EOF
 export W2L_URL='$W2L_URL'
 export W2L_BRANCH='develop'
+export W2L_DOMAIN_NAME='tuttorotto.biz'
 EOF
 } >> $W2L_CONFIG_FILE
