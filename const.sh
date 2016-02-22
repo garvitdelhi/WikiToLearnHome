@@ -6,7 +6,7 @@ if [[ ! -f "$0" ]] ; then
 fi
 
 export W2L_DIR=$(pwd)
-export W2L_CONFIG_FILE="./w2l.conf"
-export W2L_REPO_DIR="./WikiToLearn"
-export W2L_CONFIGS_DIR=$(pwd)'/configs/'
-
+export W2L_CONFIG_FILE=$W2L_DIR"/w2l.conf"
+export W2L_REPO_DIR=$W2L_DIR"/WikiToLearn"
+export W2L_CONFIGS_DIR=$W2L_DIR'/configs/'
+export W2L_ARCHIVES=$W2L_DIR"/archives/"
