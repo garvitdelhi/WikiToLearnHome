@@ -5,7 +5,7 @@ if [[ ! -f "$0" ]] ; then
  exit 1
 fi
 
-. ./loadconf.sh
+. ./load-wikitolearn.sh
 
 
 if [[ ! -d $W2L_CONFIGS_DIR ]] ; then

@@ -68,4 +68,4 @@ if [[ $? -ne 0 ]] ; then
  fi
 fi
 
-REF_W2L_MYSQL="--link ${W2L_INSTANCE_NAME}-mysql:mysql"
+REF_W2L_MYSQL="docker:${W2L_INSTANCE_NAME}-mysql"

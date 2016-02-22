@@ -37,3 +37,5 @@ if [[ $? -ne 0 ]] ; then
   fi
  fi
 fi
+
+REF_W2L_WEBSRV="docker:${W2L_INSTANCE_NAME}-websrv"

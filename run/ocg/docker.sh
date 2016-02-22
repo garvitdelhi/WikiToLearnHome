@@ -13,4 +13,4 @@ if [[ $? -ne 0 ]] ; then
  fi
 fi
 
-REF_W2L_OCG="--link ${W2L_INSTANCE_NAME}-ocg:ocg"
+REF_W2L_OCG="docker:${W2L_INSTANCE_NAME}-ocg"

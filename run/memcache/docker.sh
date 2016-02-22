@@ -11,4 +11,4 @@ if [[ $? -ne 0 ]] ; then
  fi
 fi
 
-REF_W2L_MEMCACHE="--link ${W2L_INSTANCE_NAME}-memcached:memcached"
+REF_W2L_MEMCACHE="docker:${W2L_INSTANCE_NAME}-memcached"
