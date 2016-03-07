@@ -5,8 +5,8 @@ if [[ ! -f "$0" ]] ; then
  exit 1
 fi
 
-export W2L_DIR=$(pwd)
-export W2L_CONFIG_FILE=$W2L_DIR"/w2l.conf"
-export W2L_REPO_DIR=$W2L_DIR"/WikiToLearn"
-export W2L_CONFIGS_DIR=$W2L_DIR'/configs/'
-export W2L_ARCHIVES=$W2L_DIR"/archives/"
+export WTL_DIR=$(pwd)
+export WTL_CONFIG_FILE=$WTL_DIR"/wtl.conf"
+export WTL_REPO_DIR=$WTL_DIR"/WikiToLearn"
+export WTL_CONFIGS_DIR=$WTL_DIR'/configs/'
+export WTL_ARCHIVES=$WTL_DIR"/archives/"

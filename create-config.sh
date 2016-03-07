@@ -12,8 +12,8 @@ done
 
 . ./const.sh
 
-if [[ -f "$W2L_CONFIG_FILE" ]] ; then
- echo "You have the '"$W2L_CONFIG_FILE"' file on your directory"
+if [[ -f "$WTL_CONFIG_FILE" ]] ; then
+ echo "You have the '"$WTL_CONFIG_FILE"' file on your directory"
  exit 1
 fi
 
@@ -22,11 +22,11 @@ read proto
 case "$proto" in
  "https")
   echo "Using HTTPS"
-  W2L_URL="https://github.com/WikiToLearn/WikiToLearn.git"
+  WTL_URL="https://github.com/WikiToLearn/WikiToLearn.git"
  ;;
  "ssh")
   echo "Using SSH"
-  W2L_URL="git@github.com:WikiToLearn/WikiToLearn.git"
+  WTL_URL="git@github.com:WikiToLearn/WikiToLearn.git"
  ;;
  *)
   echo "You must type ssh or https lowercase"
@@ -34,27 +34,27 @@ case "$proto" in
  ;;
 esac
 
-if [[ -d "$W2L_REPO_DIR" ]] ; then
- echo "You have '"$W2L_REPO_DIR"' directory in your directory."
+if [[ -d "$WTL_REPO_DIR" ]] ; then
+ echo "You have '"$WTL_REPO_DIR"' directory in your directory."
  echo "If you are trying to re-create the config file move the directory way and re-execute this script"
  exit 1
 fi
 
-if [[ "$W2L_INSTANCE_NAME" == "" ]] ; then
+if [[ "$WTL_INSTANCE_NAME" == "" ]] ; then
  echo "Using default instance name"
- export W2L_INSTANCE_NAME="w2l-dev"
+ export WTL_INSTANCE_NAME="WTL-dev"
 fi
 
 {
 cat << EOF
-export W2L_INSTANCE_NAME="$W2L_INSTANCE_NAME"
+export WTL_INSTANCE_NAME="$WTL_INSTANCE_NAME"
 
-export W2L_URL='$W2L_URL'
-export W2L_BRANCH='master'
-export W2L_DOMAIN_NAME='tuttorotto.biz'
-export W2L_GITHUB_TOKEN='$W2L_GITHUB_TOKEN'
+export WTL_URL='$WTL_URL'
+export WTL_BRANCH='master'
+export WTL_DOMAIN_NAME='tuttorotto.biz'
+export WTL_GITHUB_TOKEN='$WTL_GITHUB_TOKEN'
 
 # set the default plugin to use
-export W2L_USE_DEFAULT="docker"
+export WTL_USE_DEFAULT="docker"
 EOF
-} >> $W2L_CONFIG_FILE
+} >> $WTL_CONFIG_FILE

@@ -8,12 +8,12 @@ fi
 . ./load-wikitolearn.sh
 
 
-if [[ ! -d $W2L_CONFIGS_DIR ]] ; then
- echo "Migging "$W2L_CONFIGS_DIR" directory"
+if [[ ! -d $WTL_CONFIGS_DIR ]] ; then
+ echo "Migging "$WTL_CONFIGS_DIR" directory"
  exit 1
 fi
 
-. ./run/memcache/$W2L_USE_MYSQL.sh
-. ./run/mysql/$W2L_USE_MEMCACHED.sh
-. ./run/ocg/$W2L_USE_OCG.sh
-. ./run/websrv/$W2L_USE_WEBSRV.sh
+. ./run/memcache/$WTL_USE_MYSQL.sh
+. ./run/mysql/$WTL_USE_MEMCACHED.sh
+. ./run/ocg/$WTL_USE_OCG.sh
+. ./run/websrv/$WTL_USE_WEBSRV.sh

@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # parsoid running
-docker ps | grep ${W2L_INSTANCE_NAME}-parsoid &> /dev/null
+docker ps | grep ${WTL_INSTANCE_NAME}-parsoid &> /dev/null
 if [[ $? -ne 0 ]] ; then
- docker ps -a | grep ${W2L_INSTANCE_NAME}-parsoid &> /dev/null
+ docker ps -a | grep ${WTL_INSTANCE_NAME}-parsoid &> /dev/null
  if [[ $? -eq 0 ]] ; then
-  docker start ${W2L_INSTANCE_NAME}-parsoid
+  docker start ${WTL_INSTANCE_NAME}-parsoid
  else
-  docker run -ti $MORE_ARGS --hostname parsoid --name ${W2L_INSTANCE_NAME}-parsoid -d $W2L_DOCKER_PARSOID
+  docker run -ti $MORE_ARGS --hostname parsoid --name ${WTL_INSTANCE_NAME}-parsoid -d $WTL_DOCKER_PARSOID
  fi
 fi
 
-REF_W2L_PARSOID="docker:${W2L_INSTANCE_NAME}-parsoid"
+REF_WTL_PARSOID="docker:${WTL_INSTANCE_NAME}-parsoid"

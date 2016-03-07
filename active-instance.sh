@@ -8,12 +8,12 @@ fi
 . ./load-wikitolearn.sh
 
 
-if [[ ! -d $W2L_CONFIGS_DIR ]] ; then
- echo "Migging "$W2L_CONFIGS_DIR" directory"
+if [[ ! -d $WTL_CONFIGS_DIR ]] ; then
+ echo "Migging "$WTL_CONFIGS_DIR" directory"
  exit 1
 fi
 
-export W2L_INSTANCE_NAME="dev-w2l-dev"
+export WTL_INSTANCE_NAME="dev-wtl-dev"
 
-export W2L_USE_HAPROXY="docker"
-export W2L_DOCKER_HAPROXY=wikitolearn/haproxy:0.5
+export WTL_USE_HAPROXY="docker"
+export WTL_DOCKER_HAPROXY=wikitolearn/haproxy:0.5

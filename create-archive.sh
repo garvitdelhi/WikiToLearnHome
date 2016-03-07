@@ -7,10 +7,10 @@ fi
 
 . ./load-wikitolearn.sh
 
-if [[ -d "$W2L_REPO_DIR" ]] ; then
- cd "$W2L_REPO_DIR"
+if [[ -d "$WTL_REPO_DIR" ]] ; then
+ cd "$WTL_REPO_DIR"
 else
- echo "Missing the '$W2L_REPO_DIR' directory"
+ echo "Missing the '$WTL_REPO_DIR' directory"
  exit 1
 fi
 
@@ -58,21 +58,21 @@ export COMMIT=$(git log --pretty=format:%H "$COMMIT" | grep "$COMMIT")
 
 echo "Found commit: "$COMMIT
 
-rm -f $W2L_DIR"/archives/"$COMMIT".tar"
-rm -f $W2L_DIR"/archives/"$COMMIT".submodule."*
+rm -f $WTL_DIR"/archives/"$COMMIT".tar"
+rm -f $WTL_DIR"/archives/"$COMMIT".submodule."*
 echo "Creating the archive for main repo ("$COMMIT")"
 git checkout $COMMIT
 git pull
 git submodule update --init --checkout --recursive
-git archive --format=tar -o $W2L_DIR"/archives/"$COMMIT".tar" $COMMIT
+git archive --format=tar -o $WTL_DIR"/archives/"$COMMIT".tar" $COMMIT
 for submodule in $(git submodule foreach --recursive  | awk -F" " '{ print $2 }') ; do
  SUBMODULE_PATH=${submodule:1:-1}"/"
  C_W_D=$(pwd)
  cd $SUBMODULE_PATH
  SUBMODULE_ID=$(git log -1 --format=%H)
  echo "Creating the archive for "$SUBMODULE_PATH" repo ("$SUBMODULE_ID")"
- git archive  --prefix="$SUBMODULE_PATH" --format=tar -o $W2L_DIR"/archives/"$COMMIT".submodule."$SUBMODULE_ID".tar" $SUBMODULE_ID
+ git archive  --prefix="$SUBMODULE_PATH" --format=tar -o $WTL_DIR"/archives/"$COMMIT".submodule."$SUBMODULE_ID".tar" $SUBMODULE_ID
  cd $C_W_D
- tar -Af $W2L_DIR"/archives/"$COMMIT.tar $W2L_DIR"/archives/"$COMMIT".submodule."$SUBMODULE_ID".tar"
+ tar -Af $WTL_DIR"/archives/"$COMMIT.tar $WTL_DIR"/archives/"$COMMIT".submodule."$SUBMODULE_ID".tar"
 done
-rm -f $W2L_DIR"/archives/"$COMMIT".submodule."*
+rm -f $WTL_DIR"/archives/"$COMMIT".submodule."*

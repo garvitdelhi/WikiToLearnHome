@@ -8,10 +8,10 @@ fi
 . ./const.sh
 
 
-if [[ ! -f "$W2L_CONFIG_FILE" ]] ; then
- echo "Missing '"$W2L_CONFIG_FILE"' file on your directory"
+if [[ ! -f "$WTL_CONFIG_FILE" ]] ; then
+ echo "Missing '"$WTL_CONFIG_FILE"' file on your directory"
  exit 1
 fi
 
 
-. $W2L_CONFIG_FILE
+. $WTL_CONFIG_FILE

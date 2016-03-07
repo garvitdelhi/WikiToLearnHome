@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Bringing up "${W2L_INSTANCE_NAME}"..."
+echo "Bringing up "${WTL_INSTANCE_NAME}"..."
 
 docker inspect wikitolearn-haproxy &> /dev/null
 if [[ $? -eq 0 ]] ; then
@@ -15,6 +15,6 @@ fi
 docker run -d --name wikitolearn-haproxy --restart=always \
  -p 80:80 \
  -p 443:443 \
- --link ${W2L_INSTANCE_NAME}-websrv:websrv \
- --link ${W2L_INSTANCE_NAME}-ocg:ocg \
- $W2L_DOCKER_HAPROXY
+ --link ${WTL_INSTANCE_NAME}-websrv:websrv \
+ --link ${WTL_INSTANCE_NAME}-ocg:ocg \
+ $WTL_DOCKER_HAPROXY

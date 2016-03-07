@@ -1,0 +1,42 @@
+# WikiToLearn Home
+
+This is the new version of the WikiToLearn backend stuff.
+
+With these scripts we manage the environment.
+
+## Scripts
+
+### const.sh
+
+Env Variables, Config Stuff, Cd in the correct directory
+
+### create-config.sh
+
+Create user config "$WTL\_CONFIG\_FILE"
+
+Instance, url, github token (composer), plugins for customization  ($WTL\_USE\_DEFAULT)
+
+
+### download-code.sh
+
+pull, submodule init
+
+warning: discard changes!
+
+### active-instance
+
+the old use instance: let's start everything
+
+calls load-wikitolearn
+
+we create a new instance (eg when shipping new versions= zero downtime)
+
+### load-wikitolearn
+
+?????
+
+### run-all
+
+upstart
+
+

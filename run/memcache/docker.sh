@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # run mamecached
-docker ps | grep ${W2L_INSTANCE_NAME}-memcached &> /dev/null
+docker ps | grep ${WTL_INSTANCE_NAME}-memcached &> /dev/null
 if [[ $? -ne 0 ]] ; then
- docker ps -a | grep ${W2L_INSTANCE_NAME}-memcached &> /dev/null
+ docker ps -a | grep ${WTL_INSTANCE_NAME}-memcached &> /dev/null
  if [[ $? -eq 0 ]] ; then
-  docker start ${W2L_INSTANCE_NAME}-memcached
+  docker start ${WTL_INSTANCE_NAME}-memcached
  else
-  docker run -ti $MORE_ARGS --hostname memcached.$W2L_DOMAIN_NAME --name ${W2L_INSTANCE_NAME}-memcached -d $W2L_DOCKER_MEMCACHED
+  docker run -ti $MORE_ARGS --hostname memcached.$WTL_DOMAIN_NAME --name ${WTL_INSTANCE_NAME}-memcached -d $WTL_DOCKER_MEMCACHED
  fi
 fi
 
-REF_W2L_MEMCACHE="docker:${W2L_INSTANCE_NAME}-memcached"
+REF_WTL_MEMCACHE="docker:${WTL_INSTANCE_NAME}-memcached"
