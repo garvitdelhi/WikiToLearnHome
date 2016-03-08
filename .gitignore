@@ -1,3 +1,5 @@
 WikiToLearn/
-wtl.conf
-archives/*tar
+archives/
+!archives/.placeholder
+configs/
+!configs/.placeholder

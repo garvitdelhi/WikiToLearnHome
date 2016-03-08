@@ -33,11 +33,11 @@ fi
 while [[ $# > 1 ]] ; do
   case $1 in
     -c|--commit)
-      export COMMIT="$2"
+      export REFERENCE="$2"
       shift
     ;;
     -t|--tag)
-      export COMMIT=`git log --pretty=format:%H "$2" | head -1`
+      export REFERENCE="$2"
       shift
     ;;
     *)
@@ -48,31 +48,42 @@ while [[ $# > 1 ]] ; do
   shift
 done
 
-echo "Searching for commit: "$COMMIT
+echo "Searching for commit for "${REFERENCE}
 
-if [[ $(git log --pretty=format:%H "$COMMIT" | grep "$COMMIT" | wc -l) -ne 1 ]] ; then
- echo "The "$COMMIT" is not an uniq id for a commit"
+git show ${REFERENCE} &> /dev/null
+if [[ $? -ne 0 ]] ; then
+ echo "The "${REFERENCE}" is not an uniq id for a commit"
  exit 1
 fi
-export COMMIT=$(git log --pretty=format:%H "$COMMIT" | grep "$COMMIT")
 
-echo "Found commit: "$COMMIT
+echo "Found!"
 
-rm -f $WTL_DIR"/archives/"$COMMIT".tar"
-rm -f $WTL_DIR"/archives/"$COMMIT".submodule."*
-echo "Creating the archive for main repo ("$COMMIT")"
-git checkout $COMMIT
-git pull
-git submodule update --init --checkout --recursive
-git archive --format=tar -o $WTL_DIR"/archives/"$COMMIT".tar" $COMMIT
-for submodule in $(git submodule foreach --recursive  | awk -F" " '{ print $2 }') ; do
- SUBMODULE_PATH=${submodule:1:-1}"/"
- C_W_D=$(pwd)
- cd $SUBMODULE_PATH
- SUBMODULE_ID=$(git log -1 --format=%H)
- echo "Creating the archive for "$SUBMODULE_PATH" repo ("$SUBMODULE_ID")"
- git archive  --prefix="$SUBMODULE_PATH" --format=tar -o $WTL_DIR"/archives/"$COMMIT".submodule."$SUBMODULE_ID".tar" $SUBMODULE_ID
- cd $C_W_D
- tar -Af $WTL_DIR"/archives/"$COMMIT.tar $WTL_DIR"/archives/"$COMMIT".submodule."$SUBMODULE_ID".tar"
-done
-rm -f $WTL_DIR"/archives/"$COMMIT".submodule."*
+git show ${REFERENCE}
+
+if [[ -f ${WTL_ARCHIVES}"/"${REFERENCE}.tar ]] ; then
+ echo "File "${WTL_ARCHIVES}"/"${REFERENCE}".tar exist"
+else
+ rsync -a --stats --delete ${WTL_REPO_DIR}"/" ${WTL_ARCHIVES}"/"${REFERENCE}
+ cd ${WTL_ARCHIVES}"/"${REFERENCE}
+ if [[ $? -ne 0 ]] ; then
+  echo "Error in the change directory operation"
+  exit 1
+ else
+  echo "New location"
+
+  git checkout ${REFERENCE}
+  git submodule update --init --checkout --recursive
+
+  rm -Rf .git
+  find -name .git -delete
+
+  cd ${WTL_ARCHIVES}
+
+  tar -cvf ${REFERENCE}.tar ${REFERENCE}
+  if [[ $? -eq 0 ]] ; then
+   cd $(dirname $(realpath $0))
+
+   rm -Rf ${WTL_ARCHIVES}"/"${REFERENCE}
+  fi
+ fi
+fi
