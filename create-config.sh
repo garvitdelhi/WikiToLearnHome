@@ -5,7 +5,7 @@ if [[ ! -f "$0" ]] ; then
  exit 1
 fi
 
-for cmd in git docker curl ; do
+for cmd in git docker curl rsync ; do
  echo -n "Searching for "$cmd"..."
  which $cmd &> /dev/null ; if [[ $? -ne 0 ]] ; then echo "FAIL" ; exit 1 ; else echo "OK" ; fi
 done
