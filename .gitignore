@@ -1,3 +1,4 @@
 WikiToLearn/
 wtl.conf
-archives/*tar
+archives/
+configs/
