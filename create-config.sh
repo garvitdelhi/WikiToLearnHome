@@ -22,44 +22,38 @@ if [[ -f "$WTL_CONFIG_FILE" ]] ; then
 fi
 
 #setting git interaction protocol
-#managing script options
-while [[ $# > 1 ]] ; do
-  case $1 in
-    -c|--commit)
-      export REFERENCE="$2"
-      shift
+case $1 in
+    -p|--protocol)
+        protocol=$2
+        echo "$2"
+        shift 
+        shift
     ;;
-    -t|--tag)
-      export REFERENCE="$2"
-      shift
+    "")
+        echo -n "You want to use ssh or https to clone the repository? (https or ssh) "
+        read protocol
     ;;
     *)
-      echo "Unknow option $1"
-      exit 1
+        echo "Unknow option $1"
+        exit 1
     ;;
-  esac
-  shift
-done
-
-
-#allow user to select the git interaction protocol
-echo -n "You want to use ssh or https to clone the repository? (https or ssh) "
-read proto
-proto=${proto,,}
-case "$proto" in
- "https")
-  echo "Using HTTPS"
-  WTL_URL="https://github.com/WikiToLearn/WikiToLearn.git"
- ;;
- "ssh")
-  echo "Using SSH"
-  WTL_URL="git@github.com:WikiToLearn/WikiToLearn.git"
- ;;
- *)
-  echo "You must chose between ssh or https"
-  exit 1
- ;;
 esac
+protocol=${protocol,,}
+case "$protocol" in
+    "https")
+        echo "Using HTTPS"
+  	WTL_URL="https://github.com/WikiToLearn/WikiToLearn.git"
+    ;;
+    "ssh")
+        echo "Using SSH"
+  	WTL_URL="git@github.com:WikiToLearn/WikiToLearn.git"
+    ;;
+    *)
+        echo "You must chose between ssh or https"
+        exit 1
+    ;;
+esac
+
 
 
 if [[ -d "$WTL_REPO_DIR" ]] ; then
