@@ -45,6 +45,9 @@ if [[ "$WTL_INSTANCE_NAME" == "" ]] ; then
  export WTL_INSTANCE_NAME="WTL-dev"
 fi
 
+export _WTL_USER_UID=$(id -u)
+export _WTL_USER_GID=$(id -g)
+
 {
 cat << EOF
 export WTL_INSTANCE_NAME="$WTL_INSTANCE_NAME"
@@ -53,6 +56,9 @@ export WTL_URL='$WTL_URL'
 export WTL_BRANCH='master'
 export WTL_DOMAIN_NAME='tuttorotto.biz'
 export WTL_GITHUB_TOKEN='$WTL_GITHUB_TOKEN'
+
+export WTL_USER_UID=$_WTL_USER_UID
+export WTL_USER_GID=$_WTL_USER_GID
 
 # set the default plugin to use
 export WTL_USE_DEFAULT="docker"
