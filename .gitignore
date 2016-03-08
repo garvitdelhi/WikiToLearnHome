@@ -1,4 +1,5 @@
 WikiToLearn/
-wtl.conf
 archives/
+!archives/.placeholder
 configs/
+!configs/.placeholder
