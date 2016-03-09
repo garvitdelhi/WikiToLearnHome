@@ -1,4 +1,5 @@
 #!/bin/bash
+#Self sign certificates
 
 . ./load-wikitolearn.sh
 

@@ -51,7 +51,7 @@ if [[ "$WTL_INSTANCE_NAME" == "" ]] ; then
  export WTL_INSTANCE_NAME="WTL-dev"
 fi
 
-<<<<<<< HEAD
+
 echo -n "GitHub Auth Token: "
 read WTL_GITHUB_TOKEN
 if [[ "$WTL_GITHUB_TOKEN" == "" ]] ; then
@@ -67,7 +67,6 @@ else
    }
 }
 EOF
-
 fi
 
 export _WTL_USER_UID=$(id -u)

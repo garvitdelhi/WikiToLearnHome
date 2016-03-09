@@ -1,4 +1,6 @@
 #!/bin/bash
+# Install composer dependencies from composer.json in the $1 folder 
+
 if [ -z "$1" ]; then 
     echo "Warning: required parameter 'location of composer.json'" 
     exit -1 
@@ -21,8 +23,8 @@ else
     exit 1
 fi
 
-mkdir -p $WTL_DIR/cache/composer
+mkdir -p $WTL_CACHE/composer
 
 cd $1
 
-docker run --rm -u $(id -u):$(id -g) -v $(pwd):/app -e COMPOSER_CACHE_DIR=/cache -e COMPOSER_HOME=/composer -v $WTL_DIR/cache/composer:/cache -v $WTL_DIR/configs/composer:/composer composer/composer install -v
+docker run --rm -u $(id -u):$(id -g) -v $(pwd):/app -e COMPOSER_CACHE_DIR=/cache -e COMPOSER_HOME=/composer -v $WTL_CACHE/composer:/cache -v $WTL_CONFIGS_DIR/composer:/composer composer/composer install -v
