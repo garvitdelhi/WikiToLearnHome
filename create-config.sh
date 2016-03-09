@@ -74,7 +74,7 @@ if [[ -d "$WTL_REPO_DIR" ]] && [[ pull_repo != "yes" ]] ; then
 fi
 
 #WTL folder handling
-if [[ -d "$WTL_REPO_DIR" ]] && [[ pull_repo != "yes" ]] ; then
+if [[ -d "$WTL_REPO_DIR" && pull_repo != "yes" ]] ; then
     echo "$WTL_REPO_DIR directory already exists."
     echo "Delete it or move it in another folder and run again this script if you want to clone  $WTL_REPO_DIR " 
     echo "If you want to pull $WTL_REPO_DIR, please run $0 with --pull-repo argument"
