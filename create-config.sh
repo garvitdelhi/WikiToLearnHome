@@ -31,7 +31,7 @@ if [[ -f "$WTL_CONFIG_FILE" ]] ; then
 fi
 
 #Digest arguments passed to the bash scripts
-while [[ $# > 1 ]] ; do
+while [[ $# > 0 ]] ; do
     case $1 in
         -p | --protocol)
             if [[ $protocol != "" ]] ; then
@@ -54,6 +54,7 @@ while [[ $# > 1 ]] ; do
         ;;
     esac
     shift
+    echo "$1"
 done
 
 #protocol handling
