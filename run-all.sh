@@ -7,9 +7,15 @@ fi
 
 . ./load-wikitolearn.sh
 
-export WTL_INSTANCE_NAME="wtl-dev"
+if [[ "$WTL_RUN_VERSION" != "current" ]] ; then
+ . ./create-archive.sh "$WTL_RUN_VERSION"
+fi
 
-. $WTL_REPO_DIR/docker-images.conf
+if [[ "$WTL_INSTANCE_NAME" == "" ]] ; then
+ echo "Development env"
+ export WTL_INSTANCE_NAME="wtl-dev"
+ . $WTL_REPO_DIR/docker-images.conf
+fi
 
 if [[ ! -d $WTL_CONFIGS_DIR ]] ; then
  echo "Migging "$WTL_CONFIGS_DIR" directory"

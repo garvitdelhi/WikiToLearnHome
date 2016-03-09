@@ -9,7 +9,7 @@ if [[ $? -ne 0 ]] ; then
  else
   langs="$(find $WTL_CONFIGS_DIR/secrets/ -name *wikitolearn.php -exec basename {} \; | sed 's/wikitolearn.php//g' | grep -v shared)"
   echo $langs
-  docker run -ti $MORE_ARGS --hostname ocg.$WTL_DOMAIN_NAME -e langs="$langs" --name ${WTL_INSTANCE_NAME}-ocg -d $WTL_DOCKER_OCG
+  docker run -ti $MORE_ARGS --hostname ocg -e langs="$langs" --name ${WTL_INSTANCE_NAME}-ocg -d $WTL_DOCKER_OCG
  fi
 fi
 

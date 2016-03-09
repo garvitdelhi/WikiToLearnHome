@@ -7,7 +7,7 @@ if [[ $? -ne 0 ]] ; then
  if [[ $? -eq 0 ]] ; then
   docker start ${WTL_INSTANCE_NAME}-memcached
  else
-  docker run -ti $MORE_ARGS --hostname memcached.$WTL_DOMAIN_NAME --name ${WTL_INSTANCE_NAME}-memcached -d $WTL_DOCKER_MEMCACHED
+  docker run -ti $MORE_ARGS --hostname memcached --name ${WTL_INSTANCE_NAME}-memcached -d $WTL_DOCKER_MEMCACHED
  fi
 fi
 

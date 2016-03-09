@@ -1,5 +1,8 @@
 #!/bin/bash
 cd $(dirname $(realpath $0))
+
+REFERENCE="$1"
+
 if [[ ! -f "$0" ]] ; then
  echo "Error changing directory"
  exit 1
@@ -24,29 +27,16 @@ if [[ $(git status --porcelain | wc -l) -gt 0 ]] ; then
  exit 1
 fi
 
-if [[ $# -lt 2 ]] ; then
+if [[ $# -ne 1 ]] ; then
  echo "Missing arguments"
- echo "You have to run $0 -t <tag> or $0 -c <commit>"
+ echo "You have to run $0 <commit|tag>"
  exit 1
 fi
 
-while [[ $# > 1 ]] ; do
-  case $1 in
-    -c|--commit)
-      export REFERENCE="$2"
-      shift
-    ;;
-    -t|--tag)
-      export REFERENCE="$2"
-      shift
-    ;;
-    *)
-      echo "Unknow option $1"
-      exit 1
-    ;;
-  esac
-  shift
-done
+if [[ "$REFERENCE" == "" ]] ; then
+ echo "Missing the reference to commit or tag"
+ exit 1
+fi
 
 echo "Searching for commit for "${REFERENCE}
 
@@ -78,12 +68,16 @@ else
   find -name .git -delete
 
   cd ${WTL_ARCHIVES}
+  echo "DO COMPOSER"
+  $WTL_DIR/do-our-composer.sh ${WTL_ARCHIVES}"/"${REFERENCE}
 
-  tar -cvf ${REFERENCE}.tar ${REFERENCE}
-  if [[ $? -eq 0 ]] ; then
-   cd $(dirname $(realpath $0))
-
-   rm -Rf ${WTL_ARCHIVES}"/"${REFERENCE}
-  fi
+#  cd ${REFERENCE}
+#
+#  tar -cvf ../${REFERENCE}.tar .
+#  if [[ $? -eq 0 ]] ; then
+#   cd $(dirname $(realpath $0))
+#
+#   rm -Rf ${WTL_ARCHIVES}"/"${REFERENCE}
+#  fi
  fi
 fi

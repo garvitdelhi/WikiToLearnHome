@@ -14,7 +14,7 @@ if [[ $? -ne 0 ]] ; then
   else
    MOUNT_DIR=""
   fi
-  docker run -ti $MORE_ARGS --hostname mysql.$WTL_DOMAIN_NAME --name ${WTL_INSTANCE_NAME}-mysql -e MYSQL_ROOT_PASSWORD=$ROOT_PWD -d $WTL_DOCKER_MYSQL
+  docker run -ti $MORE_ARGS --hostname mysql --name ${WTL_INSTANCE_NAME}-mysql -e MYSQL_ROOT_PASSWORD=$ROOT_PWD -d $WTL_DOCKER_MYSQL
   echo "Waiting mysql init..."
   false
   while [[ $? -ne 0 ]] ; do

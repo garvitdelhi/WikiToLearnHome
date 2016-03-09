@@ -3,5 +3,7 @@ archives/
 !archives/.placeholder
 configs/
 !configs/.placeholder
+cache/
+!cache/.placeholder
 certs/
 !certs/.placeholder
