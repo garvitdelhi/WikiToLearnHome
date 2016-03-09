@@ -14,13 +14,13 @@ if [[ ! -f "$0" ]] ; then
     exit 1
 fi
 
-#checks wether git docker curl and rsync are installed
+#checks whether git docker curl and rsync are installed
 for cmd in git docker curl rsync ; do
     echo -n "Searching for "$cmd"..."
     which $cmd &> /dev/null ; if [[ $? -ne 0 ]] ; then echo "FAIL" ; exit 1 ; else echo "OK" ; fi
 done
 
-#call ./const.sh script
+#call ./const.sh script: load constant environment variables
 . ./const.sh
 
 #checks config file existance
@@ -54,7 +54,6 @@ while [[ $# > 0 ]] ; do
         ;;
     esac
     shift
-    echo "$1"
 done
 
 #protocol handling
