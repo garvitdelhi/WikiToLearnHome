@@ -21,24 +21,33 @@ if [[ -f "$WTL_CONFIG_FILE" ]] ; then
  exit 1
 fi
 
-#setting git interaction protocol
-case $1 in
-    -p|--protocol)
-        protocol=$2
-        echo "$2"
-        shift 
-        shift
-    ;;
-    "")
-        echo -n "You want to use ssh or https to clone the repository? (https or ssh) "
+#Digest arguments passed to the bash scripts
+while [[ $# > 1 ]] ; do
+    case $1 in
+        -p | --protocol)
+            protocol=$2
+            shift
+        ;;
+        --pull-repo)
+            pull_repo="yes"
+        ;;
+        *)
+            echo "Unknown option: $1"
+            exit 1
+        ;;
+    esac
+    shift
+done
+
+#protocol handling
+until [[ ${protocol,,} = "ssh" ]] || [[ ${protocol,,} = "https" ]] ; do
+        echo -n "You want to use ssh or https to clone the repository? (https or ssh): "
         read protocol
-    ;;
-    *)
-        echo "Unknow option $1"
-        exit 1
-    ;;
-esac
+done
+
 protocol=${protocol,,}
+echo "You are using $protocol"
+
 case "$protocol" in
     "https")
         echo "Using HTTPS"
@@ -54,12 +63,12 @@ case "$protocol" in
     ;;
 esac
 
-
-
-if [[ -d "$WTL_REPO_DIR" ]] ; then
- echo "You have '"$WTL_REPO_DIR"' directory in your directory."
- echo "If you are trying to re-create the config file move the directory way and re-execute this script"
- exit 1
+#WTL folder handling
+if [[ -d "$WTL_REPO_DIR" && pull_repo != "yes" ]] ; then
+	echo "$WTL_REPO_DIR directory already exists."
+	echo "Delete it or move it in another folder and run again this script if you want to clone  $WTL_REPO_DIR " 
+	echo "If you want to pull $WTL_REPO_DIR, please run $0 with --pull-repo argument"
+	exit 1
 fi
 
 if [[ "$WTL_INSTANCE_NAME" == "" ]] ; then
