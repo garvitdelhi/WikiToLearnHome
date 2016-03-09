@@ -2,21 +2,22 @@
 
 #check the user that runs the script
 if [[ $(id -u) -eq 0 ]] || [[ $(id -g) -eq 0 ]] ; then
- echo "You can't be root. root has too much power."
- exit 1
+    echo "You can't be root. root has too much power."
+    exit 1
 fi
 
 #cd to current script folder
 cd $(dirname $(realpath $0))
 if [[ ! -f "$0" ]] ; then
- echo "Error changing directory"
- exit 1
+    echo "Error changing directory"
+    echo "configuration aborted"
+    exit 1
 fi
 
 #checks wether git docker curl and rsync are installed
 for cmd in git docker curl rsync ; do
- echo -n "Searching for "$cmd"..."
- which $cmd &> /dev/null ; if [[ $? -ne 0 ]] ; then echo "FAIL" ; exit 1 ; else echo "OK" ; fi
+    echo -n "Searching for "$cmd"..."
+    which $cmd &> /dev/null ; if [[ $? -ne 0 ]] ; then echo "FAIL" ; exit 1 ; else echo "OK" ; fi
 done
 
 #call ./const.sh script
@@ -24,8 +25,9 @@ done
 
 #checks config file existance
 if [[ -f "$WTL_CONFIG_FILE" ]] ; then
- echo "You have the '"$WTL_CONFIG_FILE"' file on your directory"
- exit 1
+    echo "You have the '"$WTL_CONFIG_FILE"' file on your directory"
+    echo "configuration aborted"
+    exit 1
 fi
 
 #Digest arguments passed to the bash scripts
@@ -41,12 +43,13 @@ while [[ $# > 1 ]] ; do
         --pull-repo)
             pull_repo="yes"
         ;;
-        --token)
+        -t | --token)
             WTL_GITHUB_TOKEN=$2
             shift
         ;;
         *)
             echo "Unknown option: $1"
+            echo "configuration aborted"
             exit 1
         ;;
     esac
@@ -66,15 +69,17 @@ if [[ -d "$WTL_REPO_DIR" ]] && [[ pull_repo != "yes" ]] ; then
     echo "$WTL_REPO_DIR directory already exists."
     echo "Delete it or move it in another folder and run again this script if you want to clone  $WTL_REPO_DIR " 
     echo "If you want to pull $WTL_REPO_DIR, please run $0 with --pull-repo argument"
+    echo "configuration aborted"
     exit 1
 fi
 
 #WTL folder handling
 if [[ -d "$WTL_REPO_DIR" ]] && [[ pull_repo != "yes" ]] ; then
-	echo "$WTL_REPO_DIR directory already exists."
-	echo "Delete it or move it in another folder and run again this script if you want to clone  $WTL_REPO_DIR " 
-	echo "If you want to pull $WTL_REPO_DIR, please run $0 with --pull-repo argument"
-	exit 1
+    echo "$WTL_REPO_DIR directory already exists."
+    echo "Delete it or move it in another folder and run again this script if you want to clone  $WTL_REPO_DIR " 
+    echo "If you want to pull $WTL_REPO_DIR, please run $0 with --pull-repo argument"
+    echo "configuration aborted"
+    exit 1
 fi
 
 #GitHub token handling
@@ -84,13 +89,22 @@ if [[ "$WTL_GITHUB_TOKEN" == "" ]] ; then
     else
         echo "You must insert '--token' parameter followed by a valid token"
         echo "visit https://git.io/vmNUX to learn how to obtain the token"
+        echo "configuration aborted"
         exit 1
     fi
 elif [[ ${WTL_GITHUB_TOKEN:0:1} == "-" ]] ; then
     echo "$WTL_GITHUB_TOKEN seems to be a parameter, but I need a github token after '--token'"
     echo "re-write the script with '--token' parameter followed by the token"
     echo "visit https://git.io/vmNUX to learn how to obtain the token"
+    echo "configuration aborted"
+    exit 1
 else
+
+#Sore GitHub token
+if [[ ! -d $WTL_DIR/configs/composer ]]; then
+    mkdir $WTL_DIR/configs/composer
+fi
+
 cat <<EOF > $WTL_DIR/configs/composer/auth.json 
 {
     "config":{
@@ -119,3 +133,7 @@ export WTL_USER_GID=$_WTL_USER_GID
 export WTL_USE_DEFAULT="docker"
 EOF
 } >> $WTL_CONFIG_FILE
+
+if [[ -f "$WTL_CONFIG_FILE" ]] ; then
+ echo "configuration file created"
+fi

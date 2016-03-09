@@ -16,4 +16,4 @@ export WTL_ARCHIVES=$WTL_DIR"/archives/"
 export WTL_CERTS=$WTL_DIR"/certs/"
 export WTL_CACHE=$WTL_DIR"/cache/"
 
-export WTL_CONFIG_FILE=$WTL_CONFIGS_DIR"/wtl.conf"
+export WTL_CONFIG_FILE=$WTL_CONFIGS_DIR"wtl.conf"
