@@ -10,7 +10,7 @@ fi
 
 #define environment variables
 export WTL_DIR=$(pwd)
-export WTL_REPO_DIR=$WTL_DIR"/WikiToLearn"
+export WTL_REPO_DIR=$WTL_DIR"/WikiToLearn/"
 export WTL_CONFIGS_DIR=$WTL_DIR'/configs/'
 export WTL_ARCHIVES=$WTL_DIR"/archives/"
 export WTL_CERTS=$WTL_DIR"/certs/"
