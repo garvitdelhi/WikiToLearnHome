@@ -65,6 +65,13 @@ done
 protocol=${protocol,,}
 echo "You are using $protocol"
 
+#control if http or ssh
+if [[ $protocol == "https" ]] ; then
+    WTL_URL="https://github.com/WikiToLearn/WikiToLearnHome.git"
+elif [[ $protocol == "ssh" ]] ; then
+    WTL_URL="git@github.com:WikiToLearn/WikiToLearnHome.git"
+fi
+
 #WTL folder handling
 if [[ -d "$WTL_REPO_DIR" ]] && [[ $existing_repo != "yes" ]] ; then
     echo "$WTL_REPO_DIR directory already exists."
@@ -108,9 +115,11 @@ cat <<EOF > $WTL_DIR/configs/composer/auth.json
 EOF
 fi
 
+#saving the user
 export _WTL_USER_UID=$(id -u)
 export _WTL_USER_GID=$(id -g)
 
+#Config file creation
 {
 cat << EOF
 export WTL_URL='$WTL_URL'
