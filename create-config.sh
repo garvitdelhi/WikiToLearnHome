@@ -40,8 +40,8 @@ while [[ $# > 1 ]] ; do
             protocol=$2
             shift
         ;;
-        --pull-repo)
-            pull_repo="yes"
+        --existing-repo)
+            existing_repo="yes"
         ;;
         -t | --token)
             WTL_GITHUB_TOKEN=$2
@@ -66,10 +66,10 @@ protocol=${protocol,,}
 echo "You are using $protocol"
 
 #WTL folder handling
-if [[ -d "$WTL_REPO_DIR" ]] && [[ $pull_repo != "yes" ]] ; then
+if [[ -d "$WTL_REPO_DIR" ]] && [[ $existing_repo != "yes" ]] ; then
     echo "$WTL_REPO_DIR directory already exists."
     echo "Delete it or move it in another folder and run again this script if you want to clone  $WTL_REPO_DIR " 
-    echo "If you want to pull $WTL_REPO_DIR, please run $0 with --pull-repo argument"
+    echo "If you want to pull $WTL_REPO_DIR, please run $0 with --existing-repo argument"
     echo "configuration aborted"
     exit 1
 fi
@@ -78,7 +78,7 @@ fi
 if [[ "$WTL_GITHUB_TOKEN" == "" ]] ; then
     if [[ -f "$WTL_DIR/configs/composer/auth.json" ]] ; then
         "I will use the already existing github token in '$WTL_DIR/configs/composer/auth.json'"
-    else
+   else
         echo "You must insert '--token' parameter followed by a valid token"
         echo "visit https://git.io/vmNUX to learn how to obtain the token"
         echo "configuration aborted"
@@ -92,7 +92,7 @@ elif [[ ${WTL_GITHUB_TOKEN:0:1} == "-" ]] ; then
     exit 1
 else
 
-#Sore GitHub token
+#Store GitHub token
 if [[ ! -d $WTL_DIR/configs/composer ]]; then
     mkdir $WTL_DIR/configs/composer
 fi
