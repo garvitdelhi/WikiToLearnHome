@@ -1,4 +1,5 @@
 #!/bin/bash
+#Set the global ENV variables
 
 #cd to current script folder
 cd $(dirname $(realpath $0))
@@ -13,6 +14,6 @@ export WTL_REPO_DIR=$WTL_DIR"/WikiToLearn"
 export WTL_CONFIGS_DIR=$WTL_DIR'/configs/'
 export WTL_ARCHIVES=$WTL_DIR"/archives/"
 export WTL_CERTS=$WTL_DIR"/certs/"
-
+export WTL_CACHE=$WTL_DIR"/cache/"
 
 export WTL_CONFIG_FILE=$WTL_CONFIGS_DIR"/wtl.conf"

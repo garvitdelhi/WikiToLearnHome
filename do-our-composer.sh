@@ -1,3 +1,6 @@
+#!/bin/bash
+# Install the composer stuff required by wikitolearn 
+
 cd $(dirname $(realpath $0))
 if [[ ! -f "$0" ]] ; then
  echo "Error changing directory"

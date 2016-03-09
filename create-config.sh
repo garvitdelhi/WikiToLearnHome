@@ -32,6 +32,9 @@ fi
 while [[ $# > 1 ]] ; do
     case $1 in
         -p | --protocol)
+            if [[ $protocol != "" ]] ; then
+                echo "$protocol has been overwritten by $2"
+            fi
             protocol=$2
             shift
         ;;
@@ -51,51 +54,52 @@ while [[ $# > 1 ]] ; do
 done
 
 #protocol handling
-until [[ ${protocol,,} = "ssh" ]] || [[ ${protocol,,} = "https" ]] ; do
-        echo -n "You want to use ssh or https to clone the repository? (https or ssh): "
-        read protocol
+until [[ ${protocol,,} == "ssh" ]] || [[ ${protocol,,} == "https" ]] ; do
+    echo -n "You want to use ssh or https to clone the repository? (https or ssh): "
+    read protocol
 done
 
 protocol=${protocol,,}
 echo "You are using $protocol"
 
-case "$protocol" in
-    "https")
-        echo "Using HTTPS"
-  	WTL_URL="https://github.com/WikiToLearn/WikiToLearn.git"
-    ;;
-    "ssh")
-        echo "Using SSH"
-  	WTL_URL="git@github.com:WikiToLearn/WikiToLearn.git"
-    ;;
-    *)
-        echo "You must chose between ssh or https"
-        exit 1
-    ;;
-esac
+if [[ -d "$WTL_REPO_DIR" ]] && [[ pull_repo != "yes" ]] ; then
+    echo "$WTL_REPO_DIR directory already exists."
+    echo "Delete it or move it in another folder and run again this script if you want to clone  $WTL_REPO_DIR " 
+    echo "If you want to pull $WTL_REPO_DIR, please run $0 with --pull-repo argument"
+    exit 1
+fi
 
 #WTL folder handling
-if [[ -d "$WTL_REPO_DIR" && pull_repo != "yes" ]] ; then
+if [[ -d "$WTL_REPO_DIR" ]] && [[ pull_repo != "yes" ]] ; then
 	echo "$WTL_REPO_DIR directory already exists."
 	echo "Delete it or move it in another folder and run again this script if you want to clone  $WTL_REPO_DIR " 
 	echo "If you want to pull $WTL_REPO_DIR, please run $0 with --pull-repo argument"
 	exit 1
 fi
 
+#GitHub token handling
 if [[ "$WTL_GITHUB_TOKEN" == "" ]] ; then
-	echo "A token is REQUIRED!"
-	exit 1
+    if [[ -f "$WTL_DIR/configs/composer/auth.json" ]] ; then
+        "I will use the already existing github token in '$WTL_DIR/configs/composer/auth.json'"
+    else
+        echo "You must insert '--token' parameter followed by a valid token"
+        echo "visit https://git.io/vmNUX to learn how to obtain the token"
+        exit 1
+    fi
+elif [[ ${WTL_GITHUB_TOKEN:0:1} == "-" ]] ; then
+    echo "$WTL_GITHUB_TOKEN seems to be a parameter, but I need a github token after '--token'"
+    echo "re-write the script with '--token' parameter followed by the token"
+    echo "visit https://git.io/vmNUX to learn how to obtain the token"
 else
 cat <<EOF > $WTL_DIR/configs/composer/auth.json 
 {
-   "config":{
-      "github-oauth":{
-         "github.com":"$WTL_GITHUB_TOKEN"
-      }
-   }
+    "config":{
+        "github-oauth":{
+            "github.com":"$WTL_GITHUB_TOKEN"
+        }
+    }
 }
 EOF
-
 fi
 
 export _WTL_USER_UID=$(id -u)
