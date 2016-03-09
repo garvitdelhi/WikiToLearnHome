@@ -38,6 +38,10 @@ while [[ $# > 1 ]] ; do
         --pull-repo)
             pull_repo="yes"
         ;;
+        --token)
+            WTL_GITHUB_TOKEN=$2
+            shift
+        ;;
         *)
             echo "Unknown option: $1"
             exit 1
@@ -78,8 +82,6 @@ if [[ -d "$WTL_REPO_DIR" && pull_repo != "yes" ]] ; then
 	exit 1
 fi
 
-echo -n "GitHub Auth Token: "
-read WTL_GITHUB_TOKEN
 if [[ "$WTL_GITHUB_TOKEN" == "" ]] ; then
 	echo "A token is REQUIRED!"
 	exit 1
