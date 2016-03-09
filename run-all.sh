@@ -7,6 +7,9 @@ fi
 
 . ./load-wikitolearn.sh
 
+export WTL_INSTANCE_NAME="wtl-dev"
+
+. $WTL_REPO_DIR/docker-images.conf
 
 if [[ ! -d $WTL_CONFIGS_DIR ]] ; then
  echo "Migging "$WTL_CONFIGS_DIR" directory"
@@ -18,6 +21,7 @@ if [[ "$WTL_USE_DEFAULT" == "" ]] ; then
  exit 1
 fi
 
+echo "Start mysql system..."
 # check if there is an override for mysql
 if [[ "$WTL_USE_MYSQL" == "" ]] ; then
  export REAL_WTL_USE_MYSQL=$WTL_USE_DEFAULT
@@ -25,13 +29,14 @@ else
  export REAL_WTL_USE_MYSQL=$WTL_USE_MYSQL
 fi
 # check if the helper exists
-if [[ -f ./run/memcache/$REAL_WTL_USE_MYSQL.sh ]] ; then
- . ./run/memcache/$REAL_WTL_USE_MYSQL.sh
+if [[ -f ./run/mysql/$REAL_WTL_USE_MYSQL.sh ]] ; then
+ . ./run/mysql/$REAL_WTL_USE_MYSQL.sh
 else
  echo "Missing the ./run/memcache/$REAL_WTL_USE_MYSQL.sh file"
  exit 1
 fi
 
+echo "Start memcached system..."
 # check if there is an override for memcached
 if [[ "$WTL_USE_MEMCACHED" == "" ]] ; then
  export REAL_WTL_USE_MEMCACHED=$WTL_USE_DEFAULT
@@ -39,10 +44,10 @@ else
  export REAL_WTL_USE_MEMCACHED=$WTL_USE_MEMCACHED
 fi
 # check if the helper exists
-if [[ -f ./run/mysql/$REAL_WTL_USE_MEMCACHED.sh ]] ; then
- . ./run/mysql/$REAL_WTL_USE_MEMCACHED.sh
+if [[ -f ./run/memcache/$REAL_WTL_USE_MEMCACHED.sh ]] ; then
+ . ./run/memcache/$REAL_WTL_USE_MEMCACHED.sh
 else
- echo "Missing the ./run/mysql/$WTL_USE_MEMCACHED.sh file"
+ echo "Missing the ./run/mysql/$REAL_WTL_USE_MEMCACHED.sh file"
  exit 1
 fi
 
@@ -53,12 +58,13 @@ else
  export REAL_WTL_USE_PARSOID=$WTL_USE_PARSOID
 fi
 # check if the helper exists
-if [[ -f ./run/parsoid/$WTL_USE_PARSOID.sh ]] ; then
- . ./run/parsoid/$WTL_USE_PARSOID.sh
+if [[ -f ./run/parsoid/$REAL_WTL_USE_PARSOID.sh ]] ; then
+ . ./run/parsoid/$REAL_WTL_USE_PARSOID.sh
 else
- echo "Missing the ./run/mysql/$WTL_USE_PARSOID.sh file"
+ echo "Missing the ./run/mysql/$REAL_WTL_USE_PARSOID.sh file"
  exit 1
 fi
+
 
 # check if there is an override for mathoid
 if [[ "$WTL_USE_MATHOID" == "" ]] ; then
@@ -67,10 +73,10 @@ else
  export REAL_WTL_USE_MATHOID=$WTL_USE_MATHOID
 fi
 # check if the helper exists
-if [[ -f ./run/mathoid/$WTL_USE_MATHOID.sh ]] ; then
- . ./run/mathoid/$WTL_USE_MATHOID.sh
+if [[ -f ./run/mathoid/$REAL_WTL_USE_MATHOID.sh ]] ; then
+ . ./run/mathoid/$REAL_WTL_USE_MATHOID.sh
 else
- echo "Missing the ./run/mysql/$WTL_USE_MATHOID.sh file"
+ echo "Missing the ./run/mysql/$REAL_WTL_USE_MATHOID.sh file"
  exit 1
 fi
 
@@ -81,10 +87,10 @@ else
  export REAL_WTL_USE_OCG=$WTL_USE_OCG
 fi
 # check if the helper exists
-if [[ -f ./run/ocg/$WTL_USE_OCG.sh ]] ; then
- . ./run/ocg/$WTL_USE_OCG.sh
+if [[ -f ./run/ocg/$REAL_WTL_USE_OCG.sh ]] ; then
+ . ./run/ocg/$REAL_WTL_USE_OCG.sh
 else
- echo "Missing the ./run/ocg/$WTL_USE_OCG.sh file"
+ echo "Missing the ./run/ocg/$REAL_WTL_USE_OCG.sh file"
  exit 1
 fi
 
@@ -95,12 +101,13 @@ else
  export REAL_WTL_USE_WEBSRV=$WTL_USE_WEBSRV
 fi
 # check if the helper exists
-if [[ -f . ./run/websrv/$WTL_USE_WEBSRV.sh ]] ; then
- . ./run/websrv/$WTL_USE_WEBSRV.sh
+if [[ -f ./run/websrv/$REAL_WTL_USE_WEBSRV.sh ]] ; then
+ . ./run/websrv/$REAL_WTL_USE_WEBSRV.sh
 else
- echo "Missing the ./run/ocg/$WTL_USE_WEBSRV.sh file"
+ echo "Missing the ./run/ocg/$REAL_WTL_USE_WEBSRV.sh file"
  exit 1
 fi
 
 
 
+env | grep REF_WTL_

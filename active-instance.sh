@@ -13,7 +13,8 @@ if [[ ! -d $WTL_CONFIGS_DIR ]] ; then
  exit 1
 fi
 
-export WTL_INSTANCE_NAME="dev-wtl-dev"
-
-export WTL_USE_HAPROXY="docker"
-export WTL_DOCKER_HAPROXY=wikitolearn/haproxy:0.5
+if [[ $# -eq 0 ]] ; then
+ docker ps --format '{{.Names}}' | awk -F"-" '{ print $2 }' | sort | uniq
+else
+ export WTL_INSTANCE_NAME="wtl-"$1
+fi
