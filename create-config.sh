@@ -44,7 +44,8 @@ while [[ $# > 0 ]] ; do
             existing_repo="yes"
         ;;
         -e | --environment)
-            environment="personalized"
+            environment=$2
+            shift
         ;;
         -t | --token)
             WTL_GITHUB_TOKEN=$2
@@ -87,7 +88,7 @@ fi
 #GitHub token handling
 if [[ "$WTL_GITHUB_TOKEN" == "" ]] ; then
     if [[ -f "$WTL_DIR/configs/composer/auth.json" ]] ; then
-        "I will use the already existing github token in '$WTL_DIR/configs/composer/auth.json'"
+        echo "I will use the already existing github token in '$WTL_DIR/configs/composer/auth.json'"
    else
         echo "You must insert '--token' parameter followed by a valid token"
         echo "visit https://git.io/vmNUX to learn how to obtain the token"
@@ -103,9 +104,17 @@ elif [[ ${WTL_GITHUB_TOKEN:0:1} == "-" ]] ; then
 else
 
 #Environment
+if [[ $environment == "" ]] ; then
+    environment="develop"
+fi
+
 if [[ ! -f "$WTL_DIR/helper/$environment.sh" ]] ; then
     echo "$environment is not a valid environment"
-    
+    echo "re-execute the script using '-e' followed by one of those valid environments"
+    for script in $( ls $WTL_DIR/helper | grep -v - ) ; do 
+        echo "$env_options ${script//.sh}"
+    done
+    exit 1
 fi
 
 #Store GitHub token
@@ -140,7 +149,7 @@ export WTL_USER_UID=$_WTL_USER_UID
 export WTL_USER_GID=$_WTL_USER_GID
 
 # set the default plugin to use
-export WTL_USE_DEFAULT="docker"
+export WTL_ENV='$environment'
 EOF
 } >> $WTL_CONFIG_FILE
 
