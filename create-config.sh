@@ -149,7 +149,7 @@ export WTL_USER_UID=$_WTL_USER_UID
 export WTL_USER_GID=$_WTL_USER_GID
 
 # set the default plugin to use
-export WTL_ENV='$environment'
+export WTL_ENV='$WTL_ENV'
 EOF
 } >> $WTL_CONFIG_FILE
 
