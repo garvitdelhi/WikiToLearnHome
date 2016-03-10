@@ -44,7 +44,7 @@ while [[ $# > 0 ]] ; do
             existing_repo="yes"
         ;;
         -e | --environment)
-            environment=$2
+            WTL_ENV=$2
             shift
         ;;
         -t | --token)
@@ -104,13 +104,13 @@ elif [[ ${WTL_GITHUB_TOKEN:0:1} == "-" ]] ; then
 else
 
 #Environment
-if [[ $environment == "" ]] ; then
-    environment="develop"
+if [[ $WTL_ENV == "" ]] ; then
+    WTL_ENV="develop"
 fi
 
-if [[ ! -f "$WTL_DIR/helper/$environment.sh" ]] ; then
-    echo "$environment is not a valid environment"
-    echo "re-execute the script using '-e' followed by one of those valid environments"
+if [[ ! -f "$WTL_DIR/helper/$WTL_ENV.sh" ]] ; then
+    echo "$WTL_ENV is not a valid environment"
+    echo "re-execute the script using '-e' followed by one of those valid environments:"
     for script in $( ls $WTL_DIR/helper | grep -v - ) ; do 
         echo "$env_options ${script//.sh}"
     done
