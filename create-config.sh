@@ -43,6 +43,9 @@ while [[ $# > 0 ]] ; do
         --existing-repo)
             existing_repo="yes"
         ;;
+        -e | --environment)
+            environment="personalized"
+        ;;
         -t | --token)
             WTL_GITHUB_TOKEN=$2
             shift
@@ -67,9 +70,9 @@ echo "You are using $protocol"
 
 #control if http or ssh
 if [[ $protocol == "https" ]] ; then
-    WTL_URL="https://github.com/WikiToLearn/WikiToLearnHome.git"
+    WTL_URL="https://github.com/WikiToLearn/WikiToLearn.git"
 elif [[ $protocol == "ssh" ]] ; then
-    WTL_URL="git@github.com:WikiToLearn/WikiToLearnHome.git"
+    WTL_URL="git@github.com:WikiToLearn/WikiToLearn.git"
 fi
 
 #WTL folder handling
@@ -98,6 +101,12 @@ elif [[ ${WTL_GITHUB_TOKEN:0:1} == "-" ]] ; then
     echo "configuration aborted"
     exit 1
 else
+
+#Environment
+if [[ ! -f "$WTL_DIR/helper/$environment.sh" ]] ; then
+    echo "$environment is not a valid environment"
+    
+fi
 
 #Store GitHub token
 if [[ ! -d $WTL_DIR/configs/composer ]]; then
