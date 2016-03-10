@@ -15,3 +15,7 @@ if [[ -d "$WTL_REPO_DIR" ]] ; then
 else
  git clone --recursive -b "$WTL_BRANCH" "$WTL_URL" "$WTL_REPO_DIR"
 fi
+
+if [[ $WTL_PRODUCTION == "0" ]] ; then
+    $WTL_DIR/do-our-composer.sh ${WTL_REPO_DIR}
+fi

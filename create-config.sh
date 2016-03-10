@@ -52,7 +52,7 @@ while [[ $# > 0 ]] ; do
             shift
         ;;
         --production)
-            prod="1"
+            WTL_PRODUCTION="1"
         ;;
         *)
             echo "Unknown option: $1"
@@ -151,7 +151,7 @@ export WTL_GITHUB_TOKEN='$WTL_GITHUB_TOKEN'
 export WTL_USER_UID=$_WTL_USER_UID
 export WTL_USER_GID=$_WTL_USER_GID
 
-# set the default plugin to use
+export WTL_PRODUCTION='$WTL_PRODUCTION'
 export WTL_ENV='$WTL_ENV'
 EOF
 } >> $WTL_CONFIG_FILE
