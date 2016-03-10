@@ -51,6 +51,9 @@ while [[ $# > 0 ]] ; do
             WTL_GITHUB_TOKEN=$2
             shift
         ;;
+        --production)
+            prod="1"
+        ;;
         *)
             echo "Unknown option: $1"
             echo "configuration aborted"
