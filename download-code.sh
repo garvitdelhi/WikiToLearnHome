@@ -9,7 +9,9 @@ fi
 
 if [[ -d "$WTL_REPO_DIR" ]] ; then
  cd "$WTL_REPO_DIR"
- git checkout "$WTL_BRANCH"
+ if [[ "$WTL_BRANCH_AUTO_CHECKOUT" == "1" ]] ; then
+  git checkout "$WTL_BRANCH"
+ fi
  git pull
  git submodule update --init --checkout --recursive
 else

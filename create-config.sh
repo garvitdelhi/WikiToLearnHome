@@ -108,7 +108,7 @@ else
 
 #Environment
 if [[ $WTL_ENV == "" ]] ; then
-    WTL_ENV="develop"
+    WTL_ENV="base"
 fi
 
 if [[ ! -f "$WTL_DIR/helper/$WTL_ENV.sh" ]] ; then
@@ -143,15 +143,29 @@ export _WTL_USER_GID=$(id -g)
 #Config file creation
 {
 cat << EOF
+# WikiToLearn Home Configuration version
+export WTL_CONFIG_FILE_VERSION=1
+
+# Remote for git repository (initial clone)
 export WTL_URL='$WTL_URL'
+# Branch to work
 export WTL_BRANCH='master'
+# automaticaly git checkout before pull
+export WTL_BRANCH_AUTO_CHECKOUT=1
+
+# Domain name to be used
 export WTL_DOMAIN_NAME='tuttorotto.biz'
+# github token for composer
 export WTL_GITHUB_TOKEN='$WTL_GITHUB_TOKEN'
 
+# UID and GID for the user who run WikiToLearn
 export WTL_USER_UID=$_WTL_USER_UID
 export WTL_USER_GID=$_WTL_USER_GID
 
+# if is 1 we must drop verbosity for log and errors and other stuff for production env
 export WTL_PRODUCTION='$WTL_PRODUCTION'
+
+# the name for the schema we want to run
 export WTL_ENV='$WTL_ENV'
 EOF
 } >> $WTL_CONFIG_FILE
