@@ -11,7 +11,7 @@ if [[ -d "$WTL_REPO_DIR" ]] ; then
  cd "$WTL_REPO_DIR"
  git checkout "$WTL_BRANCH"
  git pull
- git submodule update --init --checkout --recursive
+ git submodule update --init --checkout --recursive --depth 10
 else
  git clone --recursive -b "$WTL_BRANCH" "$WTL_URL" "$WTL_REPO_DIR"
 fi

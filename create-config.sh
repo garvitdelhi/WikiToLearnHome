@@ -101,7 +101,7 @@ if [[ "$WTL_GITHUB_TOKEN" == "" ]] ; then
 elif [[ ${WTL_GITHUB_TOKEN:0:1} == "-" ]] ; then
     echo "$WTL_GITHUB_TOKEN seems to be a parameter, but I need a github token after '--token'"
     echo "re-write the script with '--token' parameter followed by the token"
-    echo "visit https://git.io/vmNUX to learn how to obtain the token"
+    echo "visit https://git.io/vmNUX to learn howWTL_GITHUB_TOKEN to obtain the token"
     echo "configuration aborted"
     exit 1
 else
