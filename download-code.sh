@@ -14,6 +14,7 @@ if [[ -d "$WTL_REPO_DIR" ]] ; then
  fi
  git pull
  git submodule update --init --checkout --recursive
+ cd ..
 else
  git clone --recursive -b "$WTL_BRANCH" "$WTL_URL" "$WTL_REPO_DIR"
 fi
@@ -21,3 +22,5 @@ fi
 if [[ $WTL_PRODUCTION == "0" ]] ; then
     $WTL_DIR/do-our-composer.sh ${WTL_REPO_DIR}
 fi
+
+. $WTL_DIR/make-self-signed-certs.sh

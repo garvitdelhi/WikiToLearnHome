@@ -3,6 +3,7 @@
 #check the user that runs the script
 if [[ $(id -u) -eq 0 ]] || [[ $(id -g) -eq 0 ]] ; then
     echo "You can't be root. root has too much power."
+    echo -e "\e[31mFATAL ERROR \e[0m"
     exit 1
 fi
 
@@ -11,14 +12,22 @@ cd $(dirname $(realpath $0))
 if [[ ! -f "$0" ]] ; then
     echo "Error changing directory"
     echo "configuration aborted"
+    echo -e "\e[31mFATAL ERROR \e[0m"
     exit 1
 fi
 
 #checks whether git docker curl and rsync are installed
-for cmd in git docker curl rsync ; do
+for cmd in git docker curl rsync python ; do
     echo -n "Searching for "$cmd"..."
     which $cmd &> /dev/null ; if [[ $? -ne 0 ]] ; then echo "FAIL" ; exit 1 ; else echo "OK" ; fi
 done
+
+docker info  &> /dev/null
+if [[ $? -ne 0 ]] ; then
+    echo "The command 'docker info' failed. docker service is not working or at least you don't have the permissions to use the service."
+    echo -e "\e[31mFATAL ERROR \e[0m"
+    exit 1
+fi
 
 #call ./const.sh script: load constant environment variables
 . ./const.sh
@@ -27,8 +36,12 @@ done
 if [[ -f "$WTL_CONFIG_FILE" ]] ; then
     echo "You have the '"$WTL_CONFIG_FILE"' file on your directory"
     echo "configuration aborted"
+    echo -e "\e[31mFATAL ERROR \e[0m"
     exit 1
 fi
+
+# default value for variabile
+export WTL_PRODUCTION=0
 
 #Digest arguments passed to the bash scripts
 while [[ $# > 0 ]] ; do
@@ -57,6 +70,7 @@ while [[ $# > 0 ]] ; do
         *)
             echo "Unknown option: $1"
             echo "configuration aborted"
+            echo -e "\e[31mFATAL ERROR \e[0m"
             exit 1
         ;;
     esac
@@ -85,6 +99,7 @@ if [[ -d "$WTL_REPO_DIR" ]] && [[ $existing_repo != "yes" ]] ; then
     echo "Delete it or move it in another folder and run again this script if you want to clone  $WTL_REPO_DIR " 
     echo "If you want to pull $WTL_REPO_DIR, please run $0 with --existing-repo argument"
     echo "configuration aborted"
+    echo -e "\e[31mFATAL ERROR \e[0m"
     exit 1
 fi
 
@@ -92,10 +107,12 @@ fi
 if [[ "$WTL_GITHUB_TOKEN" == "" ]] ; then
     if [[ -f "$WTL_DIR/configs/composer/auth.json" ]] ; then
         echo "I will use the already existing github token in '$WTL_DIR/configs/composer/auth.json'"
+        export WTL_GITHUB_TOKEN=$(cat $WTL_DIR/configs/composer/auth.json | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["config"]["github-oauth"]["github.com"]')
    else
         echo "You must insert '--token' parameter followed by a valid token"
         echo "visit https://git.io/vmNUX to learn how to obtain the token"
         echo "configuration aborted"
+        echo -e "\e[31mFATAL ERROR \e[0m"
         exit 1
     fi
 elif [[ ${WTL_GITHUB_TOKEN:0:1} == "-" ]] ; then
@@ -103,6 +120,7 @@ elif [[ ${WTL_GITHUB_TOKEN:0:1} == "-" ]] ; then
     echo "re-write the script with '--token' parameter followed by the token"
     echo "visit https://git.io/vmNUX to learn how to obtain the token"
     echo "configuration aborted"
+    echo -e "\e[31mFATAL ERROR \e[0m"
     exit 1
 else
 
@@ -117,6 +135,7 @@ if [[ ! -f "$WTL_DIR/helper/$WTL_ENV.sh" ]] ; then
     for script in $( ls $WTL_DIR/helper | grep -v - ) ; do 
         echo "$env_options ${script//.sh}"
     done
+    echo -e "\e[31mFATAL ERROR \e[0m"
     exit 1
 fi
 
