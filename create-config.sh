@@ -107,7 +107,7 @@ fi
 if [[ "$WTL_GITHUB_TOKEN" == "" ]] ; then
     if [[ -f "$WTL_DIR/configs/composer/auth.json" ]] ; then
         echo "I will use the already existing github token in '$WTL_DIR/configs/composer/auth.json'"
-        export WTL_GITHUB_TOKEN=$(cat $WTL_DIR/configs/composer/auth.json | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["config"]["github-oauth"]["github.com"]')
+        export WTL_GITHUB_TOKEN=$(cat $WTL_DIR/configs/composer/auth.json | python -c 'import json,sys;obj=json.load(sys.stdin);print(obj["config"]["github-oauth"]["github.com"])')
    else
         echo "You must insert '--token' parameter followed by a valid token"
         echo "visit https://git.io/vmNUX to learn how to obtain the token"
