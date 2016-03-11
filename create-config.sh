@@ -136,9 +136,8 @@ cat <<EOF > $WTL_DIR/configs/composer/auth.json
 EOF
 fi
 
-#saving the user
-export _WTL_USER_UID=$(id -u)
-export _WTL_USER_GID=$(id -g)
+_WTL_USER_UID=$(id -u)
+_WTL_USER_GID=$(id -g)
 
 #Config file creation
 {
