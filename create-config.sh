@@ -136,10 +136,6 @@ cat <<EOF > $WTL_DIR/configs/composer/auth.json
 EOF
 fi
 
-#saving the user
-export _WTL_USER_UID=$(id -u)
-export _WTL_USER_GID=$(id -g)
-
 #Config file creation
 {
 cat << EOF
@@ -148,8 +144,8 @@ export WTL_BRANCH='master'
 export WTL_DOMAIN_NAME='tuttorotto.biz'
 export WTL_GITHUB_TOKEN='$WTL_GITHUB_TOKEN'
 
-export WTL_USER_UID=$_WTL_USER_UID
-export WTL_USER_GID=$_WTL_USER_GID
+export WTL_USER_UID=$(id -u)
+export WTL_USER_GID=$(id -g)
 
 export WTL_PRODUCTION='$WTL_PRODUCTION'
 export WTL_ENV='$WTL_ENV'
