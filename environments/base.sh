@@ -16,3 +16,4 @@ fi
 export WTL_HELPER_CREATE="mount-repo-single-node"
 export WTL_HELPER_START="start-single-node"
 export WTL_HELPER_RESTORE_BACKUP="single-node"
+export WTL_HELPER_DO_BACKUP="single-node"
