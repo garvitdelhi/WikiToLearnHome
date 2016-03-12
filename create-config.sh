@@ -42,6 +42,7 @@ fi
 
 # default value for variabile
 export WTL_PRODUCTION=0
+export WTL_ENV="base"
 
 #Digest arguments passed to the bash scripts
 while [[ $# > 0 ]] ; do
@@ -123,11 +124,6 @@ elif [[ ${WTL_GITHUB_TOKEN:0:1} == "-" ]] ; then
     echo -e "\e[31mFATAL ERROR \e[0m"
     exit 1
 else
-
-#Environment
-if [[ $WTL_ENV == "" ]] ; then
-    WTL_ENV="base"
-fi
 
 if [[ ! -f "$WTL_DIR/helper/$WTL_ENV.sh" ]] ; then
     echo "$WTL_ENV is not a valid environment"
