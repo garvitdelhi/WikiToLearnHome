@@ -12,7 +12,7 @@ fi
 export WTL_DIR=$(pwd)
 export WTL_REPO_DIR=$WTL_DIR"/WikiToLearn/"
 export WTL_CONFIGS_DIR=$WTL_DIR'/configs/'
-export WTL_ARCHIVES=$WTL_DIR"/archives/"
+export WTL_RUNNING=$WTL_DIR"/running/"
 export WTL_CERTS=$WTL_DIR"/certs/"
 export WTL_CACHE=$WTL_DIR"/cache/"
 

@@ -50,11 +50,11 @@ echo "Found!"
 
 git show ${REFERENCE}
 
-if [[ -f ${WTL_ARCHIVES}"/"${REFERENCE}.tar ]] ; then
- echo "File "${WTL_ARCHIVES}"/"${REFERENCE}".tar exist"
+if [[ -d ${WTL_RUNNING}"/"${REFERENCE} ]] ; then
+ echo "Directory "${WTL_RUNNING}"/"${REFERENCE}" exist"
 else
- rsync -a --stats --delete ${WTL_REPO_DIR}"/" ${WTL_ARCHIVES}"/"${REFERENCE}
- cd ${WTL_ARCHIVES}"/"${REFERENCE}
+ rsync -a --stats --delete ${WTL_REPO_DIR}"/" ${WTL_RUNNING}"/"${REFERENCE}
+ cd ${WTL_RUNNING}"/"${REFERENCE}
  if [[ $? -ne 0 ]] ; then
   echo "Error in the change directory operation"
   exit 1
@@ -67,17 +67,8 @@ else
   rm -Rf .git
   find -name .git -delete
 
-  cd ${WTL_ARCHIVES}
+  cd ${WTL_RUNNING}
   echo "DO COMPOSER"
-  $WTL_DIR/do-our-composer.sh ${WTL_ARCHIVES}"/"${REFERENCE}
-
-#  cd ${REFERENCE}
-#
-#  tar -cvf ../${REFERENCE}.tar .
-#  if [[ $? -eq 0 ]] ; then
-#   cd $(dirname $(realpath $0))
-#
-#   rm -Rf ${WTL_ARCHIVES}"/"${REFERENCE}
-#  fi
+  $WTL_DIR/do-our-composer.sh ${WTL_RUNNING}"/"${REFERENCE}
  fi
 fi
