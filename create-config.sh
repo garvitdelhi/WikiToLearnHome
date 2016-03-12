@@ -163,7 +163,7 @@ export WTL_CONFIG_FILE_VERSION=1
 # Remote for git repository (initial clone)
 export WTL_URL='$WTL_URL'
 # Branch to work
-export WTL_BRANCH='master'
+export WTL_BRANCH='dev-wtl-home'
 # automaticaly git checkout before pull
 export WTL_BRANCH_AUTO_CHECKOUT=1
 
@@ -181,6 +181,8 @@ export WTL_PRODUCTION='$WTL_PRODUCTION'
 
 # the name for the schema we want to run
 export WTL_ENV='$WTL_ENV'
+
+export WTL_AUTO_COMPOSER=1
 EOF
 } >> $WTL_CONFIG_FILE
 
