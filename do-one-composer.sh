@@ -21,7 +21,5 @@ fi
 
 mkdir -p $WTL_CACHE/composer
 
-cd $1
-
 echo "do-one-composer USER_ID:$WTL_USER_UID USER_GID:$WTL_USER_GID"
 docker run --rm -u $WTL_USER_UID:$WTL_USER_GID -v $1:/app -e COMPOSER_CACHE_DIR=/cache -e COMPOSER_HOME=/composer -v $WTL_CACHE/composer:/cache -v $WTL_CONFIGS_DIR/composer:/composer composer/composer install
