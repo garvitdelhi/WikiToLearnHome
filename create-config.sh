@@ -42,6 +42,7 @@ fi
 
 # default value for variabile
 export WTL_PRODUCTION=0
+export WTL_ENV="base"
 
 #Digest arguments passed to the bash scripts
 while [[ $# > 0 ]] ; do
@@ -124,15 +125,10 @@ elif [[ ${WTL_GITHUB_TOKEN:0:1} == "-" ]] ; then
     exit 1
 else
 
-#Environment
-if [[ $WTL_ENV == "" ]] ; then
-    WTL_ENV="base"
-fi
-
-if [[ ! -f "$WTL_DIR/helper/$WTL_ENV.sh" ]] ; then
+if [[ ! -f "$WTL_DIR/environments/$WTL_ENV.sh" ]] ; then
     echo "$WTL_ENV is not a valid environment"
     echo "re-execute the script using '-e' followed by one of those valid environments:"
-    for script in $( ls $WTL_DIR/helper | grep -v - ) ; do 
+    for script in $( ls $WTL_DIR/environments/ | grep -v - ) ; do 
         echo "$env_options ${script//.sh}"
     done
     echo -e "\e[31mFATAL ERROR \e[0m"
@@ -167,7 +163,7 @@ export WTL_CONFIG_FILE_VERSION=1
 # Remote for git repository (initial clone)
 export WTL_URL='$WTL_URL'
 # Branch to work
-export WTL_BRANCH='master'
+export WTL_BRANCH='dev-wtl-home'
 # automaticaly git checkout before pull
 export WTL_BRANCH_AUTO_CHECKOUT=1
 
@@ -185,6 +181,8 @@ export WTL_PRODUCTION='$WTL_PRODUCTION'
 
 # the name for the schema we want to run
 export WTL_ENV='$WTL_ENV'
+
+export WTL_AUTO_COMPOSER=1
 EOF
 } >> $WTL_CONFIG_FILE
 
