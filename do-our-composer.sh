@@ -14,7 +14,7 @@ fi
 
 WORKDIR=$1
 
-echo "do-our-composer $1"
+echo "do-our-composer $WORKDIR"
 
 if [[ ! -d $WORKDIR ]] ; then
  echo "do-our-composer Directory '$WORKDIR' don't exist"
