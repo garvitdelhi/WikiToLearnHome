@@ -13,3 +13,5 @@ fi
 #. ./environments/$WTL_ENV.sh
 
 docker rm $(docker ps -aq  --filter "name=$WTL_INSTANCE_NAME")
+
+docker volume rm $(docker volume ls | grep $WTL_INSTANCE_NAME |  awk '{print $2}') 
