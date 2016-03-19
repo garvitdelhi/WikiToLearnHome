@@ -17,8 +17,8 @@ WORKDIR=$1
 echo "do-our-composer $WORKDIR"
 
 if [[ ! -d $WORKDIR ]] ; then
- echo "do-our-composer Directory '$WORKDIR' don't exist"
- exit 1
+    echo "do-our-composer Directory '$WORKDIR' don't exist"
+    exit 1
 fi
 
 . ./load-wikitolearn.sh
@@ -28,5 +28,7 @@ echo "do-our-composer Composing mediawiki/"
 
 echo "do-our-composer Composing extensions/"
 find $WORKDIR/extensions/ -maxdepth 2 -name "composer.json"  -exec dirname {} \; | while read path ; do
-  . ./do-one-composer.sh $path
+    . ./do-one-composer.sh $path
 done
+
+
