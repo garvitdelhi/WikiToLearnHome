@@ -2,7 +2,7 @@ tasks
 
 create an exact copy of the git repo put it in a tar file
     create exact snapshot/archive of the repo
-    
+
 
 create-config
     add variable for temp stuff
@@ -14,3 +14,10 @@ w2l to wtl
 docker  names
     wtl-dev-*
     wtl-commit_hash-*
+
+
+wtl-PANICOOOO
+    docker stop $(docker ps -a -q)
+    docker rm $(docker ps -a -q)
+    docker rmi $(docker images -q)
+    docker volume rm $(docker volume ls -q)
