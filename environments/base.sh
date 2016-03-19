@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Base WikiToLearn Env" 
+echo "Using base WikiToLearn Env" 
 
 export WTL_DOCKER_MYSQL="mysql:5.6"
 export WTL_DOCKER_MEMCACHED="memcached:1.4.24"
