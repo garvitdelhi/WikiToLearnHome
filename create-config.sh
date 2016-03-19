@@ -194,6 +194,9 @@ export WTL_PRODUCTION='$WTL_PRODUCTION'
 # the name for the schema we want to run
 export WTL_ENV='$WTL_ENV'
 
+#folders to check for the composer
+export WTL_COMPOSER_FOLDERS=("$WTL_REPO_DIR/mediawiki" "$WTL_REPO_DIR/extensions/Collection")
+
 export WTL_AUTO_COMPOSER=1
 EOF
 } >> $WTL_CONFIG_FILE
