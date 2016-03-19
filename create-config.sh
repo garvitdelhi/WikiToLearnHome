@@ -24,7 +24,7 @@ for cmd in git docker curl rsync python ; do
       echo "FAIL"
       exit 1
     else
-        echo "OK"
+      echo "OK"
     fi
 done
 
