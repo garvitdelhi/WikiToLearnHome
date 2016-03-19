@@ -1,15 +1,17 @@
 #!/bin/bash
-#stop the docker containers named after
-#WIP 
+#Stop the docker containers named after $WTL_INSTANCE_NAME
+ 
 cd $(dirname $(realpath $0))
 
 if [[ ! -f "$0" ]] ; then
- echo "Error changing directory"
- exit 1
+    echo "wtl-stop: Error changing directory"
+    exit 1
 fi
 
 . ./load-wikitolearn.sh
 
-#. ./environments/$WTL_ENV.sh
+echo "wtl-stop: Loading Environment"
+. ./environments/$WTL_ENV.sh
 
+echo "wtl-stop: Stopping Dockers with prefix '$WTL_INSTANCE_NAME'"
 docker stop $(docker ps -aq  --filter "name=$WTL_INSTANCE_NAME")
