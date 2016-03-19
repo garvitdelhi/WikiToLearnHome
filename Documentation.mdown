@@ -40,4 +40,18 @@ we create a new instance (eg when shipping new versions= zero downtime)
 
 upstart
 
+## Style Conventions
 
+### bash
+
+#### Indentation
+
+Indentation is performed through 4 spaces. Hence we use soft tab, not hard tab.
+
+If you are using vim, you can achieve this adding
+    
+    set expandtab
+    set shiftwidth=2
+    set softtabstop=2
+
+to ~/.vimrc
