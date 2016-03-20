@@ -1,0 +1,109 @@
+To Do List
+==========
+
+Introduction
+-----------
+
+This file is intended to be a To Do List, and should be convenient to use.
+Therefore, we are goingto use a bit of italian here, since most of us is italian.
+If you have any question, feel free to [contact][1] us
+
+[1]: http://meta.wikitolearn.org/Infrastructure_and_bots "Contacts"
+
+
+Dubbi e Incertezze
+------------------
+
+La password per il database dove va fatta? Dubbio risolto
+
+Serve lo script che incolla tutto insieme e fa andare tutto start.sh
+
+Nella documentazione fare una overview di tutte le variabili settate globali
+(e anche il file dove sono inserite)
+
+Generic To Do List
+------------------
+
+### Renaming Dockers
+
+docker  names
+    wtl-dev-*
+    wtl-commit_hash-*
+
+### wtl-* scripts
+
+#### wtl-create.sh
+
+BUONA FORTUNA Wtl-create.sh (vedere run.sh)
+    Andrebbero fatti gli env, non questi script
+
+#### wtl-start
+BUONA FORTUNA  Wtl-start.sh (vedere run.sh)
+
+#### wtl-restorebackup
+wtl-restoreback (vedere restore.sh)
+
+#### wtl-do-backup
+
+wtl-do-backup
+    Formato backup
+<nomedb>.struct.sql -> sttruttura db
+<nomedb>.data.sql -> dati db
+images/
+Importare/esportare immagini Docker
+
+NEED TEST Wtl-update-db.sh langforeach+update.php (init-docker.sh)
+NEED TEST Wtl-use-instance.sh attiva haproxy (use-instance.sh)
+
+#### wtl-download
+
+DONE Wtl-download wtl-download.sh +
+(Scarica immagini docker) pull-images.sh +
+(Scarica repo WTL) download-code.sh
+
+#### Wtl-symlink
+
+DONE Wtl-symlink (vedere init-docker.sh) (da testare bene)
+
+#### Wtl-update-home
+
+DONE Wtl-update-home (gitpull automatico)
+
+#### Wtl-stop
+
+DONE Wtl-stop (docker stop di tutti) delle istanze docker wtl-dev-...
+(non ci sono omologhi)
+
+#### Wtl-stop
+
+DONE Wtl-delete.sh (elimina i docker e i volumi) (destroy)
+(evitare di eliminare il docker e tenere i volumi, da problemi con le
+    credenziali di mysql)
+
+#### do-our-composer
+
+DONE Do-our-composer: elencare le cartelle dove fare composer nella config
+(e documentare questa cosa) +
+
+
+### New Scripts
+
+##### wtl-PANICOOOO
+
+    docker stop $(docker ps -a -q)
+    docker rm $(docker ps -a -q)
+    docker rmi $(docker images -q)
+    docker volume rm $(docker volume ls -q)
+
+#### Wtl-manage-extensions.sh
+
+cosa dovrebbe fare di preciso?
+
+#### staging-rollout
+
+**NOTE:** Descrivere Meglio cosa dovrebbe fare
+
+Script per
+Staging/Rollout (su db di chiavi gpg)
+        O Backup+importa ultimo backup
+O Backup+restore
