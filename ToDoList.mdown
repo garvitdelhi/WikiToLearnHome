@@ -34,57 +34,44 @@ docker  names
 
 #### wtl-create.sh
 
-BUONA FORTUNA Wtl-create.sh (vedere run.sh)
-    Andrebbero fatti gli env, non questi script
+Wtl-create.sh (vedere run.sh)
+Andrebbero fatti gli env, non questi script
+
+Status: *BUONA FORTUNA*
 
 #### wtl-start
-BUONA FORTUNA  Wtl-start.sh (vedere run.sh)
+
+Wtl-start.sh (vedere run.sh)
+
+Status: *BUONA FORTUNA*
 
 #### wtl-restorebackup
+
 wtl-restoreback (vedere restore.sh)
 
 #### wtl-do-backup
 
 wtl-do-backup
-    Formato backup
+
+Formato backup
 <nomedb>.struct.sql -> sttruttura db
 <nomedb>.data.sql -> dati db
 images/
 Importare/esportare immagini Docker
 
-NEED TEST Wtl-update-db.sh langforeach+update.php (init-docker.sh)
-NEED TEST Wtl-use-instance.sh attiva haproxy (use-instance.sh)
+#### Wtl-update-db
 
-#### wtl-download
+Wtl-update-db.sh
+langforeach+update.php (init-docker.sh)
 
-DONE Wtl-download wtl-download.sh +
-(Scarica immagini docker) pull-images.sh +
-(Scarica repo WTL) download-code.sh
+Status: *NEED TEST*
 
-#### Wtl-symlink
+#### Wtl-use-instance
 
-DONE Wtl-symlink (vedere init-docker.sh) (da testare bene)
+Wtl-use-instance.sh
+attiva haproxy (use-instance.sh)
 
-#### Wtl-update-home
-
-DONE Wtl-update-home (gitpull automatico)
-
-#### Wtl-stop
-
-DONE Wtl-stop (docker stop di tutti) delle istanze docker wtl-dev-...
-(non ci sono omologhi)
-
-#### Wtl-stop
-
-DONE Wtl-delete.sh (elimina i docker e i volumi) (destroy)
-(evitare di eliminare il docker e tenere i volumi, da problemi con le
-    credenziali di mysql)
-
-#### do-our-composer
-
-DONE Do-our-composer: elencare le cartelle dove fare composer nella config
-(e documentare questa cosa) +
-
+Status: *NEED TEST*
 
 ### New Scripts
 
@@ -107,3 +94,48 @@ Script per
 Staging/Rollout (su db di chiavi gpg)
         O Backup+importa ultimo backup
 O Backup+restore
+
+### Document Done Scripts
+
+#### wtl-download
+
+Wtl-download wtl-download.sh +
+(Scarica immagini docker) pull-images.sh +
+(Scarica repo WTL) download-code.sh
+
+Status: *DONE*
+
+#### Wtl-symlink
+
+Wtl-symlink (vedere init-docker.sh) (da testare bene)
+
+Status: *DONE*
+
+#### Wtl-update-home
+
+Wtl-update-home (gitpull automatico)
+
+Status: *DONE*
+
+#### Wtl-stop
+
+Wtl-stop (docker stop di tutti) delle istanze docker wtl-dev-...
+(non ci sono omologhi)
+
+Status: *DONE*
+
+#### Wtl-stop
+
+Wtl-delete.sh
+(elimina i docker e i volumi) (destroy)
+(evitare di eliminare il docker e tenere i volumi, da problemi con le
+    credenziali di mysql)
+
+Status: *DONE*
+
+#### do-our-composer
+
+Do-our-composer: elencare le cartelle dove fare composer nella config
+(e documentare questa cosa) +
+
+Status: *DONE*
