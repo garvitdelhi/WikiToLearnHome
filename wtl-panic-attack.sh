@@ -3,25 +3,11 @@
 #check the user that runs the script
 if [[ $(id -u) -eq 0 ]] || [[ $(id -g) -eq 0 ]] ; then
     echo "You can't be root. root has too much power."
-    echo -e "\e[31mFATAL ERROR \e[0m"
+    echo -e "\e[31mFATAL ERROR\e[0m"
     exit 1
 fi
 
-#Digest arguments passed to the bash scripts
-while [[ $# > 0 ]] ; do
-    case $1 in
-        --production | -q | --quick)
-            WTL_PRODUCTION="1"
-        ;;
-        *)
-            echo "Unknown option: $1"
-            echo "configuration aborted"
-            echo -e "\e[31mFATAL ERROR \e[0m"
-            exit 1
-        ;;
-    esac
-    shift
-done
+. /load-wikitolearn.sh
 
 #General Overview Of the consequences
 echo "This script will erase EVERYTHING related to docker on your machine."
@@ -30,8 +16,12 @@ echo "I do not know what, i do not want to investigate further'"
 
 #Detailed Overview Of the Consequences
 if [[ $WTL_PRODUCTION == "1" ]] ; then
-    echo "You passed an argument to ask this script not to be so verbose."
-    echo "I really hope you know what you are doing."
+    echo "WAAAAAT?!"
+    echo "You are triyng to delete all the dockers on a production environment?!"
+    echo -n "I mean, you should know how to use docker to solve your problems"
+    echo "without this script. Sorry man, I have to abort."
+    echo -e "\e[31mFATAL ERROR\e[0m"
+    exit 1
 else
     echo
     echo "In particular, this will run:"

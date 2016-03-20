@@ -65,12 +65,12 @@ while [[ $# > 0 ]] ; do
         --existing-repo)
             existing_repo="yes"
         ;;
-        -e | --environment)
-            WTL_ENV=$2
-            shift
-        ;;
         -t | --token)
             WTL_GITHUB_TOKEN=$2
+            shift
+        ;;
+        -e | --environment)
+            WTL_ENV=$2
             shift
         ;;
         --production)
@@ -136,6 +136,7 @@ elif [[ ${WTL_GITHUB_TOKEN:0:1} == "-" ]] ; then
     exit 1
 else
 
+#environtment handling
 if [[ ! -f "$WTL_DIR/environments/$WTL_ENV.sh" ]] ; then
     echo "$WTL_ENV is not a valid environment"
     echo "re-execute the script using '-e' followed by one of those valid environments:"
