@@ -5,7 +5,7 @@ Introduction
 -----------
 
 This file is intended to be a To Do List, and should be convenient to use.
-Therefore, we are goingto use a bit of italian here, since most of us is italian.
+Therefore, we are going to use a bit of italian here, since most of us is italian.
 If you have any question, feel free to [contact][1] us
 
 [1]: http://meta.wikitolearn.org/Infrastructure_and_bots "Contacts"
