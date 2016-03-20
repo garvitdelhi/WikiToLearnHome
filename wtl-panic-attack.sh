@@ -10,10 +10,6 @@ fi
 #Digest arguments passed to the bash scripts
 while [[ $# > 0 ]] ; do
     case $1 in
-        -e | --environment)
-            WTL_ENV=$2
-            shift
-        ;;
         --production | -q | --quick)
             WTL_PRODUCTION="1"
         ;;
