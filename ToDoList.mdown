@@ -6,9 +6,9 @@ Introduction
 
 This file is intended to be a To Do List, and should be convenient to use.
 Therefore, we are going to use a bit of italian here, since most of us is italian.
-If you have any question, feel free to [contact][1] us
+If you have any question, feel free to [contact][meta-contacts] us
 
-[1]: http://meta.wikitolearn.org/Infrastructure_and_bots "Contacts"
+[meta-contacts]: http://meta.wikitolearn.org/Infrastructure_and_bots "Contacts"
 
 
 Dubbi e Incertezze
@@ -142,7 +142,7 @@ Do-our-composer: elencare le cartelle dove fare composer nella config
 
 Status: *DONE*
 
-##### wtl-PANICOOOO
+#### wtl-PANICOOOO
 
     docker stop $(docker ps -a -q)
     docker rm $(docker ps -a -q)
@@ -150,3 +150,17 @@ Status: *DONE*
     docker volume rm $(docker volume ls -q)
 
 Status: *DONE*
+
+
+### Document Infrastructure
+
+Questo è un lavoro moooolto lungo, che consiste nel scrivere documentazione
+riguardo alla nostra infrastruttura.
+Non è ancora il momento di cominciare abbomba a farlo, perchè non è ancora
+pronta.
+
+In particolare Luca suggerisce di scrivere un file che spieghi come configurare
+il proprio client ssh per accedere ai nostri server su garr.
+consiglia di prendere spunto da [wikitech][wikitech]
+
+[wikitech]: https://wikitech.wikimedia.org/wiki/Help:Access "wikitech"
