@@ -108,7 +108,6 @@ if [[ -d "$WTL_REPO_DIR" ]] && [[ $existing_repo != "yes" ]] ; then
     echo "$WTL_REPO_DIR directory already exists."
     echo -n "Delete it or move it in another folder, "
     echo "then run again this script if you want to clone  $WTL_REPO_DIR "
-    echo -n "If you want to pull $WTL_REPO_DIR, "
     echo "please run $0 with --existing-repo argument"
     echo "configuration aborted"
     echo -e "\e[31mFATAL ERROR \e[0m"
