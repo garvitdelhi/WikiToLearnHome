@@ -23,7 +23,7 @@ Detailed script overview
 ------------------------
 
 The developer of the WikiToLearn is supposed to only run the
-wtl*.sh scripts contained in this folder, and follow the instructions.
+wtl\*.sh scripts contained in this folder, and follow the instructions.
 
 For a detailed variable overview read the relative section.
 
@@ -135,7 +135,7 @@ we suggest that you read the [Markdown creator's page][3]
 [1]: http://tldp.org/guides.html "The Linux documentaion Project"
 [2]: https://docs.docker.com/ "Docker Documentation"
 [3]: https://daringfireball.net/projects/markdown/ "Markdown Creator's Page"
-[4]: https://atom.io "Atom"
+[4]: https://atom.io "Atom, by Github"
 
 Draft Section
 -------------
