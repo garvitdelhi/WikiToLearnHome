@@ -16,6 +16,6 @@ langlist=$(find $WTL_REPO_DIR/secrets/ -name *wikitolearn.php -exec basename {} 
 echo "lang-foreach Found Languages: ${langlist[*]}"
 for lang in $langlist; do
   echo "lang-foreach Current lang: $lang"
-  WIKI="$lang.wikitolearn.org" php $WTL_REPO_DIR/mediawiki/maintenance/"$@"  
+  WIKI="$lang.wikitolearn.org" php $WTL_REPO_DIR/mediawiki/maintenance/"$@" # FIXME: you can't run php from your host, you have to use docker exec
 done;
 
