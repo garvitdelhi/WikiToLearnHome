@@ -52,10 +52,10 @@ echo "I will ask you few things, I have to."
 echo
 
 echo "Have you understood what you are doing?"
-echo -n "('yes' or 'no'): "
+echo -n "('Yes' or 'no'): "
 read understood
 I_have_understood="0"
-if [[ ${understood,,} == "yes" ]]; then
+if [[ "$understood" == "Yes" ]]; then
     I_have_understood="1"
 else
     echo "Wrong answer. Aborting. "
