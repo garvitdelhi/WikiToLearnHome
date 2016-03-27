@@ -23,7 +23,6 @@ fi
 '
 
 test -d $WTL_CONFIGS_DIR || mkdir -p $WTL_CONFIGS_DIR
-test -d $WTL_CONFIGS_DIR/secrets/ || mkdir -p $WTL_CONFIGS_DIR/secrets/
 test -d $WTL_CONFIGS_DIR/mysql-users/ || mkdir -p $WTL_CONFIGS_DIR/mysql-users/
 test -d $WTL_CONFIGS_DIR/LocalSettings.d/ || mkdir -p $WTL_CONFIGS_DIR/LocalSettings.d/
 
