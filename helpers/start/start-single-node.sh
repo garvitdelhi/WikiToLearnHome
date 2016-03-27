@@ -1,33 +1,62 @@
 #!/bin/bash
-docker inspect ${WTL_INSTANCE_NAME}-parsoid &> /dev/null
-if [[ $? -ne 0 ]] ; then
-    cho "FATAL ERROR: MISSING PARSOID"
-    exit 1
-fi
 docker start ${WTL_INSTANCE_NAME}-parsoid
 if [[ $? -ne 0 ]] ; then
     echo "FATAL ERROR: MISSING PARSOID"
     exit 1
 fi
+
 docker start ${WTL_INSTANCE_NAME}-mathoid
 if [[ $? -ne 0 ]] ; then
     echo "FATAL ERROR: MISSING MATHOID"
     exit 1
 fi
+
 docker start ${WTL_INSTANCE_NAME}-memcached
 if [[ $? -ne 0 ]] ; then
     echo "FATAL ERROR: MISSING MEMCACHED"
     exit 1
 fi
+
 docker start ${WTL_INSTANCE_NAME}-mysql
 if [[ $? -ne 0 ]] ; then
     echo "FATAL ERROR: MISSING MYSQL"
     exit 1
 else
     ROOT_PWD=$(cat $WTL_CONFIGS_DIR/mysql-users/root)
+    WTLMYSQL_PWD=$(cat $WTL_CONFIGS_DIR/mysql-users/wtlmysql)
     echo "[mrsn] mysql root password: $ROOT_PWD"
 
-#   docker cp $WTL_CONFIGS_DIR/mysql-root-password.cnf ${WTL_INSTANCE_NAME}-mysql:/root/.my.cnf
+    echo "[mrsn] wait for mysql to be ready..."
+    docker cp $WTL_CONFIGS_DIR/mysql-root-password.cnf ${WTL_INSTANCE_NAME}-mysql:/root/mysql-root-password.cnf
+    while  ! docker exec ${WTL_INSTANCE_NAME}-mysql mysql --defaults-file=/root/mysql-root-password.cnf -e "SELECT 1"
+    do
+        sleep 1
+    done
+    docker cp $WTL_CONFIGS_DIR/mysql-root-password.cnf ${WTL_INSTANCE_NAME}-mysql:/root/.my.cnf
+    echo "[mrsn] mysql running"
+
+    echo "GRANT ALL PRIVILEGES ON * . * TO 'wtlmysql'@'%' IDENTIFIED BY '"$WTLMYSQL_PWD"';" | docker exec -i ${WTL_INSTANCE_NAME}-mysql mysql
+    if ! docker exec ${WTL_INSTANCE_NAME}-mysql mysql -uwtlmysql -p$WTLMYSQL_PWD -e "SELECT 1" ; then
+        echo "FATAL ERROR: mysql application password don't work"
+        exit 1
+    fi
+
+    echo "[mrsn] create: $WTL_CONFIGS_DIR/LocalSettings.d/mysql-username-and-password.php"
+    {
+        echo "<?php"
+        echo "\$wgDBuser = 'wtlmysql';"
+        echo "\$wgDBpassword = '$WTLMYSQL_PWD';"
+    } > $WTL_CONFIGS_DIR/LocalSettings.d/mysql-username-and-password.php
+
+    for dbname in $($WTL_WORKING_DIR/databases.conf)
+    do
+        echo "[mrsn] DB: $dbname"
+        if [[ $dbname =~ ^[a-z_]+$ ]]; then
+            docker exec -i ${WTL_INSTANCE_NAME}-mysql mysql -e "CREATE DATABASE IF NOT EXISTS $dbname"
+        else
+            echo "[mrsn] DB name '$dbname' not permitted"
+        fi
+    done
 fi
 
 docker start ${WTL_INSTANCE_NAME}-parsoid
@@ -35,13 +64,32 @@ if [[ $? -ne 0 ]] ; then
     echo "FATAL ERROR: MISSING PARSOID"
     exit 1
 fi
+
 docker start ${WTL_INSTANCE_NAME}-ocg
 if [[ $? -ne 0 ]] ; then
     echo "FATAL ERROR: MISSING OCG"
     exit 1
 fi
+
 docker start ${WTL_INSTANCE_NAME}-websrv
 if [[ $? -ne 0 ]] ; then
     echo "FATAL ERROR: MISSING WEBSRV"
     exit 1
 fi
+
+if [[ ! -f $WTL_CONFIGS_DIR/LocalSettings.d/wgSecretKey.php ]] ; then
+    echo "[mrsn] create new $WTL_CONFIGS_DIR/LocalSettings.d/wgSecretKey.php file"
+    WG_SECRET_KEY=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 64 | head -n 1)
+    {
+        echo "<?php"
+        echo "\$wgSecretKey = '$WG_SECRET_KEY';"
+    } > $WTL_CONFIGS_DIR/LocalSettings.d/wgSecretKey.php
+else
+    echo "[mrsn] using the existent $WTL_CONFIGS_DIR/LocalSettings.d/wgSecretKey.php file"
+fi
+
+rsync -av --delete $WTL_CONFIGS_DIR/LocalSettings.d/ $WTL_WORKING_DIR/LocalSettings.d/
+
+docker exec -ti ${WTL_INSTANCE_NAME}-websrv su -s /var/www/WikiToLearn/fix-symlinks.sh www-data
+docker exec -ti ${WTL_INSTANCE_NAME}-websrv su -s /var/www/WikiToLearn/fix-configs.sh www-data
+
