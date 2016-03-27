@@ -88,7 +88,7 @@ else
     echo "[mrsn] using the existent $WTL_CONFIGS_DIR/LocalSettings.d/wgSecretKey.php file"
 fi
 
-rsync -av --delete $WTL_CONFIGS_DIR/LocalSettings.d/ $WTL_WORKING_DIR/LocalSettings.d/
+rsync -av --delete --exclude .placeholder $WTL_CONFIGS_DIR/LocalSettings.d/ $WTL_WORKING_DIR/LocalSettings.d/
 
 docker exec -ti ${WTL_INSTANCE_NAME}-websrv su -s /var/www/WikiToLearn/fix-symlinks.sh www-data
 docker exec -ti ${WTL_INSTANCE_NAME}-websrv su -s /var/www/WikiToLearn/fix-configs.sh www-data
