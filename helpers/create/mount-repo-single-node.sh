@@ -87,6 +87,7 @@ fi
 
 docker inspect ${WTL_INSTANCE_NAME}-ocg &> /dev/null
 if [[ $? -ne 0 ]] ; then
+    echo "[mrsn] Creating docker ${WTL_INSTANCE_NAME}-ocg"
     docker create -ti $MORE_ARGS -v wikitolearn-ocg:/tmp/ocg/ocg-output/ --hostname ocg --link ${WTL_INSTANCE_NAME}-parsoid:parsoid --name ${WTL_INSTANCE_NAME}-ocg $WTL_DOCKER_OCG
 fi
 
@@ -117,17 +118,15 @@ if [[ $? -ne 0 ]] ; then
     if [[ $? -ne 0 ]] ; then
         docker cp ${WTL_CERTS}/wikitolearn.crt ${WTL_INSTANCE_NAME}-websrv:/etc/ssl/certs/apache.crt
         if [[ $? -ne 0 ]] ; then
-            echo = "unable to copy wikitolearn.crt to the webserver"
+            echo = "[mrsn] Error: Unable to copy wikitolearn.crt to the webserver"
             exit 1
         fi
         docker cp ${WTL_CERTS}/wikitolearn.key ${WTL_INSTANCE_NAME}-websrv:/etc/ssl/private/apache.key
         if [[ $? -ne 0 ]] ; then
-            echo = "unable to copy wikitolearn.key to the webserver"
+            echo = "[mrsn] Error: Unable to copy wikitolearn.key to the webserver"
             exit 1
         fi
     fi
-
-
 
     : 'if [[ "$WTL_RELAY_HOST" != "" ]] ; then
         {

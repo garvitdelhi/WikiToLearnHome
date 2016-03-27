@@ -4,7 +4,7 @@
 cd $(dirname $(realpath $0))
 
 if [[ ! -f "$0" ]] ; then
- echo "Error changing directory"
+ echo "[lang-foreach] Error changing directory"
  exit 1
 fi
 
@@ -23,4 +23,3 @@ for lang in $langlist; do
     echo "lang-foreach Current lang: $lang"
     docker exec -ti ${WTL_INSTANCE_NAME}-websrv /bin/bash -c "WIKI=$lang.wikitolearn.org php /var/www/WikiToLearn/mediawiki/maintenance/$CMD"
 done
-

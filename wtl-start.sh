@@ -3,7 +3,7 @@
 #cd to current script folder
 cd $(dirname $(realpath $0))
 if [[ ! -f "$0" ]] ; then
-    echo "Error changing directory"
+    echo "[wtl-start] Error changing directory"
     exit 1
 fi
 
@@ -12,7 +12,7 @@ fi
 . $WTL_DIR/environments/${WTL_ENV}.sh
 
 if [[ "$WTL_INSTANCE_NAME" == "" ]] ; then
-    echo "You need the WTL_INSTANCE_NAME env"
+    echo "[wtl-start] Error: You need the WTL_INSTANCE_NAME env variable"
     exit 1
 fi
 

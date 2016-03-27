@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Using base WikiToLearn Env" 
+echo "[environment] Using 'base' environment" 
 
 if [[ "$WTL_WORKING_DIR" == "" ]] ; then
     export WTL_WORKING_DIR=$WTL_REPO_DIR
