@@ -48,7 +48,7 @@ else
         echo "\$wgDBpassword = '$WTLMYSQL_PWD';"
     } > $WTL_CONFIGS_DIR/LocalSettings.d/mysql-username-and-password.php
 
-    for dbname in $($WTL_WORKING_DIR/databases.conf)
+    for dbname in $(cat $WTL_WORKING_DIR/databases.conf)
     do
         echo "[mrsn] DB: $dbname"
         if [[ $dbname =~ ^[a-z_]+$ ]]; then

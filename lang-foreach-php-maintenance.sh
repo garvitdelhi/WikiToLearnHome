@@ -10,12 +10,17 @@ fi
 
 . ./load-wikitolearn.sh
 
-echo "lang-foreach Finding Languages"
-langlist=$(find $WTL_REPO_DIR/secrets/ -name *wikitolearn.php -exec basename {} \; | sed 's/wikitolearn.php//g' | grep -v shared)
+. $WTL_DIR/environments/${WTL_ENV}.sh
 
-echo "lang-foreach Found Languages: ${langlist[*]}"
+
+echo "lang-foreach Finding Languages"
+langlist=$(cat $WTL_REPO_DIR/databases.conf | sed 's/wikitolearn//g' | grep -v shared)
+
+CMD="$@"
+
+echo "lang-foreach Found Languages: "$(echo ${langlist[*]})
 for lang in $langlist; do
-  echo "lang-foreach Current lang: $lang"
-  WIKI="$lang.wikitolearn.org" php $WTL_REPO_DIR/mediawiki/maintenance/"$@" # FIXME: you can't run php from your host, you have to use docker exec
-done;
+    echo "lang-foreach Current lang: $lang"
+    docker exec -ti ${WTL_INSTANCE_NAME}-websrv /bin/bash -c "WIKI=$lang.wikitolearn.org php /var/www/WikiToLearn/mediawiki/maintenance/$CMD"
+done
 

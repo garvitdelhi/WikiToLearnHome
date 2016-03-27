@@ -22,7 +22,7 @@ if [[ -d certs/ ]] ; then
     CERTS_MOUNT=" -v $WTL_DIR/certs/:/certs/:ro "
 fi
 
-docker run -d --name $WTL_INSTANCE_NAME-haproxy --restart=always \
+docker run -d --name wikitolearn-haproxy --restart=always \
  -p 80:80 \
  -p 443:443 \
  $CERTS_MOUNT \
