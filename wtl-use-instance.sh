@@ -11,12 +11,6 @@ fi
 
 echo "Bringing up \"${WTL_INSTANCE_NAME}\"..."
 
-docker inspect $WTL_INSTANCE_NAME-haproxy &> /dev/null
-if [[ $? -eq 0 ]] ; then
-    docker stop $WTL_INSTANCE_NAME-haproxy
-    docker rm $WTL_INSTANCE_NAME-haproxy
-fi
-
 CERTS_MOUNT=""
 if [[ -d certs/ ]] ; then
     CERTS_MOUNT=" -v $WTL_DIR/certs/:/certs/:ro "
