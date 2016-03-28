@@ -17,3 +17,7 @@ if [[ "$WTL_INSTANCE_NAME" == "" ]] ; then
 fi
 
 . $WTL_DIR/helpers/start/${WTL_HELPER_START}.sh
+
+if [[ "$WTL_HELPER_POST_START" -ne "" ]] ; then
+    . $WTL_DIR/helpers/post-start/${WTL_HELPER_POST_START}.sh
+fi
