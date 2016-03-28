@@ -11,6 +11,8 @@ fi
 
 . $WTL_DIR/environments/${WTL_ENV}.sh
 
+. $WTL_DIR/make-self-signed-certs.sh
+
 if [[ "$WTL_INSTANCE_NAME" == "" ]] ; then
  echo "wtl-create You need the WTL_INSTANCE_NAME env"
  exit 1
