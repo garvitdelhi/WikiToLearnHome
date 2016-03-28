@@ -13,7 +13,7 @@ fi
 
 export WTL_MATHOID_NUM_WORKERS=1
 
-export WTL_HELPER_CREATE="mount-repo-single-node"
-export WTL_HELPER_START="start-single-node"
+export WTL_HELPER_CREATE="single-node"
+export WTL_HELPER_START="single-node"
 export WTL_HELPER_RESTORE_BACKUP="single-node"
 export WTL_HELPER_DO_BACKUP="single-node"

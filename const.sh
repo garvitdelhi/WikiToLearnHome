@@ -4,7 +4,7 @@
 #cd to current script folder
 cd $(dirname $(realpath $0))
 if [[ ! -f "$0" ]] ; then
- echo "Error changing directory"
+ echo "[const] Error changing directory"
  exit 1
 fi
 

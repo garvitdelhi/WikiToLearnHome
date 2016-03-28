@@ -27,11 +27,10 @@ if [[ ! -d $WTL_CACHE/composer ]] ; then
     mkdir -p $WTL_CACHE/composer
 fi
 
-docker run --rm \ 
-    -u $WTL_USER_UID:$WTL_USER_GID \
-    -e COMPOSER_CACHE_DIR=/cache \ 
+docker run --rm -u $WTL_USER_UID:$WTL_USER_GID \
+    -e COMPOSER_CACHE_DIR=/cache \
     -e COMPOSER_HOME=/composer \
-    -v "$DO_ONE_COMPOSER_DIR":/app \ 
-    -v $WTL_CACHE/composer:/cache \ 
+    -v "$DO_ONE_COMPOSER_DIR":/app \
+    -v $WTL_CACHE/composer:/cache \
     -v $WTL_CONFIGS_DIR/composer:/composer \
     composer/composer install

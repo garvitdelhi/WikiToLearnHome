@@ -2,7 +2,7 @@
 
 #check the user that runs the script
 if [[ $(id -u) -eq 0 ]] || [[ $(id -g) -eq 0 ]] ; then
-    echo "You can't be root. root has too much power."
+    echo "[create-config] You can't be root. root has too much power."
     echo -e "\e[31mFATAL ERROR \e[0m"
     exit 1
 fi
@@ -10,7 +10,7 @@ fi
 #cd to current script folder
 cd $(dirname $(realpath $0))
 if [[ ! -f "$0" ]] ; then
-    echo "Error changing directory"
+    echo "[create-config] Error changing directory"
     echo "configuration aborted"
     echo -e "\e[31mFATAL ERROR \e[0m"
     exit 1
@@ -18,20 +18,20 @@ fi
 
 #checks whether git docker curl and rsync are installed
 for cmd in git docker curl rsync python ; do
-    echo -n "Searching for "$cmd"..."
+    echo -n "[create-config] Searching for "$cmd"..."
     which $cmd &> /dev/null
     if [[ $? -ne 0 ]] ; then
-      echo "FAIL"
+      echo "[create-config] FAIL"
       exit 1
     else
-      echo "OK"
+      echo "[create-config] OK"
     fi
 done
 
 docker info  &> /dev/null
 if [[ $? -ne 0 ]] ; then
-    echo "The command 'docker info' failed."
-    echo "docker service is not working,"
+    echo "[create-config] The command 'docker info' failed."
+    echo "docker service is not running,"
     echo "or at least you don't have the permissions to use the service."
     echo -e "\e[31mFATAL ERROR \e[0m"
     exit 1
@@ -42,7 +42,7 @@ fi
 
 #checks config file existance
 if [[ -f "$WTL_CONFIG_FILE" ]] ; then
-    echo "You have the '"$WTL_CONFIG_FILE"' file on your directory"
+    echo "[create-config] You already have the '"$WTL_CONFIG_FILE"' file on your directory"
     echo "configuration aborted"
     echo -e "\e[31mFATAL ERROR \e[0m"
     exit 1
@@ -57,7 +57,7 @@ while [[ $# > 0 ]] ; do
     case $1 in
         -p | --protocol)
             if [[ $protocol != "" ]] ; then
-                echo "$protocol has been overwritten by $2"
+                echo "[create-config] $protocol has been overwritten by $2"
             fi
             protocol=$2
             shift
@@ -77,7 +77,7 @@ while [[ $# > 0 ]] ; do
             WTL_PRODUCTION="1"
         ;;
         *)
-            echo "Unknown option: $1"
+            echo "[create-config] Unknown option: $1"
             echo "configuration aborted"
             echo -e "\e[31mFATAL ERROR \e[0m"
             exit 1
@@ -94,7 +94,7 @@ until [[ ${protocol,,} == "ssh" ]] || [[ ${protocol,,} == "https" ]] ; do
 done
 
 protocol=${protocol,,}
-echo "You are using $protocol"
+echo "[create-config] You are using $protocol"
 
 #control if http or ssh
 if [[ $protocol == "https" ]] ; then
@@ -105,7 +105,7 @@ fi
 
 #WTL folder handling
 if [[ -d "$WTL_REPO_DIR" ]] && [[ $existing_repo != "yes" ]] ; then
-    echo "$WTL_REPO_DIR directory already exists."
+    echo "[create-config] $WTL_REPO_DIR directory already exists."
     echo -n "Delete it or move it in another folder, "
     echo "then run again this script if you want to clone  $WTL_REPO_DIR "
     echo "please run $0 with --existing-repo argument"
@@ -117,19 +117,19 @@ fi
 #GitHub token handling
 if [[ "$WTL_GITHUB_TOKEN" == "" ]] ; then
     if [[ -f "$WTL_DIR/configs/composer/auth.json" ]] ; then
-        echo "Using already existing github token in '$WTL_DIR/configs/composer/auth.json'"
+        echo "[create-config] Using already existing github token in '$WTL_DIR/configs/composer/auth.json'"
         export WTL_GITHUB_TOKEN=$(cat $WTL_DIR/configs/composer/auth.json | python -c 'import json,sys;obj=json.load(sys.stdin);print(obj["config"]["github-oauth"]["github.com"])')
    else
-        echo "You must insert '--token' parameter followed by a valid token"
+        echo "[create-config] You must insert '--token' parameter followed by a valid token"
         echo "visit https://git.io/vmNUX to learn how to obtain the token"
         echo "configuration aborted"
         echo -e "\e[31mFATAL ERROR \e[0m"
         exit 1
     fi
 elif [[ ${WTL_GITHUB_TOKEN:0:1} == "-" ]] ; then
-    echo "$WTL_GITHUB_TOKEN seems to be a parameter, but I need a github token after '--token'"
-    echo "re-write the script with '--token' parameter followed by the token"
-    echo "visit https://git.io/vmNUX to learn howWTL_GITHUB_TOKEN to obtain the token"
+    echo "[create-config] $WTL_GITHUB_TOKEN seems to be a parameter, but I need a github token after '--token'"
+    echo "re-execute the script with '--token' parameter followed by the token"
+    echo "visit https://git.io/vmNUX to learn how to obtain the token"
     echo "configuration aborted"
     echo -e "\e[31mFATAL ERROR \e[0m"
     exit 1
@@ -137,7 +137,7 @@ else
 
 #environtment handling
 if [[ ! -f "$WTL_DIR/environments/$WTL_ENV.sh" ]] ; then
-    echo "$WTL_ENV is not a valid environment"
+    echo "[create-config] $WTL_ENV is not a valid environment"
     echo "re-execute the script using '-e' followed by one of those valid environments:"
     for script in $( ls $WTL_DIR/environments/ | grep -v - ) ; do
         echo "$env_options ${script//.sh}"
@@ -199,5 +199,5 @@ EOF
 } >> $WTL_CONFIG_FILE
 
 if [[ -f "$WTL_CONFIG_FILE" ]] ; then
- echo "configuration file created"
+ echo "[create-config] Configuration file created!"
 fi
