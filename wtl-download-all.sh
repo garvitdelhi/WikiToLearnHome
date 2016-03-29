@@ -9,8 +9,9 @@ fi
 
 . ./load-wikitolearn.sh
 
-. $WTL_DIR/pull-images.sh
 . $WTL_DIR/download-code.sh
+
+. $WTL_DIR/pull-images.sh
 
 if [[ $WTL_PRODUCTION == "0" ]] ; then
     if [[ $WTL_AUTO_COMPOSER == "1" ]] ; then
