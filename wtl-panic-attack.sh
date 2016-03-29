@@ -111,6 +111,20 @@ if [[ $I_know_the_logo == "1" ]] && [[ $I_have_understood == "1" ]] && [[ $I_wan
     echo -e "\e[31mTOO LATE: THIS OPERATION CAN NOT BE REVERTED!\e[0m"
     docker stop $(docker ps -a -q)
     docker rm $(docker ps -a -q)
+    docker images -q  | uniq | while read id; do
+        # count tags for image
+        COUNT=0
+        while docker inspect -f '{{index .RepoTags '$I'}}' $id &> /dev/null ; do
+            COUNT=$(($COUNT+1))
+        done
+        # if an image has more then one tag we delete the tag now because with docker rmi $(docker images -q) the duplicated id will not be removed
+        if [[ $COUNT -gt 1 ]] ; then
+            I=0
+            while docker rmi $(docker inspect -f '{{index .RepoTags '$I'}}' $id) ; do
+                I=$(($I+1))
+            done
+        fi
+    done
     docker rmi $(docker images -q)
     docker volume rm $(docker volume ls -q)
 
