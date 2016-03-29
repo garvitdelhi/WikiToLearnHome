@@ -51,6 +51,10 @@ fi
 # default value for variabile
 export WTL_PRODUCTION=0
 export WTL_ENV="base"
+export WTL_DOMAIN_NAME='tuttorotto.biz'
+export WTL_AUTO_COMPOSER=1
+export WTL_BRANCH_AUTO_CHECKOUT=1
+export WTL_BRANCH='dev-wtl-home'
 
 #Digest arguments passed to the bash scripts
 while [[ $# > 0 ]] ; do
@@ -59,22 +63,36 @@ while [[ $# > 0 ]] ; do
             if [[ $protocol != "" ]] ; then
                 echo "[create-config] $protocol has been overwritten by $2"
             fi
-            protocol=$2
+            export protocol=$2
             shift
         ;;
         --existing-repo)
-            existing_repo="yes"
+            export existing_repo="yes"
         ;;
         -t | --token)
-            WTL_GITHUB_TOKEN=$2
+            export WTL_GITHUB_TOKEN=$2
             shift
         ;;
         -e | --environment)
-            WTL_ENV=$2
+            export WTL_ENV=$2
             shift
         ;;
         --production)
-            WTL_PRODUCTION="1"
+            export WTL_PRODUCTION="1"
+        ;;
+        --domain)
+            export WTL_DOMAIN_NAME=$2
+            shift
+        ;;
+        --branch)
+            WTL_BRANCH=$2
+            shift
+        ;;
+        --no-auto-checkout)
+            export WTL_BRANCH_AUTO_CHECKOUT=0
+        ;;
+        --no-auto-composer)
+            export WTL_AUTO_COMPOSER=0
         ;;
         *)
             echo "[create-config] Unknown option: $1"
@@ -174,12 +192,12 @@ export WTL_CONFIG_FILE_VERSION=1
 # Remote for git repository (initial clone)
 export WTL_URL='$WTL_URL'
 # Branch to work
-export WTL_BRANCH='dev-wtl-home'
+export WTL_BRANCH='$WTL_BRANCH'
 # automaticaly git checkout before pull
-export WTL_BRANCH_AUTO_CHECKOUT=1
+export WTL_BRANCH_AUTO_CHECKOUT=$WTL_BRANCH_AUTO_CHECKOUT
 
 # Domain name to be used
-export WTL_DOMAIN_NAME='tuttorotto.biz'
+export WTL_DOMAIN_NAME='$WTL_DOMAIN_NAME'
 # github token for composer
 export WTL_GITHUB_TOKEN='$WTL_GITHUB_TOKEN'
 
@@ -194,7 +212,7 @@ export WTL_PRODUCTION='$WTL_PRODUCTION'
 # the name for the schema we want to run
 export WTL_ENV='$WTL_ENV'
 
-export WTL_AUTO_COMPOSER=1
+export WTL_AUTO_COMPOSER=$WTL_AUTO_COMPOSER
 EOF
 } >> $WTL_CONFIG_FILE
 
