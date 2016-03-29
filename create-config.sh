@@ -9,7 +9,7 @@ fi
 
 #cd to current script folder
 cd $(dirname $(realpath $0))
-if [[ ! -f "$0" ]] ; then
+if [[ ! -f "create-config.sh" ]] ; then
     echo "[create-config] Error changing directory"
     echo "configuration aborted"
     echo -e "\e[31mFATAL ERROR \e[0m"
@@ -21,10 +21,10 @@ for cmd in git docker curl rsync python ; do
     echo -n "[create-config] Searching for "$cmd"..."
     which $cmd &> /dev/null
     if [[ $? -ne 0 ]] ; then
-      echo "[create-config] FAIL"
-      exit 1
+        echo -e "\e[31mFATAL ERROR \e[0m"
+        exit 1
     else
-      echo "[create-config] OK"
+        echo "OK"
     fi
 done
 

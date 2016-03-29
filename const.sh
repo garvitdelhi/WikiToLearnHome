@@ -2,10 +2,10 @@
 #Set the global ENV variables
 
 #cd to current script folder
-cd $(dirname $(realpath $0))
-if [[ ! -f "$0" ]] ; then
- echo "[const] Error changing directory"
- exit 1
+if [[ ! -f "const.sh" ]] ; then
+    echo "[const] : The parent script is not running inside the directory that contains const.sh"
+    echo -e "\e[31mFATAL ERROR \e[0m"
+    exit 1
 fi
 
 #define environment variables
