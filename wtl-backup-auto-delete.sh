@@ -16,4 +16,10 @@ if [[ "$WTL_INSTANCE_NAME" == "" ]] ; then
  exit 1
 fi
 
-. $WTL_DIR/helpers/restore-backup/${WTL_HELPER_RESTORE_BACKUP}.sh "$1"
+
+
+while [[ $(ls $WTL_BACKUPS | grep -v StaticBackup | wc -l) -gt 1 ]] ; do
+    echo "Deleting the backup: "`ls -tr $WTL_BACKUPS | grep -v StaticBackup | head -1`
+    rm -Rf $WTL_BACKUPS"/"`ls -tr $WTL_BACKUPS | grep -v StaticBackup | head -1`"/"
+done
+
