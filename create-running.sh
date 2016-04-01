@@ -44,7 +44,7 @@ fi
 
 wtl-log create-running.sh 3 CREATE_RUN_FOUND_VERSION "Found!"
 
-git show ${WTL_REFERENCE}
+git show ${WTL_REFERENCE} | cat
 
 if [[ -d ${WTL_RUNNING}"/"${WTL_REFERENCE} ]] ; then
     wtl-log create-running.sh 1 CREATE_RUN_EXIST "Directory already "${WTL_RUNNING}"/"${WTL_REFERENCE}" exist"

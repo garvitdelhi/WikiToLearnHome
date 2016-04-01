@@ -14,7 +14,7 @@ fi
 
 
 echo "[lang-foreach] Finding Languages"
-langlist=$(cat $WTL_REPO_DIR/databases.conf | sed 's/wikitolearn//g' | grep -v shared)
+langlist=$(cat $WTL_WORKING_DIR/databases.conf | sed 's/wikitolearn//g' | grep -v shared)
 
 CMD="$@"
 

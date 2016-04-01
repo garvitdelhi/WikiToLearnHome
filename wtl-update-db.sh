@@ -10,4 +10,4 @@ fi
 
 . ./load-wikitolearn.sh
 
-. ./lang-foreach-php-maintenance.sh update.php --conf=/var/www/WikiToLearn/mediawiki/LocalSettings.php --quick --doShared
+./lang-foreach-php-maintenance.sh update.php --conf=/var/www/WikiToLearn/mediawiki/LocalSettings.php --quick --doShared

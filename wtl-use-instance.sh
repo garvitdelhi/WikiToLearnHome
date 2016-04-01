@@ -17,6 +17,8 @@ if [[ -d certs/ ]] ; then
 fi
 
 docker run -d --name wikitolearn-haproxy --restart=always \
+ --label WTL_INSTANCE_NAME=${WTL_INSTANCE_NAME} \
+ --label WTL_WORKING_DIR=$WTL_WORKING_DIR \
  -p 80:80 \
  -p 443:443 \
  $CERTS_MOUNT \
