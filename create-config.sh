@@ -54,7 +54,7 @@ export WTL_ENV="base"
 export WTL_DOMAIN_NAME='tuttorotto.biz'
 export WTL_AUTO_COMPOSER=1
 export WTL_BRANCH_AUTO_CHECKOUT=1
-export WTL_BRANCH='dev-wtl-home'
+export WTL_BRANCH='master'
 
 #Digest arguments passed to the bash scripts
 while [[ $# > 0 ]] ; do
