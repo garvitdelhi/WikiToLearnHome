@@ -58,6 +58,10 @@ if [[ "$NEW_WTL_INSTANCE_NAME" != "$OLD_WTL_INSTANCE_NAME" ]] ; then
     }
     docker inspect wikitolearn-haproxy &> /dev/null || {
         BACKUPDIR=$WTL_REPO_DIR"/DeveloperDump/"
+
+        if [[ -d $WTL_BACKUPS"/StaticBackup/" ]] ; then
+            BACKUPDIR=$WTL_BACKUPS"/StaticBackup/"
+        fi
     }
 
     export WTL_INSTANCE_NAME=$NEW_WTL_INSTANCE_NAME
