@@ -66,4 +66,9 @@ if [[ "$NEW_WTL_INSTANCE_NAME" != "$OLD_WTL_INSTANCE_NAME" ]] ; then
     $WTL_DIR/wtl-update-db.sh
     $WTL_DIR/wtl-unuse-instance.sh
     $WTL_DIR/wtl-use-instance.sh
+
+    if [[ -f $WTL_CONFIGS_DIR"/bot-notify.sh" ]] ; then
+        . $WTL_CONFIGS_DIR"/bot-notify.sh" # this sets the WTL_BOT_URL var
+        curl --data "commit="${GIT_ID_NEW:8}"&host=$(hostname -f)&baseurl=www."$WTL_DOMAIN_NAME "$WTL_BOT_URL"
+    fi
 fi
