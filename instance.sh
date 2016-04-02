@@ -3,10 +3,11 @@ cd $(dirname $(realpath $0))
 
 . ./load-wikitolearn.sh
 
-if [[ $(($(date +%s)-$(date +%s -r $WTL_CONFIG_FILE))) -gt 300 ]] ; then
-    echo "300 from last WikiToLearn Home updates check..."
+if [[ ! -f $WTL_CACHE"/wtl-home-last-auto-update" ]] || [[ $(($(date +%s)-$(date +%s -r $WTL_CACHE"/wtl-home-last-auto-update"))) -gt 3300 ]] ; then
+    echo "3600 sec from last WikiToLearn Home updates check..."
     $WTL_SCRIPTS/update-home.sh
-    touch $WTL_CONFIG_FILE
+    touch $WTL_CACHE"/wtl-home-last-auto-update"
+    exit
 fi
 
 case $1 in
