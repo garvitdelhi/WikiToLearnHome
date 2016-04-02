@@ -1,4 +1,7 @@
 #!/bin/bash
+[[  "$WTL_SCRIPT_DEBUG" == "1" ]] && set -x
+set -e
+
 cd $(dirname $(realpath $0))
 
 . ./load-libs.sh

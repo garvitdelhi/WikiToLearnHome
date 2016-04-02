@@ -17,7 +17,7 @@ cd $WTL_REPO_DIR
 GIT_ID_CURRENT=$(git log -n 1 --format="%H")
 cd $(dirname $(realpath $0))
 
-$WTL_SCRIPTS/wtl-download-code.sh
+$WTL_SCRIPTS/download-code.sh
 
 cd $WTL_REPO_DIR
 GIT_ID_NEW=$(git log -n 1 --format="%H")
@@ -41,14 +41,14 @@ if [[ "$NEW_WTL_INSTANCE_NAME" != "$OLD_WTL_INSTANCE_NAME" ]] ; then
 
     export WTL_INSTANCE_NAME=$NEW_WTL_INSTANCE_NAME
     export WTL_WORKING_DIR=$NEW_WTL_WORKING_DIR
-    $WTL_SCRIPTS/wtl-create.sh
-    $WTL_SCRIPTS/wtl-start.sh
+    $WTL_SCRIPTS/create.sh
+    $WTL_SCRIPTS/start.sh
 
     docker inspect wikitolearn-haproxy &> /dev/null && {
         export WTL_INSTANCE_NAME=$OLD_WTL_INSTANCE_NAME
         export WTL_WORKING_DIR=$OLD_WTL_WORKING_DIR
-        $WTL_SCRIPTS/wtl-make-readonly.sh "This wiki is currently being upgraded to a newer software version."
-        $WTL_SCRIPTS/wtl-backup-do.sh
+        $WTL_SCRIPTS/make-readonly.sh "This wiki is currently being upgraded to a newer software version."
+        $WTL_SCRIPTS/backup-do.sh
 
         BACKUPDIR=$WTL_REPO_DIR"/DeveloperDump/"
 
@@ -71,10 +71,10 @@ if [[ "$NEW_WTL_INSTANCE_NAME" != "$OLD_WTL_INSTANCE_NAME" ]] ; then
 
     export WTL_INSTANCE_NAME=$NEW_WTL_INSTANCE_NAME
     export WTL_WORKING_DIR=$NEW_WTL_WORKING_DIR
-    $WTL_SCRIPTS/wtl-backup-restore.sh "$BACKUPDIR"
-    $WTL_SCRIPTS/wtl-update-db.sh
-    $WTL_SCRIPTS/wtl-unuse-instance.sh
-    $WTL_SCRIPTS/wtl-use-instance.sh
+    $WTL_SCRIPTS/backup-restore.sh "$BACKUPDIR"
+    $WTL_SCRIPTS/update-db.sh
+    $WTL_SCRIPTS/unuse-instance.sh
+    $WTL_SCRIPTS/use-instance.sh
 
     if [[ -f $WTL_CONFIGS_DIR"/bot-notify.sh" ]] ; then
         . $WTL_CONFIGS_DIR"/bot-notify.sh" # this sets the WTL_BOT_URL var

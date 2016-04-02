@@ -13,7 +13,7 @@ fi
 
 . ./load-libs.sh
 
-for instance in $(./list-instances.sh | grep -v $(docker inspect -f '{{index .Config.Labels "WTL_INSTANCE_NAME"}}' wikitolearn-haproxy | awk -F'-' '{ print $2 }'))
+for instance in $($WTL_SCRIPTS/list-instances.sh | grep -v $(docker inspect -f '{{index .Config.Labels "WTL_INSTANCE_NAME"}}' wikitolearn-haproxy | awk -F'-' '{ print $2 }'))
 do
     if [[ $(ls $WTL_RUNNING | grep ^$instance | wc -l) -eq 1 ]] ; then
         DIR_NAME=`ls $WTL_RUNNING | grep ^$instance`
