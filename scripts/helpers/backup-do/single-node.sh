@@ -8,7 +8,7 @@ test -d $BACKUP_DIR || mkdir $BACKUP_DIR
 
 rsync --stats -av $WTL_WORKING_DIR"/mediawiki/images/" ${BACKUP_DIR}"/images/"
 
-$WTL_DIR/wtl-make-readonly.sh "This wiki is currently being backed up"
+$WTL_SCRIPTS/make-readonly.sh "This wiki is currently being backed up"
 
 for db in $(docker exec -ti ${WTL_INSTANCE_NAME}-mysql mysql -e "SHOW DATABASES" | grep wikitolearn | awk '{ print $2 }') ; do
  echo "Backup "$db
@@ -24,4 +24,4 @@ done
 
 rsync --stats -av $WTL_WORKING_DIR"/mediawiki/images/" ${BACKUP_DIR}"/images/"
 
-$WTL_DIR/wtl-make-readwrite.sh "This wiki is currently being backed up"
+$WTL_SCRIPTS/make-readwrite.sh "This wiki is currently being backed up"

@@ -154,10 +154,10 @@ elif [[ ${WTL_GITHUB_TOKEN:0:1} == "-" ]] ; then
 else
 
 #environtment handling
-if [[ ! -f "$WTL_DIR/environments/$WTL_ENV.sh" ]] ; then
+if [[ ! -f "$WTL_SCRIPTS/environments/$WTL_ENV.sh" ]] ; then
     echo "[create-config] $WTL_ENV is not a valid environment"
     echo "re-execute the script using '-e' followed by one of those valid environments:"
-    for script in $( ls $WTL_DIR/environments/ | grep -v - ) ; do
+    for script in $( ls $WTL_SCRIPTS/environments/ | grep -v - ) ; do
         echo "$env_options ${script//.sh}"
     done
     echo -e "\e[31mFATAL ERROR \e[0m"
