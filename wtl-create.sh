@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -e
 if [[ $(basename $0) != "wtl-create.sh" ]] ; then
     echo "Wrong way to execute wtl-create.sh"
     exit 1
