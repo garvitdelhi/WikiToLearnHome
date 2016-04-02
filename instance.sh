@@ -6,12 +6,12 @@ cd $(dirname $(realpath $0))
 
 . ./load-libs.sh
 
-if [[ ! -f $WTL_CACHE"/wtl-home-last-auto-update" ]] || [[ $(($(date +%s)-$(date +%s -r $WTL_CACHE"/wtl-home-last-auto-update"))) -gt 3300 ]] ; then
-    echo "3600 sec from last WikiToLearn Home updates check..."
-    $WTL_SCRIPTS/update-home.sh
-    touch $WTL_CACHE"/wtl-home-last-auto-update"
-    exit
-fi
+#if [[ ! -f $WTL_CACHE"/wtl-home-last-auto-update" ]] || [[ $(($(date +%s)-$(date +%s -r $WTL_CACHE"/wtl-home-last-auto-update"))) -gt 3300 ]] ; then
+#    echo "3600 sec from last WikiToLearn Home updates check..."
+#    $WTL_SCRIPTS/update-home.sh
+#    touch $WTL_CACHE"/wtl-home-last-auto-update"
+#    exit
+#fi
 
 if [[ $# -eq 0 ]] ; then
     $0 help

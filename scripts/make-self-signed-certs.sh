@@ -27,6 +27,8 @@ if [[ ! -f ${WTL_CERTS}/wikitolearn.crt ]] && [[ ! -f ${WTL_CERTS}/wikitolearn.k
 
  if [[ ! -d $WTL_CERTS ]] ; then
   mkdir ${WTL_CERTS}
+ fi
+ if [[ ! -d ${WTL_CERTS}"/easy-rsa/" ]] ; then
   mkdir ${WTL_CERTS}"/easy-rsa/"
  fi
 
