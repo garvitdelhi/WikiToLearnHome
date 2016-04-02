@@ -21,6 +21,16 @@ Serve lo script che incolla tutto insieme e fa andare tutto start.sh
 Nella documentazione fare una overview di tutte le variabili settate globali
 (e anche il file dove sono inserite)
 
+
+Chiamata con Luca
+-----------------
+
+#nome script
+
+instance- per quelli che vengono usati spesso
+
+
+
 Generic To Do List
 ------------------
 
