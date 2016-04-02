@@ -52,3 +52,4 @@ if [[ "$WTL_USER_GID" != $(id -g) ]] ; then
     wtl-log load-libs.sh 0 CONFIG_GID_ERROR "Your GID is not the one in the config file ($WTL_USER_GID != "$(id -g)")"
     exit 1
 fi
+test -d $WTL_CACHE || mkdir $WTL_CACHE
