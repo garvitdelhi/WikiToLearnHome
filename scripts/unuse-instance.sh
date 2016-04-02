@@ -15,8 +15,7 @@ fi
 
 echo "Bringing down..."
 
-docker inspect wikitolearn-haproxy &> /dev/null
-if [[ $? -eq 0 ]] ; then
+if docker inspect wikitolearn-haproxy &> /dev/null ; then
     docker stop wikitolearn-haproxy
     docker rm wikitolearn-haproxy
 fi

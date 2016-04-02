@@ -21,12 +21,16 @@ fi
 case $1 in
     first-run)
         $WTL_SCRIPTS/download-all.sh
+        $WTL_SCRIPTS/download-mediawiki-extensions.sh
         $WTL_SCRIPTS/create.sh
         $WTL_SCRIPTS/start.sh
         $WTL_SCRIPTS/backup-restore.sh $WTL_REPO_DIR/DeveloperDump/
         $WTL_SCRIPTS/unuse-instance.sh
         $WTL_SCRIPTS/use-instance.sh
         $WTL_SCRIPTS/update-db.sh
+    ;;
+    create)
+        $WTL_SCRIPTS/create.sh
     ;;
     start)
         $WTL_SCRIPTS/start.sh
