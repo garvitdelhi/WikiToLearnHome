@@ -31,4 +31,8 @@ case $1 in
     download)
         $WTL_SCRIPTS/download-code.sh
     ;;
+    update-home)
+    ;;
+        $WTL_SCRIPTS/update-home.sh
+    ;;
 esac
