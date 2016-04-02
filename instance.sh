@@ -42,9 +42,15 @@ case $1 in
     ;;
     download)
         $WTL_SCRIPTS/download-code.sh
+        $WTL_SCRIPTS/download-mediawiki-extensions.sh
     ;;
     update-home)
         $WTL_SCRIPTS/update-home.sh
+    ;;
+    staging)
+        $WTL_SCRIPTS/relase-procedure.sh
+        $WTL_SCRIPTS/backup-auto-delete.sh
+        $WTL_SCRIPTS/unused-instance-stop-delete.sh
     ;;
     help)
         echo "No help yet, sorry"

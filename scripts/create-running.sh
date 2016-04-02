@@ -51,11 +51,13 @@ wtl-log create-running.sh 3 CREATE_RUN_FOUND_VERSION "Found!"
 
 git show ${WTL_REFERENCE} | cat
 
-if [[ -d ${WTL_RUNNING}"/"${WTL_REFERENCE} ]] ; then
-    wtl-log create-running.sh 1 CREATE_RUN_EXIST "Directory already "${WTL_RUNNING}"/"${WTL_REFERENCE}" exist"
+export WTL_WORKING_DIR=${WTL_RUNNING}"/"${WTL_REFERENCE}
+
+if [[ -d $WTL_WORKING_DIR ]] ; then
+    wtl-log create-running.sh 1 CREATE_RUN_EXIST "Directory already "$WTL_WORKING_DIR" exist"
 else
-    rsync -a --stats --delete ${WTL_REPO_DIR}"/" ${WTL_RUNNING}"/"${WTL_REFERENCE}
-    cd ${WTL_RUNNING}"/"${WTL_REFERENCE}
+    rsync -a --stats --delete ${WTL_REPO_DIR}"/" $WTL_WORKING_DIR
+    cd $WTL_WORKING_DIR
     if [[ $? -ne 0 ]] ; then
         wtl-log create-running.sh 0 CREATE_RUN_ERROR_CREATE_COPY "Error in the change directory operation"
         exit 1
@@ -72,6 +74,7 @@ else
 
         wtl-log create-running.sh 1 CREATE_RUN_COPY_CREATED "Started composer"
 
-        $WTL_SCRIPTS/do-our-composer.sh ${WTL_RUNNING}"/"${WTL_REFERENCE}
+        $WTL_SCRIPTS/download-mediawiki-extensions.sh
+        $WTL_SCRIPTS/do-our-composer.sh $WTL_WORKING_DIR
     fi
 fi
