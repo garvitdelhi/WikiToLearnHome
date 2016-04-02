@@ -25,10 +25,12 @@ done))
 echo "${web_hosts[@]}"
 
 for d in ${WTL_INSTANCE_NAME}-parsoid ${WTL_INSTANCE_NAME}-ocg ; do
-    echo "In '$d' fixing '${web_hosts[@]}' to '$WEBSRV_IP'"
-    {
-        docker exec $d sed '/FIXHOST/d' /etc/hosts | docker exec -i $d tee /tmp/tmp_hosts
-        docker exec $d cat /tmp/tmp_hosts | docker exec -i $d tee /etc/hosts
-        echo $WEBSRV_IP" FIXHOST ${web_hosts[@]}" | docker exec -i $d tee -a /etc/hosts
-    } &> /dev/null
+    docker inspect $d &> /dev/null && {
+        echo "In '$d' fixing '${web_hosts[@]}' to '$WEBSRV_IP'"
+        {
+            docker exec $d sed '/FIXHOST/d' /etc/hosts | docker exec -i $d tee /tmp/tmp_hosts
+            docker exec $d cat /tmp/tmp_hosts | docker exec -i $d tee /etc/hosts
+            echo $WEBSRV_IP" FIXHOST ${web_hosts[@]}" | docker exec -i $d tee -a /etc/hosts
+        } &> /dev/null
+    }
 done

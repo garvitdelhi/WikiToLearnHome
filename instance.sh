@@ -51,6 +51,9 @@ case $1 in
         $WTL_SCRIPTS/download-code.sh
         $WTL_SCRIPTS/download-mediawiki-extensions.sh
     ;;
+    fix-hosts)
+        $WTL_SCRIPTS/fix-hosts.sh
+    ;;
     update-home)
         $WTL_SCRIPTS/update-home.sh
     ;;
