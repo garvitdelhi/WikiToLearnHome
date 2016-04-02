@@ -3,6 +3,12 @@ cd $(dirname $(realpath $0))
 
 . ./load-wikitolearn.sh
 
+if [[ $(($(date +%s)-$(date +%s -r $WTL_CONFIG_FILE))) -gt 300 ]] ; then
+    echo "300 from last WikiToLearn Home updates check..."
+    $WTL_SCRIPTS/update-home.sh
+    touch $WTL_CONFIG_FILE
+fi
+
 case $1 in
     first-run)
         $WTL_SCRIPTS/download-all.sh
@@ -32,7 +38,6 @@ case $1 in
         $WTL_SCRIPTS/download-code.sh
     ;;
     update-home)
-    ;;
         $WTL_SCRIPTS/update-home.sh
     ;;
 esac
