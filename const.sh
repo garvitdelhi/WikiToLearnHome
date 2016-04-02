@@ -16,6 +16,6 @@ export WTL_RUNNING=$WTL_DIR"/running/"
 export WTL_CERTS=$WTL_DIR"/certs/"
 export WTL_CACHE=$WTL_DIR"/cache/"
 export WTL_BACKUPS=$WTL_DIR"/backups/"
-
+export WTL_SCRIPTS=$WTL_DIR"/scripts/"
 
 export WTL_CONFIG_FILE=$WTL_CONFIGS_DIR"wtl.conf"

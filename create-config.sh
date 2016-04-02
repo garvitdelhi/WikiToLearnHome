@@ -17,7 +17,7 @@ if [[ ! -f "create-config.sh" ]] ; then
 fi
 
 #checks whether git docker curl and rsync are installed
-for cmd in git docker curl rsync python ; do
+for cmd in git docker curl rsync python dirname realpath ; do
     echo -n "[create-config] Searching for "$cmd"..."
     which $cmd &> /dev/null
     if [[ $? -ne 0 ]] ; then
