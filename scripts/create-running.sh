@@ -11,7 +11,7 @@ if [[ ! -f "const.sh" ]] ; then
     exit 1
 fi
 
-. ./load-wikitolearn.sh
+. ./load-libs.sh
 
 if [[ -d "$WTL_REPO_DIR" ]] ; then
     cd "$WTL_REPO_DIR"

@@ -162,11 +162,11 @@ warning: discard changes!
 
 the old use instance: let's start everything
 
-calls load-wikitolearn
+calls load-libs
 
 we create a new instance (eg when shipping new versions= zero downtime)
 
-### load-wikitolearn
+### load-libs
 
 ?????
 

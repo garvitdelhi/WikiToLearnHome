@@ -1,8 +1,8 @@
 #!/bin/bash
 # Load environment variables from const and config file
 
-if [[ ! -f "load-wikitolearn.sh" ]] ; then
-    echo "[load-wikitolearn] : The parent script is not running inside the directory that contains load-wikitolearn.sh"
+if [[ ! -f "load-libs.sh" ]] ; then
+    echo "[load-libs] : The parent script is not running inside the directory that contains load-libs.sh"
     echo -e "\e[31mFATAL ERROR \e[0m"
     exit 1
 fi
@@ -39,16 +39,16 @@ wtl-log () {
 # check the config file version
 if [[ "$WTL_CONFIG_FILE_VERSION" != "1" ]] ; then
     echo "Wrong config file version."
-    wtl-log load-wikitolearn.sh 0 CONFIG_VERSION_ERROR "You are running the version $WTL_CONFIG_FILE_VERSION and this requires version 1"
+    wtl-log load-libs.sh 0 CONFIG_VERSION_ERROR "You are running the version $WTL_CONFIG_FILE_VERSION and this requires version 1"
     exit 1
 fi
 
 if [[ "$WTL_USER_UID" != $(id -u) ]] ; then
-    wtl-log load-wikitolearn.sh 0 CONFIG_UID_ERROR "Your UID is not the one in the config file ($WTL_USER_UID != "$(id -u)")"
+    wtl-log load-libs.sh 0 CONFIG_UID_ERROR "Your UID is not the one in the config file ($WTL_USER_UID != "$(id -u)")"
     exit 1
 fi
 
 if [[ "$WTL_USER_GID" != $(id -g) ]] ; then
-    wtl-log load-wikitolearn.sh 0 CONFIG_GID_ERROR "Your GID is not the one in the config file ($WTL_USER_GID != "$(id -g)")"
+    wtl-log load-libs.sh 0 CONFIG_GID_ERROR "Your GID is not the one in the config file ($WTL_USER_GID != "$(id -g)")"
     exit 1
 fi

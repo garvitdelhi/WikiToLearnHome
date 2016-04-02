@@ -7,7 +7,7 @@ if [[ $(id -u) -eq 0 ]] || [[ $(id -g) -eq 0 ]] ; then
     exit 1
 fi
 
-. /load-wikitolearn.sh
+. /load-libs.sh
 
 #General Overview Of the consequences
 echo "This script will erase EVERYTHING related to docker on your machine."

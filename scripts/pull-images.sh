@@ -11,7 +11,7 @@ if [[ ! -f "const.sh" ]] ; then
     exit 1
 fi
 
-. ./load-wikitolearn.sh
+. ./load-libs.sh
 . $WTL_SCRIPTS/environments/$WTL_ENV.sh
 
 for img in $WTL_DOCKER_MYSQL $WTL_DOCKER_MEMCACHED $WTL_DOCKER_OCG $WTL_DOCKER_WEBSRV $WTL_DOCKER_HAPROXY $WTL_DOCKER_PARSOID $WTL_DOCKER_MATHOID ; do

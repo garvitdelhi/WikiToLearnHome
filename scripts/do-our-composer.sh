@@ -31,7 +31,7 @@ if [[ ! -f $WORKDIR"/composer-dirs.conf" ]] ; then
     exit 1
 fi
 
-. ./load-wikitolearn.sh
+. ./load-libs.sh
 
 cat $WORKDIR"/composer-dirs.conf" | while read path ; do
     echo "[do-our-composer] Executing do-one-composer : '$path'"

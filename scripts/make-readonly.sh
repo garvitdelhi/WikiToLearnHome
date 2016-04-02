@@ -11,7 +11,7 @@ if [[ ! -f "const.sh" ]] ; then
     exit 1
 fi
 
-. ./load-wikitolearn.sh
+. ./load-libs.sh
 
 . $WTL_SCRIPTS/environments/${WTL_ENV}.sh
 $WTL_SCRIPTS/helpers/make-readonly/${WTL_HELPER_MAKE_READONLY}.sh

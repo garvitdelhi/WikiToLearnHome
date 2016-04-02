@@ -11,7 +11,7 @@ if [[ ! -f "const.sh" ]] ; then
     exit 1
 fi
 
-. ./load-wikitolearn.sh
+. ./load-libs.sh
 
 cd $WTL_REPO_DIR
 GIT_ID_CURRENT=$(git log -n 1 --format="%H")

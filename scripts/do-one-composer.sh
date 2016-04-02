@@ -10,8 +10,8 @@ fi
 
 DO_ONE_COMPOSER_DIR="$1"
 
-#call ./load-wikitolearn.sh script: load environment variables from const and config file
-. ./load-wikitolearn.sh
+#call ./load-libs.sh script: load environment variables from const and config file
+. ./load-libs.sh
 
 wtl-log do-one-composer.sh 2 DO_ONE_COMPOSER_WORKING_DIR "Composing '$DO_ONE_COMPOSER_DIR'"
 

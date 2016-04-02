@@ -12,6 +12,6 @@ if [[ ! -f "const.sh" ]] ; then
     exit 1
 fi
 
-. ./load-wikitolearn.sh
+. ./load-libs.sh
 
 $WTL_SCRIPTS/lang-foreach-php-maintenance.sh update.php --conf=/var/www/WikiToLearn/mediawiki/LocalSettings.php --quick --doShared
