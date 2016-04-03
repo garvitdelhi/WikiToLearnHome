@@ -67,6 +67,12 @@ if [[ $? -ne 0 ]] ; then
     exit 1
 fi
 
+docker start ${WTL_INSTANCE_NAME}-restbase
+if [[ $? -ne 0 ]] ; then
+    echo "[start/single-node] FATAL ERROR: MISSING RESTBASE"
+    exit 1
+fi
+
 docker start ${WTL_INSTANCE_NAME}-websrv
 if [[ $? -ne 0 ]] ; then
     echo "[start/single-node] FATAL ERROR: MISSING WEBSRV"

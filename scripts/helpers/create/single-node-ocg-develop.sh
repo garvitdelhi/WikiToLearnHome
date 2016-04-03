@@ -61,6 +61,12 @@ if [[ $? -ne 0 ]] ; then
     echo "password=$ROOT_PWD" >> $WTL_CONFIGS_DIR/mysql-root-password.cnf
 fi
 
+docker inspect ${WTL_INSTANCE_NAME}-restbase &> /dev/null
+if [[ $? -ne 0 ]] ; then
+    docker create -ti $MORE_ARGS --hostname restbase --link ${WTL_INSTANCE_NAME}-parsoid:parsoid --name ${WTL_INSTANCE_NAME}-restbase $WTL_DOCKER_RESTBASE
+    echo "[create/single-node] Creating docker ${WTL_INSTANCE_NAME}-restbase"
+fi
+
 docker inspect ${WTL_INSTANCE_NAME}-websrv &> /dev/null
 if [[ $? -ne 0 ]] ; then
 
@@ -80,6 +86,7 @@ if [[ $? -ne 0 ]] ; then
         --link ${WTL_INSTANCE_NAME}-memcached:memcached \
         --link ${WTL_INSTANCE_NAME}-mathoid:mathoid \
         --link ${WTL_INSTANCE_NAME}-parsoid:parsoid \
+        --link ${WTL_INSTANCE_NAME}-restbase:restbase \
         --add-host=ocg:`docker run -ti --rm debian:8 /sbin/ip route | awk '/default/ { print  $3}'` \
         $WTL_DOCKER_WEBSRV
 

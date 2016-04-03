@@ -47,6 +47,10 @@ case $1 in
         $WTL_SCRIPTS/delete.sh
         $WTL_SCRIPTS/unuse-instance.sh
     ;;
+    import-devdump)
+        $WTL_SCRIPTS/backup-restore.sh $WTL_REPO_DIR/DeveloperDump/
+        $WTL_SCRIPTS/update-db.sh
+    ;;
     download)
         $WTL_SCRIPTS/download-code.sh
         $WTL_SCRIPTS/download-mediawiki-extensions.sh
