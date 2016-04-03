@@ -11,11 +11,6 @@ fi
 
 . $WTL_WORKING_DIR/docker-images.conf
 
-if [[ "$WTL_DOCKER_VERSION" != "2" ]] ; then
-    echo "Wrong value for "WTL_DOCKER_VERSION" != 2"
-    exit 1
-fi
-
 export WTL_MATHOID_NUM_WORKERS=1
 
 export WTL_HELPER_CREATE="single-node"
