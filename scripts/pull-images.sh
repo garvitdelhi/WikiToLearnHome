@@ -14,9 +14,12 @@ fi
 . ./load-libs.sh
 . $WTL_SCRIPTS/environments/$WTL_ENV.sh
 
-for img in $WTL_DOCKER_MYSQL $WTL_DOCKER_MEMCACHED $WTL_DOCKER_OCG $WTL_DOCKER_WEBSRV $WTL_DOCKER_HAPROXY $WTL_DOCKER_PARSOID $WTL_DOCKER_MATHOID ; do
+for img_env_name in $WTL_DOCKER_IMAGES_LIST; do
+    img=$(echo 'echo $'$img_env_name | bash)
     echo "[pull-images] Pulling '$img'"
-    docker pull $img
+    if ! docker pull $img ; then
+        echo "[pull-images] Failed pull for '$img'"
+    fi
 
     echo "[pull-images] '$img' pulled, inspecting"
     docker inspect $img &> /dev/null
