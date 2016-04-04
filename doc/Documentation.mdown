@@ -4,7 +4,7 @@
 The purpose of this repository, which will be referred to as WikiToLearnHome
 (shortened as WTLH), is setting up an instance of WikiToLearn (shortened as
 WTL), that can either be a development one (run locally on a laptop, with test
-content) and a staging-production one.
+content) or a staging-production one.
 Specific characteristics of the different instances of WikiToLearn will be
 explained in the following sections
 
@@ -22,8 +22,11 @@ environment.
 Detailed script overview
 ------------------------
 
-The developer of the WikiToLearn is supposed to only run the
-wtl\*.sh scripts contained in this folder, and follow the instructions.
+The developer of the WikiToLearn is supposed to only run the scripts contained
+in this folder, according to the given instructions, since these bundle all the
+basic operations that one would do to the WTL local instance.
+
+These scripts 
 
 For a detailed variable overview read the relative section.
 

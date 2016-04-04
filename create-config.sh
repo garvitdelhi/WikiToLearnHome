@@ -40,14 +40,6 @@ fi
 #call ./const.sh script: load constant environment variables
 . ./const.sh
 
-#checks config file existance
-if [[ -f "$WTL_CONFIG_FILE" ]] ; then
-    echo "[create-config] You already have the '"$WTL_CONFIG_FILE"' file on your directory"
-    echo "configuration aborted"
-    echo -e "\e[31mFATAL ERROR \e[0m"
-    exit 1
-fi
-
 # default value for variabile
 export WTL_PRODUCTION=0
 export WTL_ENV="base"
@@ -85,13 +77,16 @@ while [[ $# > 0 ]] ; do
             shift
         ;;
         --branch)
-            WTL_BRANCH=$2
+            export WTL_BRANCH=$2
             shift
         ;;
         --no-auto-checkout)
             export WTL_BRANCH_AUTO_CHECKOUT=0
         ;;
         --no-auto-composer)
+            export WTL_AUTO_COMPOSER=0
+        ;;
+        --force-new-config)
             export WTL_AUTO_COMPOSER=0
         ;;
         *)
@@ -103,6 +98,16 @@ while [[ $# > 0 ]] ; do
     esac
     shift
 done
+
+#checks config file existance
+#this check is not performed if you use --force-new-config
+if [[ -f "$WTL_CONFIG_FILE" ]] ; then
+    echo "[create-config] You already have the '"$WTL_CONFIG_FILE"' file on your directory"
+    echo "configuration aborted"
+    echo -e "\e[31mFATAL ERROR \e[0m"
+    exit 1
+fi
+
 
 #protocol handling
 until [[ ${protocol,,} == "ssh" ]] || [[ ${protocol,,} == "https" ]] ; do
@@ -214,7 +219,7 @@ export WTL_ENV='$WTL_ENV'
 
 export WTL_AUTO_COMPOSER=$WTL_AUTO_COMPOSER
 EOF
-} >> $WTL_CONFIG_FILE
+} > $WTL_CONFIG_FILE
 
 if [[ -f "$WTL_CONFIG_FILE" ]] ; then
  echo "[create-config] Configuration file created!"
