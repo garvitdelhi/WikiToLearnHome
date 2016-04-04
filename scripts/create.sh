@@ -30,10 +30,8 @@ if [[ ! -f $WTL_WORKING_DIR/composer-dirs.conf ]] ; then
     exit 1
 fi
 
-$WTL_SCRIPTS/make-self-signed-certs.sh
-
 if [[ "$WTL_INSTANCE_NAME" == "" ]] ; then
-    wtl-log wtl-create.sh 0 WTL_CREATE_MIGGING_WTL_INSTANCE_NAME "wtl-create You need the WTL_INSTANCE_NAME env"
+    wtl-log wtl-create.sh 0 WTL_MIGGING_WTL_INSTANCE_NAME "You need the WTL_INSTANCE_NAME env to run create"
     exit 1
 fi
 

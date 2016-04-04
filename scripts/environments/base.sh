@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "[environment] Using 'base' environment" 
+echo "[environment] Using 'base' environment"
 
 if [[ "$WTL_WORKING_DIR" == "" ]] ; then
     export WTL_WORKING_DIR=$WTL_REPO_DIR
@@ -9,7 +9,9 @@ if [[ "$WTL_INSTANCE_NAME" == "" ]] ; then
     export WTL_INSTANCE_NAME="wtl-dev"
 fi
 
-. $WTL_WORKING_DIR/docker-images.conf
+if [[ -f $WTL_WORKING_DIR/docker-images.conf ]] ; then
+    . $WTL_WORKING_DIR/docker-images.conf
+fi
 
 export WTL_MATHOID_NUM_WORKERS=1
 
