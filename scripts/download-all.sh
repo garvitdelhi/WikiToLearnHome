@@ -19,7 +19,7 @@ $WTL_SCRIPTS/pull-images.sh
 
 if [[ $WTL_PRODUCTION == "0" ]] ; then
     if [[ $WTL_AUTO_COMPOSER == "1" ]] ; then
-        $WTL_SCRIPTS/do-our-composer.sh ${WTL_REPO_DIR}
+        $WTL_SCRIPTS/composer-for-dirs.sh ${WTL_REPO_DIR}
     fi
 fi
 
