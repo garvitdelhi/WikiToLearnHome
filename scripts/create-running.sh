@@ -75,6 +75,6 @@ else
         wtl-log create-running.sh 1 CREATE_RUN_COPY_CREATED "Started composer"
 
         $WTL_SCRIPTS/download-mediawiki-extensions.sh
-        $WTL_SCRIPTS/do-our-composer.sh $WTL_WORKING_DIR
+        $WTL_SCRIPTS/composer-for-dirs.sh $WTL_WORKING_DIR
     fi
 fi

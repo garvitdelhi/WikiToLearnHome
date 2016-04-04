@@ -224,3 +224,7 @@ EOF
 if [[ -f "$WTL_CONFIG_FILE" ]] ; then
  echo "[create-config] Configuration file created!"
 fi
+
+./load-libs.sh
+
+$WTL_SCRIPTS/make-self-signed-certs.sh
