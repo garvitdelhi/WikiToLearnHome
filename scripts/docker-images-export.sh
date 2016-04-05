@@ -1,8 +1,8 @@
 #!/bin/bash
 [[  "$WTL_SCRIPT_DEBUG" == "1" ]] && set -x
 set -e
-if [[ $(basename $0) != "export-docker-images.sh" ]] ; then
-    echo "Wrong way to execute export-docker-images.sh"
+if [[ $(basename $0) != "docker-images-export.sh" ]] ; then
+    echo "Wrong way to execute docker-images-export.sh"
     exit 1
 fi
 cd $(dirname $(realpath $0))"/.."
