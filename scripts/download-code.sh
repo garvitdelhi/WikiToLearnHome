@@ -26,6 +26,8 @@ if [[ -d "$WTL_REPO_DIR" ]] ; then
 
     echo "[download-code] pulling repo"
     git pull
+    echo "[download-code] syncing submodules"
+    git submodule sync
     echo "[download-code] updating submodules"
     git submodule update --init --checkout --recursive
     #TODO add depth support
