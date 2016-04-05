@@ -22,6 +22,7 @@ do
         echo $WTL_INSTANCE_NAME
         $WTL_SCRIPTS/stop.sh
         $WTL_SCRIPTS/delete.sh
+        $WTL_SCRIPTS/delete-volumes.sh
         if [[ -d $WTL_WORKING_DIR ]] ; then
             rm -Rf $WTL_WORKING_DIR
         fi
