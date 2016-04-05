@@ -16,8 +16,8 @@ fi
 . $WTL_SCRIPTS/environments/${WTL_ENV}.sh
 
 if [[ "$WTL_INSTANCE_NAME" == "" ]] ; then
- echo "You need the WTL_INSTANCE_NAME env"
- exit 1
+    wtl-log backup-restore.sh 0 MIGGING_WTL_INSTANCE_NAME "You need the WTL_INSTANCE_NAME env"
+    exit 1
 fi
 
 $WTL_SCRIPTS/helpers/backup-restore/${WTL_HELPER_RESTORE_BACKUP}.sh "$1"

@@ -14,10 +14,9 @@ fi
 
 . ./load-libs.sh
 
-echo "[wtl-delete] wtl-destroy: Loading Environment"
 . $WTL_SCRIPTS/environments/$WTL_ENV.sh
 
 if [[ $(docker ps -aq  --filter "name=$WTL_INSTANCE_NAME" | wc -l) -gt 0 ]] ; then
-    echo "[wtl-delete] Removing dockers with prefix '$WTL_INSTANCE_NAME'"
+    wtl-log delete.sh 0 DELETING_INSTANCE "Removing dockers with prefix '$WTL_INSTANCE_NAME'"
     docker rm $(docker ps -aq  --filter "name=$WTL_INSTANCE_NAME")
 fi

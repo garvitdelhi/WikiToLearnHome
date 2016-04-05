@@ -16,22 +16,22 @@ fi
 . $WTL_SCRIPTS/environments/${WTL_ENV}.sh
 
 if [[ ! -f $WTL_WORKING_DIR/docker-images.conf ]] ; then
-    wtl-log wtl-create.sh 0 WTL_CREATE_MIGGING_DOCKER_IMAGES_CONF "Missing $WTL_WORKING_DIR/docker-images.conf file"
+    wtl-log wtl-create.sh 0 CREATE_MIGGING_DOCKER_IMAGES_CONF "Missing $WTL_WORKING_DIR/docker-images.conf file"
     exit 1
 fi
 
 if [[ ! -f $WTL_WORKING_DIR/databases.conf ]] ; then
-    wtl-log wtl-create.sh 0 WTL_CREATE_MIGGING_DATABASES_CONF "Missing $WTL_WORKING_DIR/databases.conf file"
+    wtl-log wtl-create.sh 0 CREATE_MIGGING_DATABASES_CONF "Missing $WTL_WORKING_DIR/databases.conf file"
     exit 1
 fi
 
 if [[ ! -f $WTL_WORKING_DIR/composer-dirs.conf ]] ; then
-    wtl-log wtl-create.sh 0 WTL_CREATE_MIGGING_COMPOSER_DIRS_CONF "Missing $WTL_WORKING_DIR/composer-dirs.conf file"
+    wtl-log wtl-create.sh 0 CREATE_MIGGING_COMPOSER_DIRS_CONF "Missing $WTL_WORKING_DIR/composer-dirs.conf file"
     exit 1
 fi
 
 if [[ "$WTL_INSTANCE_NAME" == "" ]] ; then
-    wtl-log wtl-create.sh 0 WTL_MIGGING_WTL_INSTANCE_NAME "You need the WTL_INSTANCE_NAME env to run create"
+    wtl-log wtl-create.sh 0 MIGGING_WTL_INSTANCE_NAME "You need the WTL_INSTANCE_NAME env to run create"
     exit 1
 fi
 

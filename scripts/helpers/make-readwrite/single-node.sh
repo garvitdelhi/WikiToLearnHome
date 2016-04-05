@@ -7,6 +7,9 @@ if [[ "$@" != "" ]] ; then
 fi
 
 UUID=$(echo $MSG | sha1sum | awk '{ print $1 }')
+if test ! -f $WTL_WORKING_DIR"/LocalSettings.d/wgReadOnly.php" ; then
+    touch $WTL_WORKING_DIR"/LocalSettings.d/wgReadOnly.php"
+fi
 
 sed -i '/'$UUID'/d' $WTL_WORKING_DIR"/LocalSettings.d/wgReadOnly.php"
 

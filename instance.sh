@@ -70,6 +70,10 @@ case $1 in
         $WTL_SCRIPTS/backup-restore.sh $WTL_REPO_DIR/DeveloperDump/
         $WTL_SCRIPTS/update-db.sh
     ;;
+    devdump-export)
+        $WTL_SCRIPTS/backup-do.sh
+        $WTL_SCRIPTS/copy-last-backup-to-devdump.sh
+    ;;
     download)
         $WTL_SCRIPTS/download-code.sh
         $WTL_SCRIPTS/download-mediawiki-extensions.sh

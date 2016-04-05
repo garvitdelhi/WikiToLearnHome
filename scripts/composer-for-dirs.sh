@@ -12,28 +12,30 @@ if [[ ! -f "const.sh" ]] ; then
     exit 1
 fi
 
+. ./load-libs.sh
+
 if [[ "$1" == "" ]] ; then
- echo "[composer-for-dirs] Error: Argument 'where to do our composer' required"
- exit 1
+    wtl-log composer-for-dirs.sh 3 COMPOSER_MISSING_ARGS "Argument 'where to do our composer' required"
+    exit 1
 fi
 
 WORKDIR=$1
 
-echo "[composer-for-dirs] Composing 'composer-dirs.conf' in '$WORKDIR'"
+wtl-log composer-for-dirs.sh 3 COMPOSER_STARTING "Composing 'composer-dirs.conf' in '$WORKDIR'"
 
 if [[ ! -d $WORKDIR ]] ; then
-    echo "[composer-for-dirs] Error: Directory '$WORKDIR' doesn't exist"
+    wtl-log composer-for-dirs.sh 0 COMPOSER_MISSING_WORKDIR_DIRECTORY "Directory '$WORKDIR' doesn't exist"
     exit 1
 fi
 
 if [[ ! -f $WORKDIR"/composer-dirs.conf" ]] ; then
-    echo "[composer-for-dirs] Error: File '$WORKDIR/composer-dirs.conf' doesn't exist"
+    wtl-log composer-for-dirs.sh 0 COMPOSER_MISSING_COMPOSER_DIRS_CONF "File '$WORKDIR/composer-dirs.conf' doesn't exist"
     exit 1
 fi
 
 . ./load-libs.sh
 
 cat $WORKDIR"/composer-dirs.conf" | while read path ; do
-    echo "[composer-for-dirs] Executing composer-dir : '$path'"
+    wtl-log composer-for-dirs.sh 3 COMPOSER_EXECUTING "Executing composer-dir : '$path'"
     $WTL_SCRIPTS/composer-dir.sh $WORKDIR"/"$path
 done

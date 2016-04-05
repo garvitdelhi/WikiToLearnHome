@@ -8,11 +8,11 @@ echo $BACKUP_DIR
 
 test -d $BACKUP_DIR || mkdir $BACKUP_DIR
 
-wtl-log backup-do.sh 3 WTL_BACKUP_STARTED "Started backup for "${WTL_INSTANCE_NAME}
+wtl-log backup-do.sh 3 BACKUP_STARTED "Started backup for "${WTL_INSTANCE_NAME}
 
 rsync -a --stats --delete $WTL_WORKING_DIR"/mediawiki/images/" ${BACKUP_DIR}"/images/"
 
-wtl-log backup-do.sh 3 WTL_BACKUP_RO "Instance "${WTL_INSTANCE_NAME}" read only"
+wtl-log backup-do.sh 3 BACKUP_RO "Instance "${WTL_INSTANCE_NAME}" read only"
 
 $WTL_SCRIPTS/make-readonly.sh "This wiki is currently being backed up"
 
@@ -32,4 +32,4 @@ rsync -a --stats --delete $WTL_WORKING_DIR"/mediawiki/images/" ${BACKUP_DIR}"/im
 
 $WTL_SCRIPTS/make-readwrite.sh "This wiki is currently being backed up"
 
-wtl-log backup-do.sh 3 WTL_BACKUP_FINISHED "Backup for "${WTL_INSTANCE_NAME}" finished"
+wtl-log backup-do.sh 3 BACKUP_FINISHED "Backup for "${WTL_INSTANCE_NAME}" finished"
