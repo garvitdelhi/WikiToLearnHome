@@ -57,7 +57,6 @@ export WTL_DOMAIN_NAME='tuttorotto.biz'
 export WTL_AUTO_COMPOSER=1
 export WTL_BRANCH_AUTO_CHECKOUT=1
 export WTL_BRANCH='master'
-export force-new-config=0
 
 #Digest arguments passed to the bash scripts
 while [[ $# > 0 ]] ; do
@@ -98,7 +97,7 @@ while [[ $# > 0 ]] ; do
             export WTL_AUTO_COMPOSER=0
         ;;
         --force-new-config)
-            export force_new_config=1
+            export force_new_config="yes"
         ;;
         *)
             echo "[create-config] Unknown option: $1"
@@ -112,7 +111,7 @@ done
 
 #checks config file existance
 #this check is not performed if you use --force-new-config
-if [[ $force_new_config == 0 ]] ; then
+if [[ $force_new_config != "yes" ]] ; then
     if [[ -f "$WTL_CONFIG_FILE" ]] ; then
         echo "[create-config] You already have the '"$WTL_CONFIG_FILE"' file on your directory"
         echo "configuration aborted"
