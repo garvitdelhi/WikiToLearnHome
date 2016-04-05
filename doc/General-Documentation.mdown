@@ -1,0 +1,93 @@
+ WikiToLearn Home
+==================
+
+Introduction
+------------
+
+The purpose of this repository, which will be referred to as WikiToLearnHome
+(shortened as WTLH), is setting up an instance of WikiToLearn (shortened as
+WTL), that can either be a development one (run locally on a laptop, with test
+content) or a staging-production one.
+Specific characteristics of the different instances of WikiToLearn will be
+explained in the following sections
+
+All the operations can be performed "manually" (without the help of these
+scripts), but the whole process is quite tedious and it is extremely easy to
+make some errors, thus we highly recommend to use WTLH to setup your
+environment.
+
+Documentation overview
+----------------------
+
+This folders contains the WTLH Documentation.
+
+`local-wtl-instance.mdown` briefly describes the basics operations that can
+be performed with WTLH to manage WTL.
+
+`Script-Documentation.mdown` contains a detailed script overview, for those who
+aim a finer control on WTL
+
+Conventions
+-----------
+
+### Global Environment Variables
+
+Environment Variables that are used by more than one script must begin with
+
+    WTL-*
+
+### Calling other scripts
+
+In this repo there are many script that call other scripts. This action can be
+performed in multiple ways, here it is preferred to use
+
+    ./script.sh
+
+so that `$0` always refers the current script and not the calling one.
+In order to make the caller script exit with error in the case that the called
+script returns error, at the beginning of each script we use `set -e`, that
+closes bash in case of error.
+
+### Style Conventions
+
+#### Line Length
+
+All the lines should be shorter then 80 characters.
+
+#### Indentation
+
+Indentation is performed through 4 spaces. Hence we use soft tab, not hard tab.
+
+If you are using vim, you can achieve this adding
+
+    set expandtab
+    set shiftwidth=2
+    set softtabstop=2
+
+to `~/.vimrc`
+
+## References
+
+### bash
+
+The script are all written in bash. A good source of information about bash can
+be found [here][1]
+
+### Docker Containers
+
+WikiToLearn Infrastructure uses extensively docker containers. If you do not
+know what they are, we suggest that you read the [official documentation][2]
+
+### Documentation
+
+The documentation is written in Markdown. The main advantage is that Markdown
+obliges you to have well fomratted documentation pages. Moreover, if you use
+an editor like [atom][4] you can view a live preview of the html file generated,
+which is terribly fancy.
+If you have no clue on what it is,
+we suggest that you read the [Markdown creator's page][3]
+
+[1]: http://tldp.org/guides.html "The Linux documentaion Project"
+[2]: https://docs.docker.com/ "Docker Documentation"
+[3]: https://daringfireball.net/projects/markdown/ "Markdown Creator's Page"
+[4]: https://atom.io "Atom, by Github"
