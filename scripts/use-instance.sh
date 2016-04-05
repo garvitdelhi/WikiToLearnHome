@@ -36,5 +36,6 @@ else
         $CERTS_MOUNT \
         --link ${WTL_INSTANCE_NAME}-websrv \
         --link ${WTL_INSTANCE_NAME}-parsoid \
+        --link ${WTL_INSTANCE_NAME}-restbase \
         $WTL_DOCKER_HAPROXY
 fi
