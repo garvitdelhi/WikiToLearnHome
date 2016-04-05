@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 #check the user that runs the script
 if [[ $(id -u) -eq 0 ]] || [[ $(id -g) -eq 0 ]] ; then
     echo "[create-config] You can't be root. root has too much power."
@@ -33,6 +34,15 @@ if [[ $? -ne 0 ]] ; then
     echo "[create-config] The command 'docker info' failed."
     echo "docker service is not running,"
     echo "or at least you don't have the permissions to use the service."
+    echo -e "\e[31mFATAL ERROR \e[0m"
+    exit 1
+fi
+
+DOCKER_CURR_VERSION=$(docker version --format '{{.Server.Version}}')
+DOCKER_REQUIRED_VERSOIN="1.10.3"
+if [  "$DOCKER_REQUIRED_VERSOIN" != "`echo -e "$DOCKER_REQUIRED_VERSOIN\n$DOCKER_CURR_VERSION" | sort -V | head -n1`" ] ; then
+    echo "[create-config] Docker version failed."
+    echo "This version of WikiToLearn Home requires docker "$DOCKER_REQUIRED_VERSOIN" and you have the "$DOCKER_CURR_VERSION
     echo -e "\e[31mFATAL ERROR \e[0m"
     exit 1
 fi
@@ -220,6 +230,10 @@ export WTL_PRODUCTION='$WTL_PRODUCTION'
 export WTL_ENV='$WTL_ENV'
 
 export WTL_AUTO_COMPOSER=$WTL_AUTO_COMPOSER
+
+export WTL_MAIL_RELAY_HOST=
+export WTL_MAIL_RELAY_USERNAME=
+export WTL_MAIL_RELAY_PASSWORD=
 EOF
 } > $WTL_CONFIG_FILE
 
