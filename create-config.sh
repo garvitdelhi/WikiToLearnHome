@@ -47,6 +47,7 @@ export WTL_DOMAIN_NAME='tuttorotto.biz'
 export WTL_AUTO_COMPOSER=1
 export WTL_BRANCH_AUTO_CHECKOUT=1
 export WTL_BRANCH='master'
+export force-new-config=0
 
 #Digest arguments passed to the bash scripts
 while [[ $# > 0 ]] ; do
@@ -70,7 +71,7 @@ while [[ $# > 0 ]] ; do
             shift
         ;;
         --production)
-            export WTL_PRODUCTION="1"
+            export WTL_PRODUCTION=1
         ;;
         --domain)
             export WTL_DOMAIN_NAME=$2
@@ -87,7 +88,7 @@ while [[ $# > 0 ]] ; do
             export WTL_AUTO_COMPOSER=0
         ;;
         --force-new-config)
-            export WTL_AUTO_COMPOSER=0
+            export force_new_config=1
         ;;
         *)
             echo "[create-config] Unknown option: $1"
@@ -101,13 +102,14 @@ done
 
 #checks config file existance
 #this check is not performed if you use --force-new-config
-if [[ -f "$WTL_CONFIG_FILE" ]] ; then
-    echo "[create-config] You already have the '"$WTL_CONFIG_FILE"' file on your directory"
-    echo "configuration aborted"
-    echo -e "\e[31mFATAL ERROR \e[0m"
-    exit 1
+if [[ $force_new_config == 0 ]] ; then
+    if [[ -f "$WTL_CONFIG_FILE" ]] ; then
+        echo "[create-config] You already have the '"$WTL_CONFIG_FILE"' file on your directory"
+        echo "configuration aborted"
+        echo -e "\e[31mFATAL ERROR \e[0m"
+        exit 1
+    fi
 fi
-
 
 #protocol handling
 until [[ ${protocol,,} == "ssh" ]] || [[ ${protocol,,} == "https" ]] ; do
