@@ -9,3 +9,5 @@ certs/
 !certs/.placeholder
 backups/
 !backups/.placeholder
+hooks/
+!hooks/.placeholder
