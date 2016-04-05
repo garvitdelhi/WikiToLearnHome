@@ -49,7 +49,7 @@ if [[ "$WTL_MAIL_RELAY_HOST" != "" ]] ; then
     fi
 fi
 
-rsync -av --delete --exclude .placeholder $WTL_CONFIGS_DIR/LocalSettings.d/ $WTL_WORKING_DIR/LocalSettings.d/
+rsync -a --stats --delete --exclude .placeholder $WTL_CONFIGS_DIR/LocalSettings.d/ $WTL_WORKING_DIR/LocalSettings.d/
 
 docker exec -ti ${WTL_INSTANCE_NAME}-websrv su -s /var/www/WikiToLearn/fix-symlinks.sh www-data
 docker exec -ti ${WTL_INSTANCE_NAME}-websrv su -s /var/www/WikiToLearn/fix-configs.sh www-data

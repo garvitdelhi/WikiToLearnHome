@@ -6,7 +6,7 @@ echo $BACKUP_DIR
 
 test -d $BACKUP_DIR || mkdir $BACKUP_DIR
 
-rsync --stats -av $WTL_WORKING_DIR"/mediawiki/images/" ${BACKUP_DIR}"/images/"
+rsync -a --stats --delete $WTL_WORKING_DIR"/mediawiki/images/" ${BACKUP_DIR}"/images/"
 
 $WTL_SCRIPTS/make-readonly.sh "This wiki is currently being backed up"
 
@@ -22,6 +22,6 @@ for db in $(docker exec -ti ${WTL_INSTANCE_NAME}-mysql mysql -e "SHOW DATABASES"
  docker exec -ti ${WTL_INSTANCE_NAME}-mysql mysqldump --no-create-info      --skip-comments --compact $db    > $BACKUP_FILE_DATA
 done
 
-rsync --stats -av $WTL_WORKING_DIR"/mediawiki/images/" ${BACKUP_DIR}"/images/"
+rsync -a --stats --delete $WTL_WORKING_DIR"/mediawiki/images/" ${BACKUP_DIR}"/images/"
 
 $WTL_SCRIPTS/make-readwrite.sh "This wiki is currently being backed up"
