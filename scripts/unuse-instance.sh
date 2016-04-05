@@ -13,9 +13,8 @@ fi
 
 . ./load-libs.sh
 
-echo "Bringing down..."
-
 if docker inspect wikitolearn-haproxy &> /dev/null ; then
+    echo "Bringing down old instance..."
     docker stop wikitolearn-haproxy
     docker rm wikitolearn-haproxy
 fi

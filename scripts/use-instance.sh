@@ -19,19 +19,22 @@ if [[ "$WTL_INSTANCE_NAME" == "" ]] ; then
     exit 1
 fi
 
-echo "Bringing up \"${WTL_INSTANCE_NAME}\"..."
+if docker inspect wikitolearn-haproxy &> /dev/null ; then
+    echo "You have to un use the old instance first"
+else
+    echo "Bringing up \"${WTL_INSTANCE_NAME}\"..."
 
-CERTS_MOUNT=""
-if [[ -d certs/ ]] ; then
-    CERTS_MOUNT=" -v $WTL_DIR/certs/:/certs/:ro "
+    CERTS_MOUNT=""
+    if [[ -d certs/ ]] ; then
+        CERTS_MOUNT=" -v $WTL_DIR/certs/:/certs/:ro "
+    fi
+
+    docker run -d --name wikitolearn-haproxy --restart=always \
+        --label WTL_INSTANCE_NAME=${WTL_INSTANCE_NAME} \
+        --label WTL_WORKING_DIR=$WTL_WORKING_DIR \
+        -p 80:80 -p 443:443 \
+        $CERTS_MOUNT \
+        --link ${WTL_INSTANCE_NAME}-websrv \
+        --link ${WTL_INSTANCE_NAME}-parsoid \
+        $WTL_DOCKER_HAPROXY
 fi
-
-docker run -d --name wikitolearn-haproxy --restart=always \
- --label WTL_INSTANCE_NAME=${WTL_INSTANCE_NAME} \
- --label WTL_WORKING_DIR=$WTL_WORKING_DIR \
- -p 80:80 \
- -p 443:443 \
- $CERTS_MOUNT \
- --link ${WTL_INSTANCE_NAME}-websrv \
- --link ${WTL_INSTANCE_NAME}-parsoid \
- $WTL_DOCKER_HAPROXY
