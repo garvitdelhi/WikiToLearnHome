@@ -1,0 +1,150 @@
+Basic environment setup: local WTL instance
+===========================================
+
+Introduction
+------------
+
+This file descrbes how to setup a non-production basic local WTL
+environment, and is used to generate the [documentation page on meta][meta-guide]
+
+Prerequisites
+-------------
+
+WTL and WTLH have some dependecies:
+
+* any version
+    - curl
+    - rsync
+    - dirname
+    - realpath
+    - git
+    - python (both v2 and v3)
+
+* specific version required
+    - docker ( >= 1.10.3)
+
+### Ubutnu/Debian prerequisites install
+
+``` {.bash}
+sudo apt-get install curl rsync dirname realpath git python
+```
+
+### Arch prerequisites install
+
+``` {.bash}
+sudo pacman -Sy curl rsync coreutils git python
+```
+
+`realpath` is in `AUR`
+
+
+### Docker installation
+
+Dcoker is a quickly evolving technology, and it may be possible that the
+your distro official repository do not have yet the docker version
+requierd to run WTL. We thus recommend to install docker following the
+[official guide][docker-install]
+
+
+Download this repo
+------------------
+
+The entire code is available on [GitHub][GitHub]. If you plan to modify
+the online version of the code, you will need to register on GitHub, since
+this repo is hosted there.
+
+For more information and
+tutorials on 'Git' check these out:
+
+-   [git official documentation][git-official-documentation]
+-   [git official book][git-official-book]
+-   [atlassian git tutorials/][<https://www.atlassian.com/git/tutorials/>]
+-   [think-like-a-git][<http://think-like-a-git.net/>]
+
+Before anything else, navigate to the directory in which you want to
+clone the repository – the home directory is a reasonable choice.
+
+``` {.bash}
+cd ~
+```
+
+Then you can proceed to the actual download with the following command
+line:
+
+``` {.bash}
+git clone --recursive https://github.com/WikiToLearn/WikiToLearnHome.git
+```
+
+This creates a folder called WikiToLearnHome (inside your home
+directory) which contains all the necessary files.
+
+This folder contains all script used to manage the WikiToLearn instance.
+
+Before the download of all the code you have to generate a
+[GitHub token][GitHub-token] (leave all the *scopes* unchecked) (used for
+composer).
+
+``` {.bash}
+cd WikiToLearnHome
+./create-config.sh -t <github token>
+```
+
+We recommend using SSH to communicate with github ([help]).
+
+After this setup you can download the WikiToLearn repository using this
+script
+
+``` {.bash}
+./instance.sh download
+```
+
+### Start and stop the server
+
+To start the local server the command is
+
+``` {.bash}
+./instance.sh first-run
+```
+
+Now you can work on your local instance of WikiToLearn and see your work
+on [www.tuttorotto.biz][www.tuttorotto.biz]
+
+You can shutdown the server with
+
+``` {.bash}
+./instance.sh stop
+```
+
+And start again with
+
+``` {.bash}
+./instance.sh start
+```
+
+Sometimes you might want to wipe out the server and for this you can use
+
+``` {.bash}
+./instance.sh delete
+```
+
+### Update WikiToLearnHome
+
+In order to keep WikiToLearnHome updated you have to run
+
+``` {.bash}
+./instance.sh update-home
+```
+
+[GitHub]: https://github.com/WikiToLearn
+
+[<https://www.atlassian.com/git/tutorials/>]: https://www.atlassian.com/git/tutorials/
+[<http://think-like-a-git.net/>]: http://think-like-a-git.net/
+[git-official-documentation]: https://git-scm.com/doc
+[git-official-book]: https://git-scm.com/book/en/v2
+
+[docker-install]: https://docs.docker.com/engine/installation/linux/
+
+[GitHub-token]: https://github.com/settings/tokens
+[help]: https://help.github.com/articles/generating-an-ssh-key/
+[www.tuttorotto.biz]: http://www.tuttorotto.biz
+[meta-guide]: http://meta.wikitolearn.org/Guide_for_the_development_of_WikiToLearn/Run_WikiToLearnHome "WTLH - meta.wikitolearn.org"
