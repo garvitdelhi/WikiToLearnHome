@@ -52,7 +52,6 @@ case $1 in
         $WTL_SCRIPTS/stop.sh
         $WTL_SCRIPTS/delete.sh
         $WTL_SCRIPTS/delete-volumes.sh
-    /delete-volumes.sh
     ;;
     delete-volumes)
         $WTL_SCRIPTS/delete-volumes.sh

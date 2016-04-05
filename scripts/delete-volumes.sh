@@ -2,8 +2,8 @@
 #delete the docker containers and the various valumes
 [[  "$WTL_SCRIPT_DEBUG" == "1" ]] && set -x
 set -e
-if [[ $(basename $0) != "delete.sh" ]] ; then
-    echo "Wrong way to execute delete.sh"
+if [[ $(basename $0) != "delete-volumes.sh" ]] ; then
+    echo "Wrong way to execute delete-volumes.sh"
     exit 1
 fi
 cd $(dirname $(realpath $0))"/.."
@@ -17,5 +17,7 @@ fi
 echo "[wtl-delete] wtl-destroy: Loading Environment"
 . $WTL_SCRIPTS/environments/$WTL_ENV.sh
 
-echo "[wtl-delete] Removing volumes with prefix '$WTL_INSTANCE_NAME'"
-docker volume rm $(docker volume ls | grep $WTL_INSTANCE_NAME |  awk '{print $2}') 
+if [[ $(docker volume ls | grep $WTL_INSTANCE_NAME |  awk '{print $2}' | wc -l) -gt 0 ]] ; then
+    echo "[wtl-delete] Removing volumes with prefix '$WTL_INSTANCE_NAME'"
+    docker volume rm $(docker volume ls | grep $WTL_INSTANCE_NAME |  awk '{print $2}')
+fi
