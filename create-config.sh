@@ -39,10 +39,10 @@ if [[ $? -ne 0 ]] ; then
 fi
 
 DOCKER_CURR_VERSION=$(docker version --format '{{.Server.Version}}')
-DOCKER_REQUIRED_VERSOIN="1.10.3"
-if [  "$DOCKER_REQUIRED_VERSOIN" != "`echo -e "$DOCKER_REQUIRED_VERSOIN\n$DOCKER_CURR_VERSION" | sort -V | head -n1`" ] ; then
+DOCKER_REQUIRED_VERSION="1.10.3"
+if [  "$DOCKER_REQUIRED_VERSION" != "`echo -e "$DOCKER_REQUIRED_VERSION\n$DOCKER_CURR_VERSION" | sort -V | head -n1`" ] ; then
     echo "[create-config] Docker version failed."
-    echo "This version of WikiToLearn Home requires docker "$DOCKER_REQUIRED_VERSOIN" and you have the "$DOCKER_CURR_VERSION
+    echo "This version of WikiToLearn Home requires docker "$DOCKER_REQUIRED_VERSION" and you have the "$DOCKER_CURR_VERSION
     echo -e "\e[31mFATAL ERROR \e[0m"
     exit 1
 fi
