@@ -1,8 +1,8 @@
 #!/bin/bash
 [[  "$WTL_SCRIPT_DEBUG" == "1" ]] && set -x
 set -e
-if [[ $(basename $0) != "clean-docker-images.sh" ]] ; then
-    echo "Wrong way to execute clean-docker-images.sh"
+if [[ $(basename $0) != "docker-images-clean.sh" ]] ; then
+    echo "Wrong way to execute docker-images-clean.sh"
     exit 1
 fi
 cd $(dirname $(realpath $0))"/.."

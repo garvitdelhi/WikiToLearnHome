@@ -33,7 +33,13 @@ wtl-log () {
         echo -e -n "\e[31mCRITICAL\e[0m"
         echo -n ": "
     fi
-    echo $LOG_MSG
+    echo $SCRIPT_NAME" > "$LOG_MSG
+    if test -d $WTL_HOOKS"/"$EVENT_ID ; then
+        ls $WTL_HOOKS"/"$EVENT_ID | sort | while read file ; do
+            echo $file
+            find $WTL_HOOKS"/"$EVENT_ID -type f -name $file -exec sh -c "echo 'Running hook: '{} ; {}" \;
+        done
+    fi
 }
 
 # check the config file version

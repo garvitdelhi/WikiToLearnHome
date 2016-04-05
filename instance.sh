@@ -47,6 +47,9 @@ case $1 in
         $WTL_SCRIPTS/delete.sh
         $WTL_SCRIPTS/unuse-instance.sh
     ;;
+    delete-volumes)
+        $WTL_SCRIPTS/delete-volumes.sh
+    ;;
     import-devdump)
         $WTL_SCRIPTS/backup-restore.sh $WTL_REPO_DIR/DeveloperDump/
         $WTL_SCRIPTS/update-db.sh
