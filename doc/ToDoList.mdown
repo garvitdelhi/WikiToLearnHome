@@ -25,7 +25,7 @@ Nella documentazione fare una overview di tutte le variabili settate globali
 Chiamata con Luca
 -----------------
 
-#nome script
+# nome script
 
 instance- per quelli che vengono usati spesso
 
