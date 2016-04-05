@@ -43,9 +43,16 @@ case $1 in
         $WTL_SCRIPTS/unuse-instance.sh
     ;;
     delete)
+        $WTL_SCRIPTS/unuse-instance.sh
         $WTL_SCRIPTS/stop.sh
         $WTL_SCRIPTS/delete.sh
+    ;;
+    delete-full)
         $WTL_SCRIPTS/unuse-instance.sh
+        $WTL_SCRIPTS/stop.sh
+        $WTL_SCRIPTS/delete.sh
+        $WTL_SCRIPTS/delete-volumes.sh
+    /delete-volumes.sh
     ;;
     delete-volumes)
         $WTL_SCRIPTS/delete-volumes.sh
