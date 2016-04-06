@@ -92,7 +92,7 @@ fi
 echo
 
 echo "Okok, last question:"
-echo "Do you know what is raffigured in the docker official logo? "
+echo "Which animal is in the docker logo? "
 echo -n "(the answer I expect is composed by a single word): "
 read logo
 I_know_the_logo="0"
