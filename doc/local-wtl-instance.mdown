@@ -19,6 +19,7 @@ WTL and WTLH have some dependecies:
     - realpath
     - git
     - python (both v2 and v3)
+    - pandoc
 
 * specific version required
     - docker ( >= 1.10.3)
@@ -26,13 +27,13 @@ WTL and WTLH have some dependecies:
 ### Ubutnu/Debian prerequisites install
 
 ``` {.bash}
-sudo apt-get install curl rsync dirname realpath git python
+sudo apt-get install curl rsync dirname realpath git python pandoc
 ```
 
 ### Arch prerequisites install
 
 ``` {.bash}
-sudo pacman -Sy curl rsync coreutils git python
+sudo pacman -Sy curl rsync coreutils git python pandoc
 ```
 
 `realpath` is in `AUR`
@@ -45,6 +46,12 @@ your distro official repository do not have yet the docker version
 requierd to run WTL. We thus recommend to install docker following the
 [official guide][docker-install]
 
+### Pandoc
+
+Pandoc is used to convert markdown documentation into mediawiki, that can be
+imported to [meta][meta], thus this is not a real prerequisite, it is only
+needed if you are willing to help us keeping our online documentation
+up to date!
 
 Download this repo
 ------------------
@@ -148,4 +155,5 @@ In order to keep WikiToLearnHome updated you have to run
 [GitHub-token]: https://github.com/settings/tokens
 [help]: https://help.github.com/articles/generating-an-ssh-key/
 [www.tuttorotto.biz]: http://www.tuttorotto.biz
+[meta]: https://meta.wikitolearn.org
 [meta-guide]: http://meta.wikitolearn.org/Guide_for_the_development_of_WikiToLearn/Run_WikiToLearnHome "WTLH - meta.wikitolearn.org"

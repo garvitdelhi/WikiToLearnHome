@@ -9,9 +9,11 @@ These scripts
 
 For a detailed variable overview read the relative section.
 
-### Production and Environment
+WTL Flavours
+-------------------------------
 
-WTL can be run with different purposes.
+WTL can be run with different purposes, and each of them has its own
+peculiarities and requires its own specific configuration and setup.
 
 First of all it can either be run in
 *production* mode, for example as in the main production website or as in
@@ -23,38 +25,130 @@ host), or it can be spread into multiple georeplicated nodes ( *multiple nodes*
 environtment).
 We are currently working on georeplication, so this feature is not ready yet.
 
-### Layers
+Script levels
+-------------
 
-The scripts are organized in *layers*. The first layer is the *interacion* layer
+The scripts are organized in *level*.
+
+The first level is the *interacion* level
 and is constituted by the scripts that the end user should use to interact with
 its WTL repo.
 
-The second layer is the *atomic* layer, and is contituted by single operations
+The second level is the *atomic* level, and is contituted by single operations
 that the user could perform on its WTL repo. These guarantee a finer control
-over the WTL repo. Interaction layer scripts are composed by cobinations of
-atomic layer sripts.
+over the WTL repo. Interaction level scripts are composed by combinations of
+atomic level sripts.
 
-The third layer is the *helper* layer, and is constituted by scripts that
+The third level is the *common* level, which is composed by scripts that
+perform operation that are common among at least two atomic level scripts.
+
+The fourth level is the *helper* level, and is constituted by scripts that
 are environment-dependent.
 
-#### Interaction Layer
+Interaction level
+-----------------
 
-#### Atomic Layer
+#### create-config.sh
 
-#### Helper Layer
+#### instance.sh
 
-##### Basic Environment
+#### const.sh
 
-##### Multiple nodes environtment
+#### load-libs.sh (?)
 
-> Waiting for Luca to Implement this
 
-Global Variables List
----------------------
+Atomic level
+------------
 
-* WTL_PRODUCTION
+#### backup-auto-delete.sh
+#### backup-do.sh
+#### backup-restore.sh
+#### composer-dir.sh
+#### composer-for-dirs.sh
+#### copy-last-backup-to-devdump.sh
+#### create-running.sh
+#### create.sh
+#### delete-volumes.sh
+#### delete.sh
+#### docker-images-clean.sh
+#### docker-images-delete-old-images.sh
+#### docker-images-export.sh
+#### docker-images-import.sh
+#### download-all.sh
+#### download-code.sh
+#### download-mediawiki-extensions.sh
+#### fix-hosts.sh
+#### lang-foreach-php-maintenance.sh
+#### list-instances.sh
+#### make-readonly.sh
+#### make-readwrite.sh
+#### make-self-signed-certs.sh
+#### panic-attack.sh
+#### pull-images.sh
+#### relase-procedure.sh
+#### start.sh
+#### stop.sh
+#### unuse-instance.sh
+#### unused-instance-stop-delete.sh
+#### update-db.sh
+#### update-home.sh
+#### use-instance.sh
 
-* WTL_CONFIG_FILE
+### Helper level
+
+Here is presented just a quick overview of the purposes of each helper
+script.
+
+#### backup-do
+
+#### backup-restore
+
+#### create
+
+#### make-readonly
+
+#### make-readwrite
+
+#### start
+
+
+Environtments
+-------------
+
+Here is analysed the implementation of the helper scripts for each
+environment.
+
+### Basic Environment
+
+### Basic - OCG development
+
+### Multiple nodes environtment
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
