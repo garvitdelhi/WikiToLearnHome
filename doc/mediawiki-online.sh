@@ -25,7 +25,8 @@ case $1 in
         rm -rfv $mediawiki_page_folder/*.mwiki
     ;;
     *)
-        echo "command not found"
+        echo "empy argument!"
+        echo "you are supposed to use $0 make or $0 clean"
         exit
     ;;
 esac
