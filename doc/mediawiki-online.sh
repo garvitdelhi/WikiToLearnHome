@@ -16,16 +16,17 @@ case $1 in
         fi
 
         for i in *.mdown ; do
+            echo -n "Converting: $i ..."
             pandoc -r markdown -t mediawiki \
                 -o $mediawiki_page_folder/${i%.*}.mwiki $i
-            echo "Converted: $i"
+            echo "Done!"
         done
     ;;
     clean)
         rm -rfv $mediawiki_page_folder/*.mwiki
     ;;
     *)
-        echo "empy argument!"
+        echo "empty or wrong argument!"
         echo "you are supposed to use $0 make or $0 clean"
         exit
     ;;

@@ -1,11 +1,15 @@
-Setup local WikiToLearnL instance with WikiToLearnHome
+Setup local WikiToLearn instance with WikiToLearnHome
 ======================================================
 
 Introduction
 ------------
 
 This file descrbes how to setup a non-production basic local WTL
-environment, and is used to generate the [documentation page on meta][meta-guide]
+environment, and is used to generate the [documentation page on meta][meta-guide].
+
+If you are reading this online, be aware that
+this page is imported from [WTLH github repo][WTLH-repo] repo, thus if you are willing to improve this page we recommend not to edit its mediawiki code but download WTLH repo and editing it, or open a pull request on GitHub.
+We are sorry forthe inconvenience, butthis workflow allow us to have a better control over our documentation and avoid to have outdated guides all over the internet. We thank you for your comprehension.
 
 **!!DISCLAIMER!! WikiToLearn does not accept any responsbility or liability if your computer is damaged in any way.**
 
@@ -214,7 +218,7 @@ Once you set up everything, you can proceed following the Linux Installation
 Guide, starting from cloning the git repo (`Download this repo` section).
 
 
-
+[WTLH-repo]: https://github.com/WikiToLearn/WikiToLearnHome "WTLH repo"
 
 [GitHub]: https://github.com/WikiToLearn
 
