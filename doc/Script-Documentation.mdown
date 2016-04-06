@@ -59,8 +59,149 @@ Global Variables List
 
 
 
+
+
+
+
 Draft Section
--------------
+=============
+
+Generic To Do List
+------------------
+
+### Renaming Dockers
+
+docker  names
+    wtl-dev-*
+    wtl-commit_hash-*
+
+### Create List of Available env
+
+Create a list of possible env
+
+### wtl-* scripts
+
+#### wtl-create.sh
+
+Wtl-create.sh (vedere run.sh)
+Andrebbero fatti gli env, non questi script
+
+Status: *BUONA FORTUNA*
+
+#### wtl-start
+
+Wtl-start.sh (vedere run.sh)
+
+Status: *BUONA FORTUNA*
+
+#### wtl-restorebackup
+
+wtl-restoreback (vedere restore.sh)
+
+#### wtl-do-backup
+
+wtl-do-backup
+
+Formato backup
+<nomedb>.struct.sql -> sttruttura db
+<nomedb>.data.sql -> dati db
+images/
+Importare/esportare immagini Docker
+
+#### Wtl-update-db
+
+Wtl-update-db.sh
+langforeach+update.php (init-docker.sh)
+
+Status: *NEED TEST*
+
+#### Wtl-use-instance
+
+Wtl-use-instance.sh
+attiva haproxy (use-instance.sh)
+
+Status: *NEED TEST*
+
+### New Scripts
+
+#### Wtl-manage-extensions.sh
+
+cosa dovrebbe fare di preciso?
+
+#### staging-rollout
+
+**NOTE:** Descrivere Meglio cosa dovrebbe fare
+
+Script per
+Staging/Rollout (su db di chiavi gpg)
+O Backup+importa ultimo backup
+O Backup+restore
+
+##### Staging
+
+Voglio che se non riesce a scaricare qualcosa, continua a riprovarci finchè
+non ci riesce
+
+### Document Done Scripts
+
+#### wtl-download
+
+Wtl-download wtl-download.sh +
+(Scarica immagini docker) pull-images.sh +
+(Scarica repo WTL) download-code.sh
+
+Status: *DONE*
+
+#### Wtl-symlink
+
+Wtl-symlink (vedere init-docker.sh) (da testare bene)
+
+Status: *DONE*
+
+#### Wtl-update-home
+
+Wtl-update-home (gitpull automatico)
+
+Status: *DONE*
+
+#### Wtl-stop
+
+Wtl-stop (docker stop di tutti) delle istanze docker wtl-dev-...
+(non ci sono omologhi)
+
+Status: *DONE*
+
+#### Wtl-stop
+
+Wtl-delete.sh
+(elimina i docker e i volumi) (destroy)
+(evitare di eliminare il docker e tenere i volumi, da problemi con le
+    credenziali di mysql)
+
+Status: *DONE*
+
+#### composer-for-dirs
+
+composer-for-dirs: elencare le cartelle dove fare composer nella config
+(e documentare questa cosa) +
+
+Status: *DONE*
+
+#### wtl-PANICOOOO
+
+    docker stop $(docker ps -a -q)
+    docker rm $(docker ps -a -q)
+    docker rmi $(docker images -q)
+    docker volume rm $(docker volume ls -q)
+
+Status: *DONE*
+
+
+
+
+
+
+
 
 ### const.sh
 
