@@ -23,19 +23,15 @@ if docker inspect wikitolearn-haproxy &> /dev/null ; then
     echo "You have to un use the old instance first"
 else
     echo "Bringing up \"${WTL_INSTANCE_NAME}\"..."
-
-    CERTS_MOUNT=""
-    if [[ -d certs/ ]] ; then
-        CERTS_MOUNT=" -v $WTL_DIR/certs/:/certs/:ro "
-    fi
-
-    docker run -d --name wikitolearn-haproxy --restart=always \
+    docker create --name wikitolearn-haproxy --restart=always \
         --label WTL_INSTANCE_NAME=${WTL_INSTANCE_NAME} \
         --label WTL_WORKING_DIR=$WTL_WORKING_DIR \
         -p 80:80 -p 443:443 \
-        $CERTS_MOUNT \
         --link ${WTL_INSTANCE_NAME}-websrv \
         --link ${WTL_INSTANCE_NAME}-parsoid \
         --link ${WTL_INSTANCE_NAME}-restbase \
         $WTL_DOCKER_HAPROXY
+    docker cp ${WTL_CERTS}/wikitolearn.crt wikitolearn-haproxy:/etc/ssl/certs/haproxy.crt
+    docker cp ${WTL_CERTS}/wikitolearn.key wikitolearn-haproxy:/etc/ssl/private/haproxy.key
+    docker start wikitolearn-haproxy
 fi
