@@ -15,7 +15,7 @@ $WTL_SCRIPTS"/helpers/create/commons/single-node-pre.sh"
 
 docker inspect ${WTL_INSTANCE_NAME}-ocg &> /dev/null
 if [[ $? -ne 0 ]] ; then
-    docker create -ti $MORE_ARGS -v wikitolearn-ocg:/tmp/ocg/ocg-output/ --hostname ocg \
+    docker create -ti $MORE_ARGS -v ${WTL_VOLUME_DIR}wikitolearn-ocg:/tmp/ocg/ocg-output/ --hostname ocg \
         --link ${WTL_INSTANCE_NAME}-restbase:restbase \
         --link ${WTL_INSTANCE_NAME}-parsoid:parsoid \
         --name ${WTL_INSTANCE_NAME}-ocg $WTL_DOCKER_OCG
@@ -30,7 +30,7 @@ if [[ $? -ne 0 ]] ; then
 
     echo "[create/single-node] Creating docker ${WTL_INSTANCE_NAME}-websrv"
     docker create -ti $MORE_ARGS  \
-        -v ${WTL_INSTANCE_NAME}-var-log-apache2:/var/log/apache2 \
+        -v ${WTL_VOLUME_DIR}${WTL_INSTANCE_NAME}-var-log-apache2:/var/log/apache2 \
         --hostname websrv \
         --name ${WTL_INSTANCE_NAME}-websrv \
         -e USER_UID=$WTL_USER_UID \
