@@ -40,7 +40,7 @@ def keys_to_delete (folder):
     print( "\n".join(keys_to_delete))
 
 if __name__ == '__main__':
-    folder = sys.argv[1][1:]
+    folder = sys.argv[1]
     cmd = sys.argv[2]
     if cmd == 'add':
         keys_to_add(folder)
