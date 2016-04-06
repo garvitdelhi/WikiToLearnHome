@@ -18,29 +18,7 @@ else
     . $WTL_CONFIG_FILE
 fi
 
-# create the function to log messages
-# first  parameter must be the script name
-# second parameter must be the log level (0=CRITICAL,1=NORMAL,2=DEBUG,3=TRACE)
-# third  parameter must be the id of the event (must be unique across all scripts)
-# evrything else is the log message
-wtl-log () {
-    EXIT_STATUS=$?
-    SCRIPT_NAME=$1 ; shift
-    LOG_LEVEL=$1   ; shift
-    EVENT_ID=$1    ; shift
-    LOG_MSG=$@
-    if [[ $LOG_LEVEL -eq 0 ]] ; then
-        echo -e -n "\e[31mCRITICAL\e[0m"
-        echo -n ": "
-    fi
-    echo $SCRIPT_NAME" > "$LOG_MSG
-    if test -d $WTL_HOOKS"/"$EVENT_ID ; then
-        ls $WTL_HOOKS"/"$EVENT_ID | sort | while read file ; do
-            echo $file
-            find $WTL_HOOKS"/"$EVENT_ID -type f -name $file -exec sh -c "echo 'Running hook: '{} ; {}" \;
-        done
-    fi
-}
+. ./scripts/wtl-log
 
 # check the config file version
 if [[ "$WTL_CONFIG_FILE_VERSION" != "1" ]] ; then
