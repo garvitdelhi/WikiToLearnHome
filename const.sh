@@ -21,3 +21,5 @@ export WTL_SCRIPTS=$WTL_DIR"/scripts/"
 export WTL_HOOKS=$WTL_DIR"/hooks/"
 
 export WTL_CONFIG_FILE=$WTL_CONFIGS_DIR"wtl.conf"
+
+export WTL_TRUSTED_KEYS_REPO=$WTL_DIR"/certs/trusted_keys"s
