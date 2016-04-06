@@ -1,21 +1,28 @@
 #!/bin/bash
+[[  "$WTL_SCRIPT_DEBUG" == "1" ]] && set -x
+set -e
 
-
-# check the user that runs the script
-if [[ $(id -u) -eq 0 ]] || [[ $(id -g) -eq 0 ]] ; then
-    echo "[create-config] You can't be root. root has too much power."
+if [[ $(basename $0) != "create-config.sh" ]] ; then
+    echo "[create-config.sh] Wrong way to execute create-config.sh"
+    echo "configuration aborted"
     echo -e "\e[31mFATAL ERROR \e[0m"
     exit 1
 fi
 
-# cd to current script folder
 cd $(dirname $(realpath $0))
-if [[ ! -f "create-config.sh" ]] ; then
+if [[ ! -f "const.sh" ]] ; then
     echo "[create-config] Error changing directory"
     echo "configuration aborted"
     echo -e "\e[31mFATAL ERROR \e[0m"
     exit 1
 fi
+
+if [[ $(id -u) -eq 0 ]] || [[ $(id -g) -eq 0 ]] ; then
+    echo "[$0] You can't be root. root has too much power."
+    echo -e "\e[31mFATAL ERROR \e[0m"
+    exit 1
+fi
+# -------------------------------------------------------------
 
 # checks whether git docker curl and rsync are installed
 for cmd in git docker curl rsync python dirname realpath ; do

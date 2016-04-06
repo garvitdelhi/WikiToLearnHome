@@ -10,6 +10,12 @@ If you have any question, feel free to [contact][meta-contacts] us
 
 [meta-contacts]: http://meta.wikitolearn.org/Infrastructure_and_bots "Contacts"
 
+Clean `./` folder
+-----------------
+
+Move `./const.sh` and `./load-libs.sh` inside `./scripts/` folder, adjusting
+all the relative paths
+
 Man page
 --------
 
