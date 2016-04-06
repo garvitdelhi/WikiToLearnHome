@@ -11,3 +11,5 @@ backups/
 !backups/.placeholder
 hooks/
 !hooks/.placeholder
+/doc/mediawiki-online.d
+!/doc/mediawiki-online.d/.placeholder

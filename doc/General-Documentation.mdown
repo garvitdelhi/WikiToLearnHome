@@ -24,8 +24,18 @@ This folders contains the WTLH Documentation.
 `local-wtl-instance.mdown` briefly describes the basics operations that can
 be performed with WTLH to manage WTL.
 
-`Script-Documentation.mdown` contains a detailed script overview, for those who
-aim a finer control on WTL
+`Script-Documentation.mdown` contains a detailed script overview, for those
+who want to a finer control on WTL.
+
+Online documentation
+--------------------
+
+This markdown documentaion files are exported to mediawiki files, that
+can be easily imported on [meta][meta]. The purpose is reducing documentation dispersion and have it all under control in one place,
+WTLH repo. The online documentation should only be an updated copy if this.
+
+It may be possible to find a better way to keep the online doc updated,
+but this should be enough for the moment.
 
 Conventions
 -----------
@@ -91,3 +101,4 @@ we suggest that you read the [Markdown creator's page][3]
 [2]: https://docs.docker.com/ "Docker Documentation"
 [3]: https://daringfireball.net/projects/markdown/ "Markdown Creator's Page"
 [4]: https://atom.io "Atom, by Github"
+[meta]: https://meta.wikitolearn.org

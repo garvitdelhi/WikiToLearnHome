@@ -58,7 +58,7 @@ tutorials on 'Git' check these out:
 
 -   [git official documentation][git-official-documentation]
 -   [git official book][git-official-book]
--   [atlassian git tutorials/][<https://www.atlassian.com/git/tutorials/>]
+-   [atlassian git tutorials][<https://www.atlassian.com/git/tutorials/>]
 -   [think-like-a-git][<http://think-like-a-git.net/>]
 
 Before anything else, navigate to the directory in which you want to
@@ -89,7 +89,8 @@ cd WikiToLearnHome
 ./create-config.sh -t <github token>
 ```
 
-We recommend using SSH to communicate with github ([help]).
+We recommend using SSH to communicate with github
+([guide on ssh key generation here][help]).
 
 After this setup you can download the WikiToLearn repository using this
 script
