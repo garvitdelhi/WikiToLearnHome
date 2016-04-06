@@ -8,8 +8,10 @@ This file descrbes how to setup a non-production basic local WTL
 environment, and is used to generate the [documentation page on meta][meta-guide].
 
 If you are reading this online, be aware that
-this page is imported from [WTLH github repo][WTLH-repo] repo, thus if you are willing to improve this page we recommend not to edit its mediawiki code but download WTLH repo and editing it, or open a pull request on GitHub.
-We are sorry forthe inconvenience, butthis workflow allow us to have a better control over our documentation and avoid to have outdated guides all over the internet. We thank you for your comprehension.
+this page is imported from [WTLH github repo][WTLH-repo] repo, thus if 
+you are willing to improve this page you are free to edit its mediawiki
+code, we promise to read the history and to merge the diff with our
+markdown code before importing it!
 
 **!!DISCLAIMER!! WikiToLearn does not accept any responsbility or liability if your computer is damaged in any way.**
 
