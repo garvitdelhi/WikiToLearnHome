@@ -2,6 +2,11 @@ import sys
 import os
 from glob import glob
 
+'''This script compares files in the key folder with
+the list of previously active keys.
+It returns the list of keys to add to the gpg keyring
+and the list of keys to delete from the keyring'''
+
 def keys_to_add (folder):
     #loading data
     #walking subdir of key dir
@@ -42,6 +47,9 @@ def keys_to_delete (folder):
 if __name__ == '__main__':
     folder = sys.argv[1]
     cmd = sys.argv[2]
+    #checking if the config file of active keys exits
+    if  not os.path.exists(folder+'/active-keys'):
+        open(folder+'/active-keys','w').close()
     if cmd == 'add':
         keys_to_add(folder)
     elif cmd =='delete':
