@@ -38,7 +38,7 @@ WTL and WTLH have some dependecies:
     - dirname
     - realpath
     - git
-    - python (both v2 and v3)
+    - python3
     - pandoc
 
 * specific version required
@@ -47,7 +47,7 @@ WTL and WTLH have some dependecies:
 #### Ubutnu/Debian prerequisites install
 
 ``` {.bash}
-sudo apt-get install curl rsync dirname realpath git python pandoc
+sudo apt-get install curl rsync coreutils realpath git python3 pandoc
 ```
 
 #### Arch prerequisites install
