@@ -39,11 +39,11 @@ that the user could perform on its WTL repo. These guarantee a finer control
 over the WTL repo. Interaction level scripts are composed by combinations of
 atomic level sripts.
 
-The third level is the *common* level, which is composed by scripts that
-perform operation that are common among at least two atomic level scripts.
-
-The fourth level is the *helper* level, and is constituted by scripts that
+The third level is the *helper* level, and is constituted by scripts that
 are environment-dependent.
+
+The fourh level is the *common* level, which is composed by scripts that
+perform operation that are common among at least two helper level scripts from different environments.
 
 Interaction level
 -----------------
