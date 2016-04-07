@@ -15,13 +15,7 @@ if [[ ! -f "const.sh" ]] ; then
     exit 1
 fi
 
-if [[ $(id -u) -eq 0 ]] || [[ $(id -g) -eq 0 ]] ; then
-    echo "[$0] You can't be root. root has too much power."
-    echo -e "\e[31mFATAL ERROR \e[0m"
-    exit 1
-fi
 # -------------------------------------------------------------
-
 
 . ./load-libs.sh
 
