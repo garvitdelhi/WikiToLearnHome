@@ -8,7 +8,7 @@ This file descrbes how to setup a non-production basic local WTL
 environment, and is used to generate the [documentation page on meta][meta-guide].
 
 If you are reading this online, be aware that
-this page is imported from [WTLH github repo][WTLH-repo] repo, thus if 
+this page is imported from [WTLH github repo][WTLH-repo] repo, thus if
 you are willing to improve this page you are free to edit its mediawiki
 code, we promise to read the history and to merge the diff with our
 markdown code before importing it!
@@ -38,11 +38,11 @@ WTL and WTLH have some dependecies:
     - dirname
     - realpath
     - git
-    - python3
     - pandoc
 
 * specific version required
     - docker ( >= 1.10.3)
+    - python3
 
 #### Ubutnu/Debian prerequisites install
 
@@ -53,7 +53,7 @@ sudo apt-get install curl rsync coreutils realpath git python3 pandoc
 #### Arch prerequisites install
 
 ``` {.bash}
-sudo pacman -Sy curl rsync coreutils git python pandoc
+sudo pacman -Sy curl rsync coreutils git python3 pandoc
 ```
 
 `realpath` is in `AUR`
