@@ -16,17 +16,6 @@ scripts), but the whole process is quite tedious and it is extremely easy to
 make some errors, thus we highly recommend to use WTLH to setup your
 environment.
 
-Documentation overview
-----------------------
-
-This folders contains the WTLH Documentation.
-
-`local-wtl-instance.mdown` briefly describes the basics operations that can
-be performed with WTLH to manage WTL.
-
-`Script-Documentation.mdown` contains a detailed script overview, for those
-who want to a finer control on WTL.
-
 Online documentation
 --------------------
 
@@ -36,6 +25,19 @@ WTLH repo. The online documentation should only be an updated copy if this.
 
 It may be possible to find a better way to keep the online doc updated,
 but this should be enough for the moment.
+
+Documentation overview
+----------------------
+
+WTLH Documentation is currently inside `doc` folder and composed by:
+
+`general.mdown`: general infomration about WTLH and WTLH documentation
+
+`local-wtl-instance.mdown` briefly describes the basics operations that can
+be performed with WTLH to manage WTL.
+
+`detailed-script.mdown` contains a detailed script overview, for those
+who want to a finer control on WTL.
 
 Conventions
 -----------
