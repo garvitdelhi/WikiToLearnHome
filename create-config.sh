@@ -25,7 +25,7 @@ fi
 # -------------------------------------------------------------
 
 # checks whether git docker curl and rsync are installed
-for cmd in git docker curl rsync python dirname realpath ; do
+for cmd in git docker curl rsync python3 dirname realpath ; do
     echo -n "[create-config] Searching for "$cmd"..."
     which $cmd &> /dev/null
     if [[ $? -ne 0 ]] ; then
@@ -159,7 +159,7 @@ fi
 if [[ "$WTL_GITHUB_TOKEN" == "" ]] ; then
     if [[ -f "$WTL_DIR/configs/composer/auth.json" ]] ; then
         echo "[create-config] Using already existing github token in '$WTL_DIR/configs/composer/auth.json'"
-        export WTL_GITHUB_TOKEN=$(cat $WTL_DIR/configs/composer/auth.json | python -c 'import json,sys;obj=json.load(sys.stdin);print(obj["config"]["github-oauth"]["github.com"])')
+        export WTL_GITHUB_TOKEN=$(cat $WTL_DIR/configs/composer/auth.json | python3 -c 'import json,sys;obj=json.load(sys.stdin);print(obj["config"]["github-oauth"]["github.com"])')
    else
         echo "[create-config] You must insert '--token' parameter followed by a valid token"
         echo "visit https://git.io/vmNUX to learn how to obtain the token"

@@ -34,25 +34,15 @@ if [[ $? -ne 0 ]] ; then
         --add-host=ocg:`docker run -ti --rm debian:8 /sbin/ip route | awk '/default/ { print  $3}'` \
         $WTL_DOCKER_WEBSRV
 
-    docker inspect ${WTL_INSTANCE_NAME}-websrv &> /dev/null
     echo "[create/single-node] Copying certs to websrv"
-    if [[ $? -ne 0 ]] ; then
-        docker cp ${WTL_CERTS}/wikitolearn.crt ${WTL_INSTANCE_NAME}-websrv:/etc/ssl/certs/apache.crt
-        if [[ $? -ne 0 ]] ; then
+    if ! docker inspect ${WTL_INSTANCE_NAME}-websrv &> /dev/null ; then
+        if ! docker cp ${WTL_CERTS}/wikitolearn.crt ${WTL_INSTANCE_NAME}-websrv:/etc/ssl/certs/apache.crt ; then
+            echo "[create/single-node] Error: Unable to copy wikitolearn.crt to the webserver"
             exit 1
-            echo = "[create/single-node] Error: Unable to copy wikitolearn.crt to the webserver"
         fi
-        docker cp ${WTL_CERTS}/wikitolearn.key ${WTL_INSTANCE_NAME}-websrv:/etc/ssl/private/apache.key
-        if [[ $? -ne 0 ]] ; then
+        if ! docker cp ${WTL_CERTS}/wikitolearn.key ${WTL_INSTANCE_NAME}-websrv:/etc/ssl/private/apache.key ; then
+            echo "[create/single-node] Error: Unable to copy wikitolearn.key to the webserver"
             exit 1
-            echo = "[create/single-node] Error: Unable to copy wikitolearn.key to the webserver"
         fi
     fi
-
-    : 'if [[ "$WTL_RELAY_HOST" != "" ]] ; then
-        {
-        docker exec ${WTL_INSTANCE_NAME}-websrv sed '/^mailhub/d' /etc/ssmtp/ssmtp.conf
-        echo "mailhub=${WTL_RELAY_HOST}" | docker exec -i ${WTL_INSTANCE_NAME}-websrv tee -a /etc/ssmtp/ssmtp.conf
-        } &> /dev/null
-    fi'
 fi
