@@ -1,14 +1,34 @@
-Basic environment setup: local WTL instance
-===========================================
+Setup local WikiToLearn instance with WikiToLearnHome
+======================================================
 
 Introduction
 ------------
 
 This file descrbes how to setup a non-production basic local WTL
-environment, and is used to generate the [documentation page on meta][meta-guide]
+environment, and is used to generate the [documentation page on meta][meta-guide].
 
-Prerequisites
--------------
+If you are reading this online, be aware that
+this page is imported from [WTLH github repo][WTLH-repo] repo, thus if 
+you are willing to improve this page you are free to edit its mediawiki
+code, we promise to read the history and to merge the diff with our
+markdown code before importing it!
+
+**!!DISCLAIMER!! WikiToLearn does not accept any responsbility or liability if your computer is damaged in any way.**
+
+Requirements
+------------
+
+-   64-Bit Computer (docker need a 64 bit system)
+-   GNU/Linux with docker or Windows/OSX with virtualization compatability and
+    enabled
+-   Stable internet connection (download size can be up to 10 GB)
+
+This procedure may fail if you have no Internet access or if the connection is filtered by firewall – this could happen in public places such as universities, libraries, airports, etc.
+
+GNU/Linux installation
+------------------
+
+### Prerequisites
 
 WTL and WTLH have some dependecies:
 
@@ -19,35 +39,41 @@ WTL and WTLH have some dependecies:
     - realpath
     - git
     - python (both v2 and v3)
+    - pandoc
 
 * specific version required
     - docker ( >= 1.10.3)
 
-### Ubutnu/Debian prerequisites install
+#### Ubutnu/Debian prerequisites install
 
 ``` {.bash}
-sudo apt-get install curl rsync dirname realpath git python
+sudo apt-get install curl rsync dirname realpath git python pandoc
 ```
 
-### Arch prerequisites install
+#### Arch prerequisites install
 
 ``` {.bash}
-sudo pacman -Sy curl rsync coreutils git python
+sudo pacman -Sy curl rsync coreutils git python pandoc
 ```
 
 `realpath` is in `AUR`
 
 
-### Docker installation
+#### Docker installation
 
 Dcoker is a quickly evolving technology, and it may be possible that the
 your distro official repository do not have yet the docker version
 requierd to run WTL. We thus recommend to install docker following the
 [official guide][docker-install]
 
+#### Pandoc
 
-Download this repo
-------------------
+Pandoc is used to convert markdown documentation into mediawiki, that can be
+imported to [meta][meta], thus this is not a real prerequisite, it is only
+needed if you are willing to help us keeping our online documentation
+up to date!
+
+### Download this repo
 
 The entire code is available on [GitHub][GitHub]. If you plan to modify
 the online version of the code, you will need to register on GitHub, since
@@ -58,7 +84,7 @@ tutorials on 'Git' check these out:
 
 -   [git official documentation][git-official-documentation]
 -   [git official book][git-official-book]
--   [atlassian git tutorials/][<https://www.atlassian.com/git/tutorials/>]
+-   [atlassian git tutorials][<https://www.atlassian.com/git/tutorials/>]
 -   [think-like-a-git][<http://think-like-a-git.net/>]
 
 Before anything else, navigate to the directory in which you want to
@@ -89,7 +115,8 @@ cd WikiToLearnHome
 ./create-config.sh -t <github token>
 ```
 
-We recommend using SSH to communicate with github ([help]).
+We recommend using SSH to communicate with github
+([guide on ssh key generation here][help]).
 
 After this setup you can download the WikiToLearn repository using this
 script
@@ -135,6 +162,66 @@ In order to keep WikiToLearnHome updated you have to run
 ./instance.sh update-home
 ```
 
+Vagrant Installation for Windows/OSX
+-------------------------------------
+
+WTL is build to work on GNU/Linux. It uses GNU/Linux software, enclosed
+inside docker containers, that require the GNU/Linux kernel.
+Hence, if you want to develop WTL from a Windows/OSX environment you need to
+install a virtual linux system.
+
+### Vagrant Installation
+
+Using Vagrant is a quite simple way of using a virtual linux system for
+development purposes.
+
+This procedure requires using port 8080 tcp, 3128 tcp, 2121 to 2221 tcp
+on your host, this shouldn't be a problem unless you are running a
+network server (apache2, remote web control, ecc.).
+
+If you have a **Windows/OSX** operating system, then you need to run a
+WikiToLearn instance using Vagrant. You can also install Vagrant if you
+have a Linux o.s. However, it is not required to get a fully working
+installation. You can just skip to the next step.
+
+First, you need to install:
+
+-   [VirtualBox] as engine for vagrant
+-   [Vagrant] for Windows/OS X users, for Linux it's optional. On
+    Windows require restart.
+
+Now you have to download the last [devvagrant]. You can download a
+snapshot as zip and then unzip it in your directory or use “git clone”
+to clone the repo.
+
+Now you have to
+
+``` {.bash}
+cd devvagrant # Where there is the Vagrantfile
+vagrant up
+```
+
+This can take a while because it will download the VM.
+
+And then log in to the shell with vagrant command
+
+``` {.bash}
+vagrant ssh
+```
+
+The machine has a FTP server to simplify file transfer, the server is
+anonymous and is reachable with 127.0.0.1 address at 2121 port.You have
+to configure your browser to get proxy configuration file from
+<http://127.0.0.1:8080>. To configure it on Mac OS X, go to System
+Preferences -&gt; Network -&gt; Advanced -&gt; Proxy -&gt; Automatic
+Proxy Configuration and write <http://127.0.0.1:8080> as URL.
+
+Once you set up everything, you can proceed following the Linux Installation
+Guide, starting from cloning the git repo (`Download this repo` section).
+
+
+[WTLH-repo]: https://github.com/WikiToLearn/WikiToLearnHome "WTLH repo"
+
 [GitHub]: https://github.com/WikiToLearn
 
 [<https://www.atlassian.com/git/tutorials/>]: https://www.atlassian.com/git/tutorials/
@@ -142,9 +229,14 @@ In order to keep WikiToLearnHome updated you have to run
 [git-official-documentation]: https://git-scm.com/doc
 [git-official-book]: https://git-scm.com/book/en/v2
 
-[docker-install]: https://docs.docker.com/engine/installation/linux/
+[docker-install]: https://docs.docker.com/engine/installation/GNU/Linux/
 
 [GitHub-token]: https://github.com/settings/tokens
 [help]: https://help.github.com/articles/generating-an-ssh-key/
 [www.tuttorotto.biz]: http://www.tuttorotto.biz
+[meta]: https://meta.wikitolearn.org
 [meta-guide]: http://meta.wikitolearn.org/Guide_for_the_development_of_WikiToLearn/Run_WikiToLearnHome "WTLH - meta.wikitolearn.org"
+
+[VirtualBox]: https://www.virtualbox.org/wiki/Downloads/
+[Vagrant]: https://docs.vagrantup.com/v2/installation/
+[devvagrant]: https://github.com/WikiToLearn/devvagrant

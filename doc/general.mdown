@@ -24,8 +24,18 @@ This folders contains the WTLH Documentation.
 `local-wtl-instance.mdown` briefly describes the basics operations that can
 be performed with WTLH to manage WTL.
 
-`Script-Documentation.mdown` contains a detailed script overview, for those who
-aim a finer control on WTL
+`Script-Documentation.mdown` contains a detailed script overview, for those
+who want to a finer control on WTL.
+
+Online documentation
+--------------------
+
+This markdown documentaion files are exported to mediawiki files, that
+can be easily imported on [meta][meta]. The purpose is reducing documentation dispersion and have it all under control in one place,
+WTLH repo. The online documentation should only be an updated copy if this.
+
+It may be possible to find a better way to keep the online doc updated,
+but this should be enough for the moment.
 
 Conventions
 -----------
@@ -41,12 +51,19 @@ Environment Variables that are used by more than one script must begin with
 In this repo there are many script that call other scripts. This action can be
 performed in multiple ways, here it is preferred to use
 
-    ./script.sh
+```{.bash}
+./script.sh
+```
 
 so that `$0` always refers the current script and not the calling one.
 In order to make the caller script exit with error in the case that the called
 script returns error, at the beginning of each script we use `set -e`, that
 closes bash in case of error.
+
+### if-statements
+
+Every test, especially in if statements, is performed with the operator
+`[[ ... ]]`, in order not to have to worry about the limitations of `[ ... ]`.
 
 ### Style Conventions
 
@@ -60,9 +77,11 @@ Indentation is performed through 4 spaces. Hence we use soft tab, not hard tab.
 
 If you are using vim, you can achieve this adding
 
-    set expandtab
-    set shiftwidth=2
-    set softtabstop=2
+```
+set expandtab
+set shiftwidth=2
+set softtabstop=2
+```
 
 to `~/.vimrc`
 
@@ -71,23 +90,25 @@ to `~/.vimrc`
 ### bash
 
 The script are all written in bash. A good source of information about bash can
-be found [here][1]
+be found [here][tldp-guide]
 
 ### Docker Containers
 
 WikiToLearn Infrastructure uses extensively docker containers. If you do not
-know what they are, we suggest that you read the [official documentation][2]
+know what they are, we suggest that you read the
+[official documentation][docker-doc]
 
 ### Documentation
 
 The documentation is written in Markdown. The main advantage is that Markdown
 obliges you to have well fomratted documentation pages. Moreover, if you use
-an editor like [atom][4] you can view a live preview of the html file generated,
+an editor like [atom][atom] you can view a live preview of the html file generated,
 which is terribly fancy.
 If you have no clue on what it is,
-we suggest that you read the [Markdown creator's page][3]
+we suggest that you read the [Markdown creator's page][markdown-doc]
 
-[1]: http://tldp.org/guides.html "The Linux documentaion Project"
-[2]: https://docs.docker.com/ "Docker Documentation"
-[3]: https://daringfireball.net/projects/markdown/ "Markdown Creator's Page"
-[4]: https://atom.io "Atom, by Github"
+[tldp-guide]: http://tldp.org/guides.html "The Linux documentaion Project"
+[docker-doc]: https://docs.docker.com/ "Docker Documentation"
+[markdown-doc]: https://daringfireball.net/projects/markdown/ "Markdown Creator's Page"
+[atom]: https://atom.io "Atom, by Github"
+[meta]: https://meta.wikitolearn.org

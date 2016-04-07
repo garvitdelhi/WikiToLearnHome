@@ -1,23 +1,30 @@
 #!/bin/bash
+[[  "$WTL_SCRIPT_DEBUG" == "1" ]] && set -x
+set -e
 
-
-#check the user that runs the script
-if [[ $(id -u) -eq 0 ]] || [[ $(id -g) -eq 0 ]] ; then
-    echo "[create-config] You can't be root. root has too much power."
+if [[ $(basename $0) != "create-config.sh" ]] ; then
+    echo "[create-config.sh] Wrong way to execute create-config.sh"
+    echo "configuration aborted"
     echo -e "\e[31mFATAL ERROR \e[0m"
     exit 1
 fi
 
-#cd to current script folder
 cd $(dirname $(realpath $0))
-if [[ ! -f "create-config.sh" ]] ; then
+if [[ ! -f "const.sh" ]] ; then
     echo "[create-config] Error changing directory"
     echo "configuration aborted"
     echo -e "\e[31mFATAL ERROR \e[0m"
     exit 1
 fi
 
-#checks whether git docker curl and rsync are installed
+if [[ $(id -u) -eq 0 ]] || [[ $(id -g) -eq 0 ]] ; then
+    echo "[$0] You can't be root. root has too much power."
+    echo -e "\e[31mFATAL ERROR \e[0m"
+    exit 1
+fi
+# -------------------------------------------------------------
+
+# checks whether git docker curl and rsync are installed
 for cmd in git docker curl rsync python dirname realpath ; do
     echo -n "[create-config] Searching for "$cmd"..."
     which $cmd &> /dev/null
@@ -47,7 +54,7 @@ if [  "$DOCKER_REQUIRED_VERSION" != "`echo -e "$DOCKER_REQUIRED_VERSION\n$DOCKER
     exit 1
 fi
 
-#call ./const.sh script: load constant environment variables
+# call ./const.sh script: load constant environment variables
 . ./const.sh
 
 # default value for variabile
@@ -58,7 +65,7 @@ export WTL_AUTO_COMPOSER=1
 export WTL_BRANCH_AUTO_CHECKOUT=1
 export WTL_BRANCH='master'
 
-#Digest arguments passed to the bash scripts
+# Digest arguments passed to the bash scripts
 while [[ $# > 0 ]] ; do
     case $1 in
         -p | --protocol)
@@ -109,8 +116,8 @@ while [[ $# > 0 ]] ; do
     shift
 done
 
-#checks config file existance
-#this check is not performed if you use --force-new-config
+# checks config file existance
+# this check is not performed if you use --force-new-config
 if [[ $force_new_config != "yes" ]] ; then
     if [[ -f "$WTL_CONFIG_FILE" ]] ; then
         echo "[create-config] You already have the '"$WTL_CONFIG_FILE"' file on your directory"
@@ -120,7 +127,7 @@ if [[ $force_new_config != "yes" ]] ; then
     fi
 fi
 
-#protocol handling
+# protocol handling
 until [[ ${protocol,,} == "ssh" ]] || [[ ${protocol,,} == "https" ]] ; do
     echo "Do you want to use ssh or https to clone the repository?"
     echo -n "(insert 'https' or 'ssh'): "
@@ -130,14 +137,14 @@ done
 protocol=${protocol,,}
 echo "[create-config] You are using $protocol"
 
-#control if http or ssh
+# control if http or ssh
 if [[ $protocol == "https" ]] ; then
     WTL_URL="https://github.com/WikiToLearn/WikiToLearn.git"
 elif [[ $protocol == "ssh" ]] ; then
     WTL_URL="git@github.com:WikiToLearn/WikiToLearn.git"
 fi
 
-#WTL folder handling
+# WTL folder handling
 if [[ -d "$WTL_REPO_DIR" ]] && [[ $existing_repo != "yes" ]] ; then
     echo "[create-config] $WTL_REPO_DIR directory already exists."
     echo -n "Delete it or move it in another folder, "
@@ -148,7 +155,7 @@ if [[ -d "$WTL_REPO_DIR" ]] && [[ $existing_repo != "yes" ]] ; then
     exit 1
 fi
 
-#GitHub token handling
+# GitHub token handling
 if [[ "$WTL_GITHUB_TOKEN" == "" ]] ; then
     if [[ -f "$WTL_DIR/configs/composer/auth.json" ]] ; then
         echo "[create-config] Using already existing github token in '$WTL_DIR/configs/composer/auth.json'"
@@ -169,7 +176,7 @@ elif [[ ${WTL_GITHUB_TOKEN:0:1} == "-" ]] ; then
     exit 1
 else
 
-#environtment handling
+# environtment handling
 if [[ ! -f "$WTL_SCRIPTS/environments/$WTL_ENV.sh" ]] ; then
     echo "[create-config] $WTL_ENV is not a valid environment"
     echo "re-execute the script using '-e' followed by one of those valid environments:"
@@ -180,7 +187,7 @@ if [[ ! -f "$WTL_SCRIPTS/environments/$WTL_ENV.sh" ]] ; then
     exit 1
 fi
 
-#Store GitHub token
+# Store GitHub token
 if [[ ! -d $WTL_DIR/configs/composer ]]; then
     mkdir $WTL_DIR/configs/composer
 fi
@@ -235,6 +242,8 @@ export WTL_MAIL_RELAY_USERNAME=
 export WTL_MAIL_RELAY_PASSWORD=
 export WTL_MAIL_RELAY_FROM_ADDRESS=
 export WTL_MAIL_RELAY_STARTTLS=1
+
+export WTL_VOLUME_DIR=
 EOF
 } > $WTL_CONFIG_FILE
 

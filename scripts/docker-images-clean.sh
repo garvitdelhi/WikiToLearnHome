@@ -13,4 +13,6 @@ fi
 
 . ./load-libs.sh
 
-docker rmi $(docker images --filter "dangling=true" -q)
+if [[ $(docker images --filter "dangling=true" -q | wc -l) -gt 0 ]] ; then
+    docker rmi $(docker images --filter "dangling=true" -q)
+fi

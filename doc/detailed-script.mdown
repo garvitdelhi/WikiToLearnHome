@@ -1,0 +1,441 @@
+Detailed script overview
+========================
+
+The developer of the WikiToLearn is supposed to only run the scripts contained
+in `./WikiToLearnHome` folder, according to the given instructions, since these
+bundle all the basic operations that one would do to the WTL local instance.
+
+These scripts
+
+For a detailed variable overview read the relative section.
+
+WTL Flavours
+-------------------------------
+
+WTL can be run with different purposes, and each of them has its own
+peculiarities and requires its own specific configuration and setup.
+
+First of all it can either be run in
+*production* mode, for example as in the main production website or as in
+the various staging websites, or in *non-production* mode, which can be local
+development, or testing new servers and services.
+
+Secondly, WTL environtment can be *basic* , i.e. it runs on a single node (or
+host), or it can be spread into multiple georeplicated nodes ( *multiple nodes*
+environtment).
+We are currently working on georeplication, so this feature is not ready yet.
+
+Script levels
+-------------
+
+The scripts are organized in *level*.
+
+The first level is the *interacion* level
+and is constituted by the scripts that the end user should use to interact with
+its WTL repo.
+
+The second level is the *atomic* level, and is contituted by single operations
+that the user could perform on its WTL repo. These guarantee a finer control
+over the WTL repo. Interaction level scripts are composed by combinations of
+atomic level sripts.
+
+The third level is the *helper* level, and is constituted by scripts that
+are environment-dependent.
+
+The fourh level is the *common* level, which is composed by scripts that
+perform operation that are common among at least two helper level scripts from
+different environments.
+
+Recurring Commands
+------------------
+
+This section describes the commands that are recurring in many scripts.
+
+### repo-wide script beginning
+
+Every script should start with the following commands.
+
+#### Debugging mode
+Every script starts with
+
+```{.bash}
+[[  "$WTL_SCRIPT_DEBUG" == "1" ]] && set -x
+```
+
+which enables *debug mode*, meaning that runs the script printing to standard
+output every command executed, a sort of trace mode.
+
+#### exit on errors
+As already anticipated, every script contains the line
+
+```{.bash}
+set -e
+```
+
+in order to exit immediately if a command exits with a non-zero status.
+Consult `set` manpage for further information.
+
+#### Check of how the script is run
+
+As anticipated in `general.mdown`, all the scripts should be launched by the
+user and other script with
+
+```{.bash}
+./script.sh
+```
+
+so that `$0` always contains the correct script name, since if you launch a
+call a script with
+
+```{.bash}
+. ./script.sh
+```
+
+then inside `script.sh` the variable `$0` contains the caller script name,
+and we do not like it.
+
+We need a way that allows us to check if the script is launched in te correct
+way, and we do this by comparing the value of `$0` with what we expect.
+This check is performed by the following commands:
+
+```{.bash}
+if [[ $(basename $0) != "instance.sh" ]] ; then
+    echo "Wrong way to execute instance.sh"
+    exit 1
+fi
+```
+
+#### Change directory to /path/to/WikiToLearnHome/
+
+For sake of simplicity we want every script to operate inside WTLH main folder,
+this is performed by changing the directory to the correct relative path of
+the script to WTLH main folder Therefore if the script is contained in
+WTLH main folder, we simply do
+
+```{.bash}
+cd $(dirname $(realpath $0))
+```
+that changes directory to the directory that contains the current script.
+
+If the script is contained in `script` folder, we do
+
+```{.bash}
+cd $(dirname $(realpath $0))"/.."
+```
+that changes directory to the directory that contains the directory that
+contains the current script. Ok, i guess you have understood how this works.
+
+Lastly we perform a check to be sure that the cd has been successfull: we test
+if the `const.sh` file is present, since it should be in WTLH main folder.
+
+```{.bash}
+if [[ ! -f "const.sh" ]] ; then
+    echo "Error changing directory"
+    exit 1
+fi
+```
+
+#### Check about the user that runs the script
+
+WTL can and should be managed by a simple user, we do not require it to have
+administrative powers (remember to add your user to dockergroup!).
+Running WTL as superuser can cause errors. We need to check that the scripts
+are executed by a simple user, this check is performed by:
+
+```{.bash}
+# check the user that runs the script
+if [[ $(id -u) -eq 0 ]] || [[ $(id -g) -eq 0 ]] ; then
+    echo "[$0] You can't be root. root has too much power."
+    echo -e "\e[31mFATAL ERROR \e[0m"
+    exit 1
+fi
+```
+
+Interaction level
+-----------------
+
+#### create-config.sh
+
+
+
+#### instance.sh
+
+#### const.sh
+
+#### load-libs.sh
+
+
+Atomic level
+------------
+
+#### backup-auto-delete.sh
+#### backup-do.sh
+#### backup-restore.sh
+#### composer-dir.sh
+#### composer-for-dirs.sh
+#### copy-last-backup-to-devdump.sh
+#### create-running.sh
+#### create.sh
+#### delete-volumes.sh
+#### delete.sh
+#### docker-images-clean.sh
+#### docker-images-delete-old-images.sh
+#### docker-images-export.sh
+#### docker-images-import.sh
+#### download-all.sh
+#### download-code.sh
+#### download-mediawiki-extensions.sh
+#### fix-hosts.sh
+#### lang-foreach-php-maintenance.sh
+#### list-instances.sh
+#### make-readonly.sh
+#### make-readwrite.sh
+#### make-self-signed-certs.sh
+#### panic-attack.sh
+#### pull-images.sh
+#### relase-procedure.sh
+#### start.sh
+#### stop.sh
+#### unuse-instance.sh
+#### unused-instance-stop-delete.sh
+#### update-db.sh
+#### update-home.sh
+#### use-instance.sh
+#### wtl-log
+
+### Helper level
+
+Here is presented just a quick overview of the purposes of each helper
+script.
+
+#### backup-do
+
+#### backup-restore
+
+#### create
+
+#### make-readonly
+
+#### make-readwrite
+
+#### start
+
+
+Environtments
+-------------
+
+Here is analysed the implementation of the helper scripts for each
+environment.
+
+### Basic Environment
+
+### Basic - OCG development
+
+### Multiple nodes environtment
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Draft Section
+=============
+
+Generic To Do List
+------------------
+
+### Renaming Dockers
+
+docker  names
+    wtl-dev-*
+    wtl-commit_hash-*
+
+### Create List of Available env
+
+Create a list of possible env
+
+### wtl-* scripts
+
+#### wtl-create.sh
+
+Wtl-create.sh (vedere run.sh)
+Andrebbero fatti gli env, non questi script
+
+Status: *BUONA FORTUNA*
+
+#### wtl-start
+
+Wtl-start.sh (vedere run.sh)
+
+Status: *BUONA FORTUNA*
+
+#### wtl-restorebackup
+
+wtl-restoreback (vedere restore.sh)
+
+#### wtl-do-backup
+
+wtl-do-backup
+
+Formato backup
+<nomedb>.struct.sql -> sttruttura db
+<nomedb>.data.sql -> dati db
+images/
+Importare/esportare immagini Docker
+
+#### Wtl-update-db
+
+Wtl-update-db.sh
+langforeach+update.php (init-docker.sh)
+
+Status: *NEED TEST*
+
+#### Wtl-use-instance
+
+Wtl-use-instance.sh
+attiva haproxy (use-instance.sh)
+
+Status: *NEED TEST*
+
+### New Scripts
+
+#### Wtl-manage-extensions.sh
+
+cosa dovrebbe fare di preciso?
+
+#### staging-rollout
+
+**NOTE:** Descrivere Meglio cosa dovrebbe fare
+
+Script per
+Staging/Rollout (su db di chiavi gpg)
+O Backup+importa ultimo backup
+O Backup+restore
+
+##### Staging
+
+Voglio che se non riesce a scaricare qualcosa, continua a riprovarci finchè
+non ci riesce
+
+### Document Done Scripts
+
+#### wtl-download
+
+Wtl-download wtl-download.sh +
+(Scarica immagini docker) pull-images.sh +
+(Scarica repo WTL) download-code.sh
+
+Status: *DONE*
+
+#### Wtl-symlink
+
+Wtl-symlink (vedere init-docker.sh) (da testare bene)
+
+Status: *DONE*
+
+#### Wtl-update-home
+
+Wtl-update-home (gitpull automatico)
+
+Status: *DONE*
+
+#### Wtl-stop
+
+Wtl-stop (docker stop di tutti) delle istanze docker wtl-dev-...
+(non ci sono omologhi)
+
+Status: *DONE*
+
+#### Wtl-stop
+
+Wtl-delete.sh
+(elimina i docker e i volumi) (destroy)
+(evitare di eliminare il docker e tenere i volumi, da problemi con le
+    credenziali di mysql)
+
+Status: *DONE*
+
+#### composer-for-dirs
+
+composer-for-dirs: elencare le cartelle dove fare composer nella config
+(e documentare questa cosa) +
+
+Status: *DONE*
+
+#### wtl-PANICOOOO
+
+    docker stop $(docker ps -a -q)
+    docker rm $(docker ps -a -q)
+    docker rmi $(docker images -q)
+    docker volume rm $(docker volume ls -q)
+
+Status: *DONE*
+
+
+
+
+
+
+
+
+### const.sh
+
+cd in current directory
+Defines environment variables
+
+### create-config.sh
+
+Create user config "$WTL\_CONFIG\_FILE"
+
+Instance, url, github token (composer), plugins for
+customization  ($WTL\_USE\_DEFAULT)
+
+### download-code.sh
+
+pull, submodule init
+
+warning: discard changes!
+
+### active-instance
+
+the old use instance: let's start everything
+
+calls load-libs
+
+we create a new instance (eg when shipping new versions= zero downtime)
+
+### load-libs
+
+?????
+
+### run-all
+
+upstart

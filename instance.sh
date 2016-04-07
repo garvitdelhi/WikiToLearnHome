@@ -2,7 +2,26 @@
 [[  "$WTL_SCRIPT_DEBUG" == "1" ]] && set -x
 set -e
 
+if [[ $(basename $0) != "instance.sh" ]] ; then
+    echo "[istance.sh] Wrong way to execute instance.sh"
+    echo -e "\e[31mFATAL ERROR \e[0m"
+    exit 1
+fi
+
 cd $(dirname $(realpath $0))
+if [[ ! -f "const.sh" ]] ; then
+    echo "[instance.sh] Error changing directory"
+    echo -e "\e[31mFATAL ERROR \e[0m"
+    exit 1
+fi
+
+if [[ $(id -u) -eq 0 ]] || [[ $(id -g) -eq 0 ]] ; then
+    echo "[$0] You can't be root. root has too much power."
+    echo -e "\e[31mFATAL ERROR \e[0m"
+    exit 1
+fi
+# -------------------------------------------------------------
+
 
 . ./load-libs.sh
 
@@ -88,6 +107,8 @@ case $1 in
         $WTL_SCRIPTS/relase-procedure.sh
         $WTL_SCRIPTS/backup-auto-delete.sh
         $WTL_SCRIPTS/unused-instance-stop-delete.sh
+        $WTL_SCRIPTS/docker-images-delete-old-images.sh
+        $WTL_SCRIPTS/docker-images-clean.sh
     ;;
     help)
         echo "No help yet, sorry"
