@@ -5,8 +5,9 @@
 WTL_BACKUP_DIR="$1"
 
 for dbname in $(cat $WTL_WORKING_DIR/databases.conf) ; do
-    if [[ $(docker exec -ti wtl-dev-mysql mysql $dbname -e "SHOW TABLES" | wc -l) -eq 0 ]] ; then
-        wtl-log helpers/backup-restore/single-node.sh 0 RESTORE_NON_EMPTY_DB "The "$dbname" is not empty"
+    TABLE_COUNT=$(docker exec -ti wtl-dev-mysql mysql $dbname -e "SHOW TABLES" | wc -l)
+    if [[ $TABLE_COUNT -ne 0 ]] ; then
+        wtl-log helpers/backup-restore/single-node.sh 0 RESTORE_NON_EMPTY_DB "The "$dbname" is not empty ("$TABLE_COUNT" tables)"
         exit 1
     fi
 done
