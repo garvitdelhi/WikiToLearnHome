@@ -101,6 +101,7 @@ while [[ $# > 0 ]] ; do
         --backup-max-num)
             export WTL_BACKUPS_MAX_NUM=$2
             shift
+        ;;
         --no-auto-checkout)
             export WTL_BRANCH_AUTO_CHECKOUT=0
         ;;
