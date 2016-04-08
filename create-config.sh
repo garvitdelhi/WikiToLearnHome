@@ -183,7 +183,7 @@ else
 # environtment handling
 if [[ ! -f "$WTL_SCRIPTS/environments/$WTL_ENV.sh" ]] ; then
     echo "[create-config] $WTL_ENV is not a valid environment"
-    echo "re-execute the script using '-e' followed by one of those valid environments:"
+    echo "re-execute the script using '-e' followed by one of these valid environments:"
     for script in $( ls $WTL_SCRIPTS/environments/ | grep -v - ) ; do
         echo "$env_options ${script//.sh}"
     done
