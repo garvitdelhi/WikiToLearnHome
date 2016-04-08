@@ -22,9 +22,8 @@ fi
 
 
 
-while [[ $(ls $WTL_BACKUPS | grep -v StaticBackup | wc -l) -gt 1 ]] ; do
+while [[ $(ls $WTL_BACKUPS | grep -v StaticBackup | wc -l) -gt $WTL_BACKUPS_MAX_NUM ]] ; do
     BACKUP_TO_DELETE=`ls -tr $WTL_BACKUPS | grep -v StaticBackup | head -1`
     wtl-log backup-auto-delete.sh 3 BACKUP_AUTO_DELETE "Deleting the backup: "$BACKUP_TO_DELETE
     rm -Rf $WTL_BACKUPS"/"$BACKUP_TO_DELETE"/"
 done
-

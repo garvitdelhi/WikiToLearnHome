@@ -64,6 +64,7 @@ export WTL_DOMAIN_NAME='tuttorotto.biz'
 export WTL_AUTO_COMPOSER=1
 export WTL_BRANCH_AUTO_CHECKOUT=1
 export WTL_BRANCH='master'
+export WTL_BACKUPS_MAX_NUM=1
 
 # Digest arguments passed to the bash scripts
 while [[ $# > 0 ]] ; do
@@ -97,6 +98,9 @@ while [[ $# > 0 ]] ; do
             export WTL_BRANCH=$2
             shift
         ;;
+        --backup-max-num)
+            export WTL_BACKUPS_MAX_NUM=$2
+            shift
         --no-auto-checkout)
             export WTL_BRANCH_AUTO_CHECKOUT=0
         ;;
