@@ -104,6 +104,15 @@ case $1 in
         $WTL_SCRIPTS/docker-images-delete-old-images.sh
         $WTL_SCRIPTS/docker-images-clean.sh
     ;;
+    release-do)
+        $WTL_SCRIPTS/relase-procedure.sh
+    ;;
+    release-clean)
+        $WTL_SCRIPTS/backup-auto-delete.sh
+        $WTL_SCRIPTS/unused-instance-stop-delete.sh
+        $WTL_SCRIPTS/docker-images-delete-old-images.sh
+        $WTL_SCRIPTS/docker-images-clean.sh
+    ;;
     help)
         echo "No help yet, sorry"
     ;;
