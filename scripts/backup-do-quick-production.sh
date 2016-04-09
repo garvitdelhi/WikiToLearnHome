@@ -1,8 +1,8 @@
 #!/bin/bash
 [[  "$WTL_SCRIPT_DEBUG" == "1" ]] && set -x
 set -e
-if [[ $(basename $0) != "backup-do-production.sh" ]] ; then
-    echo "Wrong way to execute backup-do-production.sh"
+if [[ $(basename $0) != "backup-do-quick-production.sh" ]] ; then
+    echo "Wrong way to execute backup-do-quick-production.sh"
     exit 1
 fi
 cd $(dirname $(realpath $0))"/.."
