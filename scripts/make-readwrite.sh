@@ -14,4 +14,4 @@ fi
 . ./load-libs.sh
 
 . $WTL_SCRIPTS/environments/${WTL_ENV}.sh
-$WTL_SCRIPTS/helpers/make-readwrite/${WTL_HELPER_MAKE_READWRITE}.sh
+$WTL_SCRIPTS/helpers/make-readwrite/${WTL_HELPER_MAKE_READWRITE}.sh "$@"

@@ -46,6 +46,7 @@ if [[ "$NEW_WTL_INSTANCE_NAME" != "$OLD_WTL_INSTANCE_NAME" ]] ; then
 
     $WTL_SCRIPTS/pull-images.sh
 
+
     docker inspect wikitolearn-haproxy &> /dev/null && {
         export WTL_INSTANCE_NAME=$OLD_WTL_INSTANCE_NAME
         export WTL_WORKING_DIR=$OLD_WTL_WORKING_DIR
