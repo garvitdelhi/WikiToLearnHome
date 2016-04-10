@@ -18,10 +18,10 @@ for db in $(docker exec -ti ${WTL_INSTANCE_NAME}-mysql mysql -e "SHOW DATABASES"
  BACKUP_FILE_STRUCT=$BACKUP_FILE".struct.sql"
  BACKUP_FILE_DATA=$BACKUP_FILE".data.sql"
 
- docker exec -ti ${WTL_INSTANCE_NAME}-mysql mysqldump --skip-add-drop-table --skip-comments --compact -d $db > $BACKUP_FILE_STRUCT
+ docker exec -ti ${WTL_INSTANCE_NAME}-mysql mysqldump --skip-add-drop-table --skip-comments -d $db > $BACKUP_FILE_STRUCT
  sed -i 's/CREATE TABLE/CREATE TABLE IF NOT EXISTS/g' $BACKUP_FILE_STRUCT
 
- docker exec -ti ${WTL_INSTANCE_NAME}-mysql mysqldump --no-create-info      --skip-comments --compact $db    > $BACKUP_FILE_DATA
+ docker exec -ti ${WTL_INSTANCE_NAME}-mysql mysqldump --no-create-info $db    > $BACKUP_FILE_DATA
 done
 
 rsync -a --stats --delete $WTL_WORKING_DIR"/mediawiki/images/" ${BACKUP_DIR}"/images/"
