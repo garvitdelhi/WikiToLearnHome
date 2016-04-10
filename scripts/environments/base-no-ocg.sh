@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "[environment] Using 'base' environment"
+echo "[environment] Using 'base-no-ocg' environment"
 
 if [[ "$WTL_WORKING_DIR" == "" ]] ; then
     export WTL_WORKING_DIR=$WTL_REPO_DIR
@@ -15,12 +15,12 @@ fi
 
 export WTL_MATHOID_NUM_WORKERS=1
 
-export WTL_HELPER_CREATE="single-node"
-export WTL_HELPER_START="single-node"
+export WTL_HELPER_CREATE="single-node-no-ocg"
+export WTL_HELPER_START="single-node-no-ocg"
 export WTL_HELPER_RESTORE_BACKUP="single-node"
 export WTL_HELPER_DO_BACKUP="single-node"
 export WTL_HELPER_MAKE_READONLY="single-node"
 export WTL_HELPER_MAKE_READWRITE="single-node"
 export WTL_HELPER_DO_BACKUP_QUICK="single-node"
 
-export WTL_DOCKER_IMAGES_LIST="WTL_DOCKER_MEMCACHED WTL_DOCKER_MATHOID WTL_DOCKER_MYSQL WTL_DOCKER_OCG WTL_DOCKER_PARSOID WTL_DOCKER_HAPROXY WTL_DOCKER_WEBSRV WTL_DOCKER_RESTBASE"
+export WTL_DOCKER_IMAGES_LIST="WTL_DOCKER_MEMCACHED WTL_DOCKER_MATHOID WTL_DOCKER_MYSQL WTL_DOCKER_PARSOID WTL_DOCKER_HAPROXY WTL_DOCKER_WEBSRV WTL_DOCKER_RESTBASE"

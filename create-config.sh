@@ -25,7 +25,7 @@ fi
 # -------------------------------------------------------------
 
 # checks whether git docker curl and rsync are installed
-for cmd in git docker curl rsync python dirname realpath ; do
+for cmd in git docker curl rsync python3 dirname realpath ; do
     echo -n "[create-config] Searching for "$cmd"..."
     which $cmd &> /dev/null
     if [[ $? -ne 0 ]] ; then
@@ -64,6 +64,7 @@ export WTL_DOMAIN_NAME='tuttorotto.biz'
 export WTL_AUTO_COMPOSER=1
 export WTL_BRANCH_AUTO_CHECKOUT=1
 export WTL_BRANCH='master'
+export WTL_BACKUPS_MAX_NUM=1
 
 # Digest arguments passed to the bash scripts
 while [[ $# > 0 ]] ; do
@@ -95,6 +96,10 @@ while [[ $# > 0 ]] ; do
         ;;
         --branch)
             export WTL_BRANCH=$2
+            shift
+        ;;
+        --backup-max-num)
+            export WTL_BACKUPS_MAX_NUM=$2
             shift
         ;;
         --no-auto-checkout)
@@ -159,7 +164,7 @@ fi
 if [[ "$WTL_GITHUB_TOKEN" == "" ]] ; then
     if [[ -f "$WTL_DIR/configs/composer/auth.json" ]] ; then
         echo "[create-config] Using already existing github token in '$WTL_DIR/configs/composer/auth.json'"
-        export WTL_GITHUB_TOKEN=$(cat $WTL_DIR/configs/composer/auth.json | python -c 'import json,sys;obj=json.load(sys.stdin);print(obj["config"]["github-oauth"]["github.com"])')
+        export WTL_GITHUB_TOKEN=$(cat $WTL_DIR/configs/composer/auth.json | python3 -c 'import json,sys;obj=json.load(sys.stdin);print(obj["config"]["github-oauth"]["github.com"])')
    else
         echo "[create-config] You must insert '--token' parameter followed by a valid token"
         echo "visit https://git.io/vmNUX to learn how to obtain the token"
@@ -179,7 +184,7 @@ else
 # environtment handling
 if [[ ! -f "$WTL_SCRIPTS/environments/$WTL_ENV.sh" ]] ; then
     echo "[create-config] $WTL_ENV is not a valid environment"
-    echo "re-execute the script using '-e' followed by one of those valid environments:"
+    echo "re-execute the script using '-e' followed by one of these valid environments:"
     for script in $( ls $WTL_SCRIPTS/environments/ | grep -v - ) ; do
         echo "$env_options ${script//.sh}"
     done
@@ -251,6 +256,7 @@ if [[ -f "$WTL_CONFIG_FILE" ]] ; then
  echo "[create-config] Configuration file created!"
 fi
 
-./load-libs.sh
+#final check that evth worked properly
+. ./load-libs.sh
 
 $WTL_SCRIPTS/make-self-signed-certs.sh

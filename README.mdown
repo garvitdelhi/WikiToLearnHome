@@ -1,4 +1,50 @@
-http://meta.wikitolearn.org/Guide_for_the_development_of_WikiToLearn/Run_WikiToLearnHome
+
+WikiToLearn Home
+==================
+
+Introduction
+------------
+
+The purpose of this repository, which will be referred to as WikiToLearnHome
+(shortened as WTLH), is setting up an instance of [WikiToLearn][WTL] (shortened as
+WTL), that can either be a development one (run locally on a laptop, with test
+content) or a staging-production one.
+Specific characteristics of the different instances of WikiToLearn will be
+explained in the following sections
+
+All the operations can be performed "manually" (without the help of these
+scripts), but the whole process is quite tedious and it is extremely easy to
+make some errors, thus we highly recommend to use WTLH to setup your
+environment.
+
+Online documentation
+--------------------
+
+This markdown documentaion files are exported to mediawiki files, that
+can be easily imported on [meta][meta]. The purpose is reducing documentation dispersion and have it all under control in one place,
+WTLH repo. The online documentation should only be an updated copy if this.
+
+It may be possible to find a better way to keep the online doc updated,
+but this should be enough for the moment.
+
+Documentation overview
+----------------------
+
+WTLH Documentation is currently inside `doc` folder and composed by:
+
+`general.mdown`: general infomration about WTLH and WTLH documentation
+
+`local-wtl-instance.mdown` briefly describes the basics operations that can
+be performed with WTLH to manage WTL.
+
+`detailed-script.mdown` contains a detailed script overview, for those
+who want to a finer control on WTL.
+
 
 Happy Wiki!
 
+[meta]: https://meta.wikitolearn.org
+[WTL]: https://www.wikitolearn.org
+
+
+[meta-page]: http://meta.wikitolearn.org/Guide_for_the_development_of_WikiToLearn/Run_WikiToLearnHome

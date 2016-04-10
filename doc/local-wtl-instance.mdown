@@ -8,7 +8,7 @@ This file descrbes how to setup a non-production basic local WTL
 environment, and is used to generate the [documentation page on meta][meta-guide].
 
 If you are reading this online, be aware that
-this page is imported from [WTLH github repo][WTLH-repo] repo, thus if 
+this page is imported from [WTLH github repo][WTLH-repo] repo, thus if
 you are willing to improve this page you are free to edit its mediawiki
 code, we promise to read the history and to merge the diff with our
 markdown code before importing it!
@@ -38,22 +38,22 @@ WTL and WTLH have some dependecies:
     - dirname
     - realpath
     - git
-    - python (both v2 and v3)
     - pandoc
 
 * specific version required
     - docker ( >= 1.10.3)
+    - python3
 
 #### Ubutnu/Debian prerequisites install
 
 ``` {.bash}
-sudo apt-get install curl rsync dirname realpath git python pandoc
+sudo apt-get install curl rsync coreutils realpath git python3 pandoc
 ```
 
 #### Arch prerequisites install
 
 ``` {.bash}
-sudo pacman -Sy curl rsync coreutils git python pandoc
+sudo pacman -Sy curl rsync coreutils git python3 pandoc
 ```
 
 `realpath` is in `AUR`
@@ -169,6 +169,7 @@ WTL is build to work on GNU/Linux. It uses GNU/Linux software, enclosed
 inside docker containers, that require the GNU/Linux kernel.
 Hence, if you want to develop WTL from a Windows/OSX environment you need to
 install a virtual linux system.
+We remind yout in order do use a virtualization software, you have to enable virtalization in your BIOS, as explained in [this page][video-virtual]
 
 ### Vagrant Installation
 
@@ -217,7 +218,7 @@ Preferences -&gt; Network -&gt; Advanced -&gt; Proxy -&gt; Automatic
 Proxy Configuration and write <http://127.0.0.1:8080> as URL.
 
 Once you set up everything, you can proceed following the Linux Installation
-Guide, starting from cloning the git repo (`Download this repo` section).
+Guide, starting from [cloning the git repo][cloning-repo-section].
 
 
 [WTLH-repo]: https://github.com/WikiToLearn/WikiToLearnHome "WTLH repo"
@@ -240,3 +241,6 @@ Guide, starting from cloning the git repo (`Download this repo` section).
 [VirtualBox]: https://www.virtualbox.org/wiki/Downloads/
 [Vagrant]: https://docs.vagrantup.com/v2/installation/
 [devvagrant]: https://github.com/WikiToLearn/devvagrant
+[video-virtual]: http://meta.wikitolearn.org/Guide_for_the_development_of_WikiToLearn/How_To_Enable_Virtualization_On_Your_PC
+
+[cloning-repo-section]: http://meta.wikitolearn.org/Guide_for_the_development_of_WikiToLearn/Run_WikiToLearnHome#Download_this_repo

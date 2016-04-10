@@ -15,27 +15,27 @@ fi
 . ./load-libs.sh
 
 if [[ ! -f ${WTL_CERTS}/wikitolearn.crt ]] && [[ ! -f ${WTL_CERTS}/wikitolearn.key ]] ; then
- image="wikitolearn/local-ca:0.1"
+    image="wikitolearn/local-ca:0.1"
 
- docker pull $image
+    docker pull $image
 
- docker inspect $image &> /dev/null
- if [[ $? -ne 0 ]] ; then
-  echo "Failed to download the "$image
-  exit 1
- fi
+    docker inspect $image &> /dev/null
+    if [[ $? -ne 0 ]] ; then
+        echo "Failed to download the "$image
+        exit 1
+    fi
 
- if [[ ! -d $WTL_CERTS ]] ; then
-  mkdir ${WTL_CERTS}
- fi
- if [[ ! -d ${WTL_CERTS}"/easy-rsa/" ]] ; then
-  mkdir ${WTL_CERTS}"/easy-rsa/"
- fi
+    if [[ ! -d $WTL_CERTS ]] ; then
+        mkdir ${WTL_CERTS}
+    fi
+    if [[ ! -d ${WTL_CERTS}"/easy-rsa/" ]] ; then
+        mkdir ${WTL_CERTS}"/easy-rsa/"
+    fi
 
- docker run -u $WTL_USER_UID:$WTL_USER_GID -v ${WTL_CERTS}"/easy-rsa/":/home/usergeneric/easy-rsa/ -e HOME=/home/usergeneric/ -ti --rm $image
- cp ${WTL_CERTS}/easy-rsa/keys/www.wikitolearn.org.crt ${WTL_CERTS}/wikitolearn.crt
- cp ${WTL_CERTS}/easy-rsa/keys/www.wikitolearn.org.key ${WTL_CERTS}/wikitolearn.key
- rm ${WTL_CERTS}/easy-rsa/ -Rf
+    docker run -u $WTL_USER_UID:$WTL_USER_GID -v ${WTL_CERTS}"/easy-rsa/":/home/usergeneric/easy-rsa/ -e HOME=/home/usergeneric/ -ti --rm $image
+    cp ${WTL_CERTS}/easy-rsa/keys/www.wikitolearn.org.crt ${WTL_CERTS}/wikitolearn.crt
+    cp ${WTL_CERTS}/easy-rsa/keys/www.wikitolearn.org.key ${WTL_CERTS}/wikitolearn.key
+    rm ${WTL_CERTS}/easy-rsa/ -Rf
 fi
 
 if [[ -f ${WTL_CERTS}/wikitolearn.crt ]] && [[ ! -f ${WTL_CERTS}/wikitolearn.key ]] ; then

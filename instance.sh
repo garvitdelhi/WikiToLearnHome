@@ -15,13 +15,7 @@ if [[ ! -f "const.sh" ]] ; then
     exit 1
 fi
 
-if [[ $(id -u) -eq 0 ]] || [[ $(id -g) -eq 0 ]] ; then
-    echo "[$0] You can't be root. root has too much power."
-    echo -e "\e[31mFATAL ERROR \e[0m"
-    exit 1
-fi
 # -------------------------------------------------------------
-
 
 . ./load-libs.sh
 
@@ -105,6 +99,15 @@ case $1 in
     ;;
     staging)
         $WTL_SCRIPTS/relase-procedure.sh
+        $WTL_SCRIPTS/backup-auto-delete.sh
+        $WTL_SCRIPTS/unused-instance-stop-delete.sh
+        $WTL_SCRIPTS/docker-images-delete-old-images.sh
+        $WTL_SCRIPTS/docker-images-clean.sh
+    ;;
+    release-do)
+        $WTL_SCRIPTS/relase-procedure.sh
+    ;;
+    release-clean)
         $WTL_SCRIPTS/backup-auto-delete.sh
         $WTL_SCRIPTS/unused-instance-stop-delete.sh
         $WTL_SCRIPTS/docker-images-delete-old-images.sh

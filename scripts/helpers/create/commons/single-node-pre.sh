@@ -53,7 +53,10 @@ fi
 
 docker inspect ${WTL_INSTANCE_NAME}-restbase &> /dev/null
 if [[ $? -ne 0 ]] ; then
-    docker create -ti $MORE_ARGS --hostname restbase --link ${WTL_INSTANCE_NAME}-parsoid:parsoid --name ${WTL_INSTANCE_NAME}-restbase $WTL_DOCKER_RESTBASE
+    docker create -ti $MORE_ARGS --hostname restbase \
+        --link ${WTL_INSTANCE_NAME}-parsoid:parsoid \
+        --link ${WTL_INSTANCE_NAME}-mathoid:mathoid \
+        --name ${WTL_INSTANCE_NAME}-restbase $WTL_DOCKER_RESTBASE
     echo "[create/single-node] Creating docker ${WTL_INSTANCE_NAME}-restbase"
 fi
 
