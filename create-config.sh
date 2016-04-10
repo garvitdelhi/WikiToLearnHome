@@ -36,8 +36,8 @@ for cmd in git docker curl rsync python3 dirname realpath ; do
     fi
 done
 
-docker info  &> /dev/null
-if [[ $? -ne 0 ]] ; then
+#checks if the docker daemon is running
+if ! docker info &> /dev/null ; then
     echo "[create-config] The command 'docker info' failed."
     echo "docker service is not running,"
     echo "or at least you don't have the permissions to use the service."
