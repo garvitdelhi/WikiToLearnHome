@@ -1,8 +1,8 @@
 #!/bin/bash
 [[  "$WTL_SCRIPT_DEBUG" == "1" ]] && set -x
 set -e
-if [[ $(basename $0) != "backup-do-quick-production.sh" ]] ; then
-    echo "Wrong way to execute backup-do-quick-production.sh"
+if [[ $(basename $0) != "backup-auto-delete-production.sh" ]] ; then
+    echo "Wrong way to execute backup-auto-delete-production.sh"
     exit 1
 fi
 cd $(dirname $(realpath $0))"/.."
@@ -16,4 +16,4 @@ fi
 . $WTL_SCRIPTS/load-productoin-instance.sh
 . $WTL_SCRIPTS/environments/${WTL_ENV}.sh
 
-$WTL_SCRIPTS/backup-do-quick.sh
+$WTL_SCRIPTS/backup-auto-delete.sh

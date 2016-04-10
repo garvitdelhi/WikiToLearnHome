@@ -13,13 +13,7 @@ fi
 
 . ./load-libs.sh
 
+. $WTL_SCRIPTS/load-productoin-instance.sh
 . $WTL_SCRIPTS/environments/${WTL_ENV}.sh
 
-if docker inspect wikitolearn-haproxy &> /dev/null ; then
-    export WTL_INSTANCE_NAME=$(docker inspect -f '{{index .Config.Labels "WTL_INSTANCE_NAME"}}' wikitolearn-haproxy)
-    export WTL_WORKING_DIR=$(docker inspect -f '{{index .Config.Labels "WTL_WORKING_DIR"}}' wikitolearn-haproxy)
-
-    $WTL_SCRIPTS/backup-do.sh
-else
-    wtl-log backup-do-production.sh 0 MISSING_HA_PROXY "Production backup-do: missing docker wikitolearn-haproxy"
-fi
+$WTL_SCRIPTS/backup-do.sh

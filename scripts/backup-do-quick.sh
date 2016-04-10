@@ -1,4 +1,4 @@
-t#!/bin/bash
+#!/bin/bash
 [[  "$WTL_SCRIPT_DEBUG" == "1" ]] && set -x
 set -e
 if [[ $(basename $0) != "backup-do-quick.sh" ]] ; then
