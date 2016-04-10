@@ -14,7 +14,7 @@ fi
 . ./load-libs.sh
 
 if docker inspect wikitolearn-haproxy &> /dev/null ; then
-    INSTANCES=$($WTL_SCRIPTS/list-instances.sh | grep -v docker inspect -f '{{index .Config.Labels "WTL_INSTANCE_NAME"}}' wikitolearn-haproxy | awk -F'-' '{ print $2 }')
+    INSTANCES=$($WTL_SCRIPTS/list-instances.sh | grep -v $(docker inspect -f '{{index .Config.Labels "WTL_INSTANCE_NAME"}}' wikitolearn-haproxy | awk -F'-' '{ print $2 }'))
 else
     INSTANCES=$($WTL_SCRIPTS/list-instances.sh)
 fi
