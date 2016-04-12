@@ -156,9 +156,29 @@ Interaction level
 This script should be the first to be run after pulling the repo.
 It creates
 
-#### instance.sh
-
 #### const.sh
+
+Checks that the script is running in the correct folder.
+
+Exports the following environment variables, that should not be changed.
+This is considered to be a static configuration file.
+
+```{.bash}
+#define environment variables
+export WTL_DIR=$(pwd)
+export WTL_REPO_DIR=$WTL_DIR"/WikiToLearn"
+export WTL_CONFIGS_DIR=$WTL_DIR'/configs/'
+export WTL_RUNNING=$WTL_DIR"/running/"
+export WTL_CERTS=$WTL_DIR"/certs/"
+export WTL_CACHE=$WTL_DIR"/cache/"
+export WTL_BACKUPS=$WTL_DIR"/backups/"
+export WTL_MW_DUMPS=$WTL_DIR"/mw-dumps/"
+export WTL_SCRIPTS=$WTL_DIR"/scripts/"
+
+export WTL_HOOKS=$WTL_DIR"/hooks/"
+
+export WTL_CONFIG_FILE=$WTL_CONFIGS_DIR"wtl.conf"
+```
 
 #### load-libs.sh
 
@@ -179,6 +199,11 @@ if [[ $(id -u) -eq 0 ]] || [[ $(id -g) -eq 0 ]] ; then
     exit 1
 fi
 ```
+
+
+
+#### instance.sh
+
 
 Atomic level
 ------------
