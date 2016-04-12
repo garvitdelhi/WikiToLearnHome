@@ -2,6 +2,8 @@
 WikiToLearn Home
 ==================
 
+![WTL Logo][./logo/wikitolearn-logo-wtlh.svg.png]
+
 Introduction
 ------------
 
