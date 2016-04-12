@@ -2,7 +2,7 @@
 WikiToLearn Home
 ==================
 
-! [WTL Logo](logo/wikitolearn-logo-wtlh.svg.png "WTL logo")
+! [](logo/wikitolearn-logo-wtlh.svg.png "WTL logo")
 
 Introduction
 ------------
