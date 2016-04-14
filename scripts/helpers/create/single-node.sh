@@ -44,15 +44,16 @@ if [[ $? -ne 0 ]] ; then
 
     echo "[create/single-node] Copying certs to websrv"
     if docker inspect ${WTL_INSTANCE_NAME}-websrv &> /dev/null ; then
-        docker cp ${WTL_CERTS}/wikitolearn.crt ${WTL_INSTANCE_NAME}-websrv:/etc/ssl/certs/apache.crt
-        if [[ $? -ne 0 ]] ; then
+        TMPDIR=`mktemp -d`
+        chmod 700 $TMPDIR
+        mkdir $TMPDIR/certs
+        cp ${WTL_CERTS}/wikitolearn.crt $TMPDIR/certs/websrv.crt
+        cp ${WTL_CERTS}/wikitolearn.key $TMPDIR/certs/websrv.key
+        if ! docker cp ${TMPDIR}/certs/ ${WTL_INSTANCE_NAME}-websrv:/certs/ ; then
+            rm ${TMPDIR} -Rf
             echo "[create/single-node] Error: Unable to copy wikitolearn.crt to the webserver"
             exit 1
         fi
-        docker cp ${WTL_CERTS}/wikitolearn.key ${WTL_INSTANCE_NAME}-websrv:/etc/ssl/private/apache.key
-        if [[ $? -ne 0 ]] ; then
-            echo "[create/single-node] Error: Unable to copy wikitolearn.key to the webserver"
-            exit 1
-        fi
+        rm ${TMPDIR} -Rf
     fi
 fi
