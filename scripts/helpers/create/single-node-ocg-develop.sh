@@ -16,7 +16,7 @@ if [[ $? -ne 0 ]] ; then
 
     echo "[create/single-node-ocg-develop] Creating docker ${WTL_INSTANCE_NAME}-websrv"
     docker create -ti $MORE_ARGS  \
-        -v ${WTL_VOLUME_DIR}${WTL_INSTANCE_NAME}-var-log-apache2:/var/log/apache2 \
+        -v ${WTL_VOLUME_DIR}${WTL_INSTANCE_NAME}-var-log-webserver:/var/log/webserver \
         --hostname websrv \
         --name ${WTL_INSTANCE_NAME}-websrv \
         -e USER_UID=$WTL_USER_UID \

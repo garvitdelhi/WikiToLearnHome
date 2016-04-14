@@ -16,7 +16,7 @@ if [[ $? -ne 0 ]] ; then
 
     echo "[create/single-node-no-ocg] Creating docker ${WTL_INSTANCE_NAME}-websrv"
     docker create -ti $MORE_ARGS  \
-        -v ${WTL_VOLUME_DIR}${WTL_INSTANCE_NAME}-var-log-apache2:/var/log/apache2 \
+        -v ${WTL_VOLUME_DIR}${WTL_INSTANCE_NAME}-var-log-webserver:/var/log/webserver \
         --hostname websrv \
         --name ${WTL_INSTANCE_NAME}-websrv \
         -e USER_UID=$WTL_USER_UID \
@@ -28,7 +28,6 @@ if [[ $? -ne 0 ]] ; then
         --link ${WTL_INSTANCE_NAME}-mathoid:mathoid \
         --link ${WTL_INSTANCE_NAME}-parsoid:parsoid \
         --link ${WTL_INSTANCE_NAME}-restbase:restbase \
-        #--add-host=ocg:`docker run -ti --rm debian:8 /sbin/ip route | awk '/default/ { print  $3}'` \
         $WTL_DOCKER_WEBSRV
 
     echo "[create/single-node-no-ocg] Copying certs to websrv"
