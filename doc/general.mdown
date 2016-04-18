@@ -104,13 +104,18 @@ know what they are, we suggest that you read the
 
 The documentation is written in Markdown. The main advantage is that Markdown
 obliges you to have well fomratted documentation pages. Moreover, if you use
-an editor like [atom][atom] you can view a live preview of the html file generated,
-which is terribly fancy.
+an editor like [atom][atom] you can view a live preview of the html file
+generated, which is terribly fancy.
 If you have no clue on what it is,
-we suggest that you read the [Markdown creator's page][markdown-doc]
+we suggest that you read the [Markdown creator's page][markdown-doc].
+This doc may contain man-like parts, which are formatted according to
+[ronn][ronn] specifications, which is a programm to convert markdown to man
+pages.
 
 [tldp-guide]: http://tldp.org/guides.html "The Linux documentaion Project"
 [docker-doc]: https://docs.docker.com/ "Docker Documentation"
 [markdown-doc]: https://daringfireball.net/projects/markdown/ "Markdown Creator's Page"
+[ronn]: http://rtomayko.github.io/ronn/
+
 [atom]: https://atom.io "Atom, by Github"
 [meta]: https://meta.wikitolearn.org

@@ -69,6 +69,10 @@ export WTL_BACKUPS_MAX_NUM=1
 # Digest arguments passed to the bash scripts
 while [[ $# > 0 ]] ; do
     case $1 in
+        -t | --token)
+            export WTL_GITHUB_TOKEN=$2
+            shift
+        ;;
         -p | --protocol)
             if [[ $protocol != "" ]] ; then
                 echo "[create-config] $protocol has been overwritten by $2"
@@ -79,16 +83,12 @@ while [[ $# > 0 ]] ; do
         --existing-repo)
             export existing_repo="yes"
         ;;
-        -t | --token)
-            export WTL_GITHUB_TOKEN=$2
-            shift
+        --force-new-config)
+            export force_new_config="yes"
         ;;
         -e | --environment)
             export WTL_ENV=$2
             shift
-        ;;
-        --production)
-            export WTL_PRODUCTION=1
         ;;
         --domain)
             export WTL_DOMAIN_NAME=$2
@@ -108,8 +108,8 @@ while [[ $# > 0 ]] ; do
         --no-auto-composer)
             export WTL_AUTO_COMPOSER=0
         ;;
-        --force-new-config)
-            export force_new_config="yes"
+        --production)
+            export WTL_PRODUCTION=1
         ;;
         *)
             echo "[create-config] Unknown option: $1"
@@ -160,6 +160,17 @@ if [[ -d "$WTL_REPO_DIR" ]] && [[ $existing_repo != "yes" ]] ; then
     exit 1
 fi
 
+# environtment handling
+if [[ ! -f "$WTL_SCRIPTS/environments/$WTL_ENV.sh" ]] ; then
+    echo "[create-config] $WTL_ENV is not a valid environment"
+    echo "re-execute the script using '-e' followed by one of these valid environments:"
+    for script in $( ls $WTL_SCRIPTS/environments/ | grep -v - ) ; do
+        echo "$env_options ${script//.sh}"
+    done
+    echo -e "\e[31mFATAL ERROR \e[0m"
+    exit 1
+fi
+
 # GitHub token handling
 if [[ "$WTL_GITHUB_TOKEN" == "" ]] ; then
     if [[ -f "$WTL_DIR/configs/composer/auth.json" ]] ; then
@@ -180,17 +191,6 @@ elif [[ ${WTL_GITHUB_TOKEN:0:1} == "-" ]] ; then
     echo -e "\e[31mFATAL ERROR \e[0m"
     exit 1
 else
-
-# environtment handling
-if [[ ! -f "$WTL_SCRIPTS/environments/$WTL_ENV.sh" ]] ; then
-    echo "[create-config] $WTL_ENV is not a valid environment"
-    echo "re-execute the script using '-e' followed by one of these valid environments:"
-    for script in $( ls $WTL_SCRIPTS/environments/ | grep -v - ) ; do
-        echo "$env_options ${script//.sh}"
-    done
-    echo -e "\e[31mFATAL ERROR \e[0m"
-    exit 1
-fi
 
 # Store GitHub token
 if [[ ! -d $WTL_DIR/configs/composer ]]; then
