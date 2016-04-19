@@ -153,6 +153,8 @@ Interaction level
 
 #### create-config.sh
 
+##### Description
+
 This script should be the first to be run after pulling the repo.
 It creates `$WTL_CONFIG_FILE`, which stores machine-dependent global
 variables.
@@ -179,6 +181,32 @@ with  https).
       [--domain <domain>] [--branch <branch>] [--backup-max-num <num>]
       [--no-auto-checkout] [--no-auto-composer] [--production] ]
 ```
+
+##### Use Cases
+
+We give some examples, based on different situations we think this script
+may be used in. We would really like to hear from you in order to
+make this list as exhaustive as possible!
+
+* clean system, normal setup of WTL through WTLH
+
+```{.bash}
+./create-config.sh -t <token> -p <protocol>
+```
+
+* clean system, light WTL environment (no OCG)
+
+```{.bash}
+./create-config.sh -t <token> -p <protocol> --environment base-no-ocg
+```
+
+* already existing WTL local environment, making the transition to WTLH.
+
+```{.bash}
+./create-config.sh -t <token> -p <protobol> --exixting-repo
+```
+
+
 
 ##### Options
 Compulsory
@@ -251,7 +279,9 @@ Optional
     should not bother this argument, it is meant for production.
 
 * `--no-auto-checkout`:
-    ?
+    `instance.sh` performs a git checkuot before pulling the repo.
+    This is why we recommend to commit any relevant change before
+    running `create-config.sh` and `instance.sh`.
 
 * `--no-auto-composer`:
     ?
@@ -260,13 +290,39 @@ Optional
     This parameter is used to set the production environment, the
     generic user should not bother this.
 
+##### Variables
+
+This script exports these variables to `$WTL_CONFIG_FILE`.
+
+```{.bash}
+export WTL_CONFIG_FILE_VERSION=1
+export WTL_URL='$WTL_URL'
+export WTL_BRANCH='$WTL_BRANCH'
+export WTL_BRANCH_AUTO_CHECKOUT=$WTL_BRANCH_AUTO_CHECKOUT
+export WTL_DOMAIN_NAME='$WTL_DOMAIN_NAME'
+export WTL_GITHUB_TOKEN='$WTL_GITHUB_TOKEN'
+export WTL_USER_UID=$_WTL_USER_UID
+export WTL_USER_GID=$_WTL_USER_GID
+export WTL_PRODUCTION='$WTL_PRODUCTION'
+export WTL_ENV='$WTL_ENV'
+export WTL_AUTO_COMPOSER=$WTL_AUTO_COMPOSER
+export WTL_MAIL_RELAY_HOST=
+export WTL_MAIL_RELAY_USERNAME=
+export WTL_MAIL_RELAY_PASSWORD=
+export WTL_MAIL_RELAY_FROM_ADDRESS=
+export WTL_MAIL_RELAY_STARTTLS=1
+export WTL_VOLUME_DIR=
+```
 
 #### const.sh
 
+##### Description
+
 This script is not intended to be run, it is a container of contants that
 can be used by any script. Moreover, this script is often used as a test
-for boing in the main WTLH folder, so it should not be moved, or at least moved
- carefully.
+for being in the main WTLH folder, so it should not be moved around.
+
+##### In detail
 
 Checks that the script is running in the correct folder.
 
@@ -297,23 +353,47 @@ export WTL_CONFIG_FILE=$WTL_CONFIGS_DIR"wtl.conf"
 
 Takes care of loading the environment and configuration files.
 
-##### Check about the user that runs the script
+##### Detailed Description
 
-WTL can and should be managed by a simple user, we do not require it to have
-administrative powers (remember to add your user to dockergroup!).
-Running WTL as superuser can cause errors. We need to check that the scripts
-are executed by a simple user, this check is performed by:
+* Check about the user that runs the script
 
-```{.bash}
-# check the user that runs the script
-if [[ $(id -u) -eq 0 ]] || [[ $(id -g) -eq 0 ]] ; then
-    echo "[$0] You can't be root. root has too much power."
-    echo -e "\e[31mFATAL ERROR \e[0m"
-    exit 1
-fi
-```
+    WTL can and should be managed by a simple user, we do not require it to have
+    administrative powers (remember to add your user to dockergroup!).
+    Running WTL as superuser can cause errors. We need to check that the scripts
+    are executed by a simple user, this check is performed by:
 
+    ```{.bash}
+    # check the user that runs the script
+    if [[ $(id -u) -eq 0 ]] || [[ $(id -g) -eq 0 ]] ; then
+        echo "[$0] You can't be root. root has too much power."
+        echo -e "\e[31mFATAL ERROR \e[0m"
+        exit 1
+    fi
+    ```
 
+* Checks that the script is running in the correct folder
+
+    WTLH scripts are indended to be run from WTLH main folder, thus a correct
+    folder check is performed in every script. In order to check that the
+    script is running in the correct folder, we check the presence of
+    particular files, such as `const.sh` or `load-libs.sh`.
+
+    ```{.bash}
+    if [[ ! -f "load-libs.sh" ]] ; then
+        echo "[load-libs] : The parent script is not running inside the directory that contains load-libs.sh"
+        echo -e "\e[31mFATAL ERROR \e[0m"
+        exit 1
+    fi
+    ```
+
+* loads `const.sh`
+* checks that the config file has been properly generated
+* loads `wtl-log`, a script that contains the definition of the log
+    library we use to have a standard way of logging, which is necessary
+    for implementing a good hook system.
+* checks that the cofnig file version is the correct one
+* checks that the uid and the gid are the user's ones.
+* creates the cache folder, if it is not present
 
 #### instance.sh
 
