@@ -29,6 +29,7 @@ if [[ $? -ne 0 ]] ; then
         --link ${WTL_INSTANCE_NAME}-parsoid:parsoid \
         --link ${WTL_INSTANCE_NAME}-restbase:restbase \
         --add-host=ocg:`docker run -ti --rm debian:8 /sbin/ip route | awk '/default/ { print  $3}'` \
+        --add-host=easylink:`docker run -ti --rm debian:8 /sbin/ip route | awk '/default/ { print  $3}'` \
         $WTL_DOCKER_WEBSRV
 
     echo "[create/single-node-ocg-develop-ocg-develop] Copying certs to websrv"
