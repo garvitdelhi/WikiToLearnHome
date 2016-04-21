@@ -27,8 +27,7 @@ fi
 # checks whether git docker curl and rsync are installed
 for cmd in git docker curl rsync python3 dirname realpath ; do
     echo -n "[create-config] Searching for "$cmd"..."
-    which $cmd &> /dev/null
-    if [[ $? -ne 0 ]] ; then
+    if ! which $cmd &> /dev/null ; then
         echo -e "\e[31mFATAL ERROR \e[0m"
         exit 1
     else
