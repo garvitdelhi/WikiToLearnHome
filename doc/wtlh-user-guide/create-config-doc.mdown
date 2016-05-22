@@ -1,7 +1,7 @@
+create-config.sh
+----------------
 
-#### create-config.sh
-
-##### Description
+### Description
 
 This script should be the first to be run after pulling the repo.
 It creates `$WTL_CONFIG_FILE`, which stores machine-dependent global
@@ -21,7 +21,7 @@ that the config file creation has been successfull. Eventually self
 signed certificates are generated (this are necesasry for accessign WTL
 with  https).
 
-##### Synopsis
+### Synopsis
 
 ```{.bash}
 ./create-config.sh [-t|--token <token>] [-p|--protocol <protocol>]
@@ -30,7 +30,7 @@ with  https).
       [--no-auto-checkout] [--no-auto-composer] [--production] ]
 ```
 
-##### Use Cases
+### Use Cases
 
 We give some examples, based on different situations we think this script
 may be used in. We would really like to hear from you in order to
@@ -54,9 +54,7 @@ make this list as exhaustive as possible!
 ./create-config.sh -t <token> -p <protobol> --exixting-repo
 ```
 
-
-
-##### Options
+### Options
 Compulsory
 
 * `-t|--token <token>`:

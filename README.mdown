@@ -19,21 +19,12 @@ scripts), but the whole process is quite tedious and it is extremely easy to
 make some errors, thus we highly recommend to use WTLH to setup your
 environment.
 
-Online documentation
---------------------
+How to find the documentation
+-----------------------------
 
-This markdown documentaion files are exported to mediawiki files, that
-can be easily imported on [meta][meta]. The purpose is reducing the
-documentation dispersion, by having the same doc both inside the git repo
-and online.
-
-Documentation overview
-----------------------
-
-WTLH Documentation is currently inside `doc` folder and composed by:
-
-<complete after the doc is ready!>
-
+The WTLH documentaion is written in markdown and stored inside the `doc`
+folder. It is then converted into mediawiki with `doc/mediawiki-online.sh`
+and imported on [wikitolearn meta page][meta].
 
 Happy Wiki!
 
