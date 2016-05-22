@@ -15,46 +15,65 @@ fi
 
 . $WTL_SCRIPTS/environments/${WTL_ENV}.sh
 
+test -d $WTL_CACHE"/download/" || mkdir $WTL_CACHE"/download/"
+cd    $WTL_CACHE"/download/"
+
 if [[ -f $WTL_WORKING_DIR"/mediawiki.version" ]] ; then
     export MW_MAJOR=`cat $WTL_WORKING_DIR"/mediawiki.version" | head -1`
     export MW_MINOR=`cat $WTL_WORKING_DIR"/mediawiki.version" | head -2 | tail -1`
 
-    test -d $WTL_CACHE"/download/" || mkdir $WTL_CACHE"/download/"
-    cd    $WTL_CACHE"/download/"
-    test -f mediawiki-$MW_MAJOR.$MW_MINOR.tar.gz || wget -N https://releases.wikimedia.org/mediawiki/$MW_MAJOR/mediawiki-$MW_MAJOR.$MW_MINOR.tar.gz
 
-    cd $WTL_WORKING_DIR
 
-    if [[ -d mediawiki ]] ; then
-        rm -Rf mediawiki
+    if [[ "$MW_MAJOR" == "snapshot" ]] ; then
+        export _MW_FILE="mediawiki-snapshot-"$MW_MINOR".tar.gz"
+        test -f $_MW_FILE || wget -N https://tools.wmflabs.org/snapshots/builds/mediawiki-core/$_MW_FILE
+
+        cd $WTL_WORKING_DIR
+
+        if [[ -d mediawiki ]] ; then
+            rm -Rf mediawiki
+        fi
+        mkdir mediawiki
+        cd mediawiki
+        echo "Mediawiki snapshot:"$MW_MINOR
+        tar xfz $WTL_CACHE"/download/"$_MW_FILE
+
+    else
+        export _MW_PATH=$MW_MAJOR"/"
+        export _MW_DIR_NAME="mediawiki-"$MW_MAJOR"."$MW_MINOR
+        export _MW_FILE=$_MW_DIR_NAME".tar.gz"
+        test -f $_MW_FILE || wget -N https://releases.wikimedia.org/mediawiki/$_MW_PATH/$_MW_FILE
+
+        cd $WTL_WORKING_DIR
+
+        if [[ -d mediawiki ]] ; then
+            rm -Rf mediawiki
+        fi
+        echo "Mediawiki: "$MW_MAJOR"."$MW_MINOR
+        tar xfz $WTL_CACHE"/download/"$_MW_FILE
+        mv $_MW_DIR_NAME mediawiki
     fi
-    echo "Mediawiki: "$MW_MAJOR"."$MW_MINOR
-    tar xfz $WTL_CACHE"/download/mediawiki-"$MW_MAJOR"."$MW_MINOR".tar.gz"
-    mv mediawiki{-$MW_MAJOR.$MW_MINOR,}
 fi
 
 if [[ -f $WTL_WORKING_DIR"/extensions.list.version" ]] ; then
+    test -d $WTL_CACHE"/download/" || mkdir $WTL_CACHE"/download/"
+    test -d $WTL_CACHE"/download/extensions/" || mkdir $WTL_CACHE"/download/extensions/"
+    test -d $WTL_WORKING_DIR"/extensions/" || mkdir $WTL_WORKING_DIR"/extensions/"
+
     cat $WTL_WORKING_DIR"/extensions.list.version" | while read dep
     do
         extension=`echo $dep | awk -F"|" '{ print $1 }'`
         extension_version=`echo $dep | awk -F"|" '{ print $2 }'`
-        URL="https://extdist.wmflabs.org/dist/extensions/"$extension"-"$extension_version".tar.gz"
-        test -d $WTL_CACHE"/download/" || mkdir $WTL_CACHE"/download/"
-        test -d $WTL_CACHE"/download/extensions/" || mkdir $WTL_CACHE"/download/extensions/"
+        extension_filename=$extension"-"$extension_version".tar.gz"
+        URL="https://extdist.wmflabs.org/dist/extensions/"$extension_filename
         cd $WTL_CACHE"/download/extensions/"
-        test -f $extension"-"$extension_version".tar.gz" || wget -N $URL
-    done
+        test -f $extension_filename || wget -N $URL
 
-    test -d $WTL_WORKING_DIR"/extensions/" || mkdir $WTL_WORKING_DIR"/extensions/"
-    cd $WTL_WORKING_DIR"/extensions/"
-    cat $WTL_WORKING_DIR"/extensions.list.version"  | while read dep
-    do
-        extension=`echo $dep | awk -F"|" '{ print $1 }'`
-        extension_version=`echo $dep | awk -F"|" '{ print $2 }'`
+        cd $WTL_WORKING_DIR"/extensions/"
         echo "Extension: "$extension" ("$extension_version")"
         if test -d $extension ; then
             rm -Rf $extension
         fi
-        tar xfz $WTL_CACHE"/download/extensions/"$extension"-"$extension_version".tar.gz"
+        tar xfz $WTL_CACHE"/download/extensions/"$extension_filename
     done
 fi

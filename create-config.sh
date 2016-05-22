@@ -240,6 +240,7 @@ export WTL_PRODUCTION='$WTL_PRODUCTION'
 export WTL_ENV='$WTL_ENV'
 
 export WTL_AUTO_COMPOSER=$WTL_AUTO_COMPOSER
+# export WTL_FORCE_DOCKER_PULL=1 # this is to force fresh pull
 
 export WTL_MAIL_RELAY_HOST=
 export WTL_MAIL_RELAY_USERNAME=

@@ -16,17 +16,25 @@ fi
 
 for img_env_name in $WTL_DOCKER_IMAGES_LIST; do
     img=$(echo 'echo $'$img_env_name | bash)
-    echo "[pull-images] Pulling '$img'"
-    if ! docker pull $img ; then
-        echo "[pull-images] Failed pull for '$img'"
+
+    if [[ "$WTL_FORCE_DOCKER_PULL" != "1" ]] ; then
+        if [[ "$WTL_PRODUCTION" != "1" ]] ; then
+            wtl-log pull-images.sh 3 PULL_IMAGE_SKIP "The image "$img" is on your system, you can run 'docker pull "$img"' to force the update"
+            continue
+        fi
     fi
 
-    echo "[pull-images] '$img' pulled, inspecting"
+    wtl-log pull-images.sh 3 PULL_IMAGE_DO " Pulling '$img'"
+    if ! docker pull $img ; then
+        wtl-log pull-images.sh 3 PULL_IMAGE_FAILED " Failed pull for '$img'"
+    fi
+
+    wtl-log pull-images.sh 3 PULL_IMAGE_INSPECT " '$img' pulled, inspecting"
     docker inspect $img &> /dev/null
     if [[ $? -ne 0 ]] ; then
-        echo "[pull-images] Error downloading '$img' image. Check Internet connection and then restart the script"
+        wtl-log pull-images.sh 3 PULL_IMAGE_FAILED "Error downloading '$img' image. Check Internet connection and then restart the script"
         exit 1
     fi
 
-    echo "[pull-images] '$img' pulled and it's fine!"
+    wtl-log pull-images.sh 3 PULL_IMAGE_FINE "'$img' pulled and it's fine!"
 done
