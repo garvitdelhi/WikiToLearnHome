@@ -33,8 +33,8 @@ fi
 
 case $1 in
     first-run)
-        $WTL_SCRIPTS/download-all.sh
         $WTL_SCRIPTS/download-mediawiki-extensions.sh
+        $WTL_SCRIPTS/download-all.sh
         $WTL_SCRIPTS/create.sh
         $WTL_SCRIPTS/start.sh
         $WTL_SCRIPTS/backup-restore.sh $WTL_REPO_DIR/DeveloperDump/

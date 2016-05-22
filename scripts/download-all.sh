@@ -17,8 +17,11 @@ $WTL_SCRIPTS/download-code.sh
 
 $WTL_SCRIPTS/pull-images.sh
 
+echo "Composer STUFF"
 if [[ $WTL_PRODUCTION == "0" ]] ; then
+    echo "Auto compser step 1"
     if [[ $WTL_AUTO_COMPOSER == "1" ]] ; then
+        echo "Auto compser step 2"
         $WTL_SCRIPTS/composer-for-dirs.sh ${WTL_REPO_DIR}
     fi
 fi
