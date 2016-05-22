@@ -30,6 +30,7 @@ done
 
 rsync -a --stats --delete $WTL_WORKING_DIR"/mediawiki/images/" ${BACKUP_DIR}"/images/"
 
+# FIXME: is the message correct? i dont think so
 $WTL_SCRIPTS/make-readwrite.sh "This wiki is currently being backed up"
 
 wtl-log backup-do.sh 3 BACKUP_FINISHED "Backup for "${WTL_INSTANCE_NAME}" finished"

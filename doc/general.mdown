@@ -1,121 +1,50 @@
  WikiToLearn Home
 ==================
 
+We assume that you ended up here after reading
+[README.mdown][../README.mdown], if this is not the case, we higly
+recommend you to do so!
+
 Introduction
-------------
+-------------
 
-The purpose of this repository, which will be referred to as WikiToLearnHome
-(shortened as WTLH), is setting up an instance of WikiToLearn (shortened as
-WTL), that can either be a development one (run locally on a laptop, with test
-content) or a staging-production one.
-Specific characteristics of the different instances of WikiToLearn will be
-explained in the following sections
+The developer of the WikiToLearn is supposed to only run the scripts contained
+in `./WikiToLearnHome` folder, according to the given instructions, since these
+bundle all the basic operations that one would do to the WTL local instance.
 
-All the operations can be performed "manually" (without the help of these
-scripts), but the whole process is quite tedious and it is extremely easy to
-make some errors, thus we highly recommend to use WTLH to setup your
-environment.
+WTL Flavours
+-------------------------------
 
-Online documentation
---------------------
+WTL can be run with different purposes, and each of them has its own
+peculiarities and requires its own specific configuration and setup.
 
-This markdown documentaion files are exported to mediawiki files, that
-can be easily imported on [meta][meta]. The purpose is reducing documentation dispersion and have it all under control in one place,
-WTLH repo. The online documentation should only be an updated copy if this.
+First of all it can either be run in
+*production* mode, for example as in the main production website or as in
+the various staging websites, or in *non-production* mode, which can be local
+development, or testing new servers and services.
 
-It may be possible to find a better way to keep the online doc updated,
-but this should be enough for the moment.
+Secondly, WTL environtment can be *basic* , i.e. it runs on a single node (or
+host), or it can be spread into multiple georeplicated nodes ( *multiple nodes*
+environtment).
+We are currently working on georeplication, so this feature is not ready yet.
 
-Documentation overview
-----------------------
+Script levels
+-------------
 
-WTLH Documentation is currently inside `doc` folder and composed by:
+The scripts are organized in *level*.
 
-`general.mdown`: general infomration about WTLH and WTLH documentation
+The first level is the *interacion* level
+and is constituted by the scripts that the end user should use to interact with
+its WTL repo.
 
-`local-wtl-instance.mdown` briefly describes the basics operations that can
-be performed with WTLH to manage WTL.
+The second level is the *atomic* level, and is contituted by single operations
+that the user could perform on its WTL repo. These guarantee a finer control
+over the WTL repo. Interaction level scripts are composed by combinations of
+atomic level sripts.
 
-`detailed-script.mdown` contains a detailed script overview, for those
-who want to a finer control on WTL.
+The third level is the *helper* level, and is constituted by scripts that
+are environment-dependent.
 
-Conventions
------------
-
-### Global Environment Variables
-
-Environment Variables that are used by more than one script must begin with
-
-    WTL-*
-
-### Calling other scripts
-
-In this repo there are many script that call other scripts. This action can be
-performed in multiple ways, here it is preferred to use
-
-```{.bash}
-./script.sh
-```
-
-so that `$0` always refers the current script and not the calling one.
-In order to make the caller script exit with error in the case that the called
-script returns error, at the beginning of each script we use `set -e`, that
-closes bash in case of error.
-
-### if-statements
-
-Every test, especially in if statements, is performed with the operator
-`[[ ... ]]`, in order not to have to worry about the limitations of `[ ... ]`.
-
-### Style Conventions
-
-#### Line Length
-
-All the lines should be shorter then 80 characters.
-
-#### Indentation
-
-Indentation is performed through 4 spaces. Hence we use soft tab, not hard tab.
-
-If you are using vim, you can achieve this adding
-
-```
-set expandtab
-set shiftwidth=2
-set softtabstop=2
-```
-
-to `~/.vimrc`
-
-## References
-
-### bash
-
-The script are all written in bash. A good source of information about bash can
-be found [here][tldp-guide]
-
-### Docker Containers
-
-WikiToLearn Infrastructure uses extensively docker containers. If you do not
-know what they are, we suggest that you read the
-[official documentation][docker-doc]
-
-### Documentation
-
-The documentation is written in Markdown. The main advantage is that Markdown
-obliges you to have well fomratted documentation pages. Moreover, if you use
-an editor like [atom][atom] you can view a live preview of the html file
-generated, which is terribly fancy.
-If you have no clue on what it is,
-we suggest that you read the [Markdown creator's page][markdown-doc].
-This doc may contain man-like parts, which are formatted according to
-[ronn][ronn] specifications, which is a programm to convert markdown to man
-pages.
-
-[tldp-guide]: http://tldp.org/guides.html "The Linux documentaion Project"
-[docker-doc]: https://docs.docker.com/ "Docker Documentation"
-[markdown-doc]: https://daringfireball.net/projects/markdown/ "Markdown Creator's Page"
-[ronn]: http://rtomayko.github.io/ronn/
-
-[atom]: https://atom.io "Atom, by Github"
-[meta]: https://meta.wikitolearn.org
+The fourh level is the *common* level, which is composed by scripts that
+perform operation that are common among at least two helper level scripts from
+different environments.
