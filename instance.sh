@@ -114,7 +114,7 @@ case $1 in
         $WTL_SCRIPTS/docker-images-clean.sh
     ;;
     help)
-        echo "Available commands: first-run create start stop delete delete-full delete-volumes update-docker-container devdump-import devdump-export download fix-hosts update-home staging release-do release-clean help"
+        cat doc/wtlh-user-guide/instance-doc.mdown
     ;;
     *)
         echo "Command not found ($@)"

@@ -12,36 +12,19 @@ The purpose of this repository, which will be referred to as WikiToLearnHome
 WTL), that can either be a development one (run locally on a laptop, with test
 content) or a staging-production one.
 Specific characteristics of the different instances of WikiToLearn will be
-explained in the following sections
+explained in the documentation.
 
 All the operations can be performed "manually" (without the help of these
 scripts), but the whole process is quite tedious and it is extremely easy to
 make some errors, thus we highly recommend to use WTLH to setup your
 environment.
 
-Online documentation
---------------------
+How to find the documentation
+-----------------------------
 
-This markdown documentaion files are exported to mediawiki files, that
-can be easily imported on [meta][meta]. The purpose is reducing documentation dispersion and have it all under control in one place,
-WTLH repo. The online documentation should only be an updated copy if this.
-
-It may be possible to find a better way to keep the online doc updated,
-but this should be enough for the moment.
-
-Documentation overview
-----------------------
-
-WTLH Documentation is currently inside `doc` folder and composed by:
-
-`general.mdown`: general infomration about WTLH and WTLH documentation
-
-`local-wtl-instance.mdown` briefly describes the basics operations that can
-be performed with WTLH to manage WTL.
-
-`detailed-script.mdown` contains a detailed script overview, for those
-who want to a finer control on WTL.
-
+The WTLH documentaion is written in markdown and stored inside the `doc`
+folder. It is then converted into mediawiki with `doc/mediawiki-online.sh`
+and imported on [wikitolearn meta page][meta].
 
 Happy Wiki!
 
