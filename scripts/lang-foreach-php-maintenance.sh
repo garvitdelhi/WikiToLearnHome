@@ -25,5 +25,5 @@ CMD="$@"
 echo "[lang-foreach] Found Languages: "$(echo ${langlist[*]})
 for lang in $langlist; do
     echo "[lang-foreach] Current lang: $lang"
-    docker exec -ti ${WTL_INSTANCE_NAME}-websrv /bin/bash -c "WIKI=$lang.wikitolearn.org php /var/www/WikiToLearn/mediawiki/maintenance/$CMD"
+    docker exec -ti ${WTL_INSTANCE_NAME}-websrv sh -c "/bin/bash -c 'WIKI=$lang.wikitolearn.org php /var/www/WikiToLearn/mediawiki/maintenance/$CMD'" -m www-data
 done
