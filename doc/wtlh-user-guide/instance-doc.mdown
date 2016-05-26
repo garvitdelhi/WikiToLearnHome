@@ -19,42 +19,25 @@ may be used in. We would really like to hear from you in order to
 make this list as exhaustive as possible!
 
 * First time you run the local environment
-    * `./instance-sh first-run`
+        `./instance-sh first-run`
 
 * Close the local instance (should be done before shutdown/restart)
-    * `./instance.sh stop`
+        `./instance.sh stop`
 
-* Start the local instance, assuming you alrady have downloaded and  (after boot)
-    * `./instance.sh start`
+* Start the local instance, assuming you have already have done a completed
+    configure and start with `./instance.sh first run`, and then stopped
+    the instance with `./instance.sh stop`
+        `./instance.sh start`
 
 * Update WTLH
-    * `./instance.sh update-home`
+        `./instance.sh update-home`
 
-* Update WTL and submodules #FIXME, maybe do a new command
-    * `./instance.sh stop`
-    * `./instance.sh delete` #FIXME this or delete-full?#
-    * `./instance.sh download` #FIXME before or after stop and delte?
-    * `./instance.sh create`
-    * `./instance.sh start`
-    * `./instance.sh devdump-import` #FIXME: è sufficiente o servono anche unuse-instance e use-instance?
+* Update docker images and containers
+        `./instance.sh update-docker-container`
 
-* Update docker container
-    * `./instance.sh update-docker-container`
-    #FIXME Ha senso farlo senza aggiornare WTL?
-        O va fatto dopo aver aggiornato WTL?
-
-* Update MediaWiki extensions #FIXME, maybe do a new command
-    #FIXME: è sensato?
-    * `$WTL_SCRIPTS/download-mediawiki-extensions.sh`
-    * `./instance.sh stop`
-    * `./instance.sh delete` #FIXME this or delete-full?#
-    * `./instance.sh create`
-    * `./instance.sh start`
-    * `./instance.sh devdump-import` #FIXME: è sufficiente o servono anche unuse-instance e use-instance?
-
-* Update Everything #FIXME, maybe do a new command
-    (WTLH, WTL + submodules, mediawiki extensions, docker containers)
-    #TODO
+* Full update: WTL and submodules, Mediawiki and extensions, docker images and      
+    containers
+        `./instance.sh update-code-and-db`
 
 
 ### Options
@@ -96,16 +79,26 @@ Creating and starting the environment
         $WTL_SCRIPTS/use-instance.sh
         $WTL_SCRIPTS/update-db.sh
 
-    Do everything that is needed at the first run of WTL instance
+    Do everything that is needed at the first run of WTL instance:
+    * pull docker images
+    * git checkuot and pull of WTL repo
+    * git submodule sync and submodule update
+    * Download Mediawiki extensions
+    * create docker containers
+    * start docker containers
+    * restores devdump database
+    * stops and remove the haproxy docker container
+    * creates and starts haproxy docerk container again
+    * update-db
 
 Stopping and deleting the environment
 
 * `stop`
-        $WTL_SCRIPTS/stop.sh
         $WTL_SCRIPTS/unuse-instance.sh
+        $WTL_SCRIPTS/stop.sh
 
-    * stops every current version WTL docker
     * stops and remove the haproxy docker container
+    * stops every current version WTL docker
 
 * `delete`
         $WTL_SCRIPTS/unuse-instance.sh
@@ -142,6 +135,14 @@ Update Procedures
 
     Update WTLH git repo
 
+* `download`
+        $WTL_SCRIPTS/download-code.sh
+        $WTL_SCRIPTS/download-mediawiki-extensions.sh
+
+    * git checkuot and pull of WTL repo
+    * git submodule sync and submodule update
+    * Download Mediawiki extensions
+
 * `update-docker-container`
         $WTL_SCRIPTS/pull-images.sh
         $WTL_SCRIPTS/unuse-instance.sh
@@ -157,13 +158,25 @@ Update Procedures
     * create and start the new containers (based on the new images)
     * fix the hosts in ocg restbase and parsoid containers
 
-* `download`
+* `update-code-and-db`
         $WTL_SCRIPTS/download-code.sh
         $WTL_SCRIPTS/download-mediawiki-extensions.sh
+        $WTL_SCRIPTS/pull-images.sh
+        $WTL_SCRIPTS/unuse-instance.sh
+        $WTL_SCRIPTS/stop.sh
+        $WTL_SCRIPTS/delete.sh
+        $WTL_SCRIPTS/create.sh
+        $WTL_SCRIPTS/start.sh
+        $WTL_SCRIPTS/use-instance.sh
+        $WTL_SCRIPTS/fix-hosts.sh
+        $WTL_SCRIPTS/update-db.sh
 
-    * git checkuot and pull of WTL repo
-    * git submodule sync and submodule update
-    * Download Mediawiki extensions
+    This command makes a full update of the WTL local instance.
+    It updates WTL repo, the submodules it uses
+
+    * same as `./instance.sh download`
+    * same as `./isntance.sh update-docker-container`
+    * update database
 
 Database Management
 
@@ -184,8 +197,9 @@ Database Management
 These are used in staging and production environments, hence are not intended
 tobe run in a local-dev environment
 
-* `staging`
-
 * `release-do`
 
 * `release-clean`
+
+* `staging`
+    same as `./instance.sh release-do` and then `./instance.sh release-clean`
