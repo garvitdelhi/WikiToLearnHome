@@ -17,6 +17,7 @@ export WTL_CERTS=$WTL_DIR"/certs/"
 export WTL_CACHE=$WTL_DIR"/cache/"
 export WTL_BACKUPS=$WTL_DIR"/backups/"
 export WTL_MW_DUMPS=$WTL_DIR"/mw-dumps/"
+export WTL_MW_DUMPS_DOWNLOAD=$WTL_DIR"/mw-dumps-download/"
 export WTL_SCRIPTS=$WTL_DIR"/scripts/"
 export WTL_TRUSTED_KEYS_REPO=$WTL_CONFIGS_DIR"/trusted_keys/"
 
