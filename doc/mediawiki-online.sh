@@ -23,8 +23,13 @@ case $1 in
             fi
         done
 
+        echo -n "Converting: README.md ..."
+        pandoc -r markdown -t mediawiki \
+            -o $mediawiki_page_folder/wtlh-intro.mwiki ../README.md
+        echo "Done!"
+
         # converts all the *.mdown files into mediawiki files
-        for i in *.mdown */*.mdown; do
+        for i in *.md */*.md; do
             echo -n "Converting: $i ..."
             pandoc -r markdown -t mediawiki \
                 -o $mediawiki_page_folder/${i%.*}.mwiki $i

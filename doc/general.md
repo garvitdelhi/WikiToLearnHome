@@ -30,12 +30,12 @@ bundle all the basic operations that one would perform to the WTL local instance
 
 WTL setup guides
 
-* [Local WTL instance](wtlh-user-guide/local-wtl-instance.mdown): This guide describes how to locally deploy for the first time a WTL instance, using WTLH.
+* [Local WTL instance](./wtlh-user-guide/local-wtl-instance.mdown): This guide describes how to locally deploy for the first time a WTL instance, using WTLH.
 
 Detailed script guides: these are a complete and detailed description about how to use `create-config.sh` and `instance.sh`.
 
-* [create-config.sh](wtlh-user-guide/create-config-doc.mdown)
-* [instance.sh](wtlh-user-guide/instance-doc.mdown)
+* [create-config.sh](./wtlh-user-guide/create-config-doc.mdown)
+* [instance.sh](./wtlh-user-guide/instance-doc.mdown)
 
 WTLH Developer Guide: Overview
 ------------------------------
@@ -79,12 +79,12 @@ different environments.
 
 First pages to read:
 
-* [Conventions](wtlh-user-guide/conventions.mdown): This contains coding style conventions for WTLH, and should be read before diving into WTLH code.
-* [Recurring](wtlh-user-guide/conventions.mdown): This describes commands that are contained in more than one script
+* [Conventions](./wtlh-user-guide/conventions.mdown): This contains coding style conventions for WTLH, and should be read before diving into WTLH code.
+* [Recurring](./wtlh-user-guide/recurring.mdown): This describes commands that are contained in more than one script
 
 Detailed script description (this section is still under completion.
 Sincerely, I do not know whether it will ever be completed. In case of need do
 not esistate to contact the mantainers)
 
-* [const.sh](wtlh-user-guide/const-doc.mdown):
-* [load-libs-doc.sh](wtlh-user-guide/load-libs-doc.mdown):
+* [const.sh](./wtlh-user-guide/const-doc.mdown):
+* [load-libs-doc.sh](./wtlh-user-guide/load-libs-doc.mdown):
