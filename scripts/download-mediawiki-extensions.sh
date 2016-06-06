@@ -67,7 +67,23 @@ if [[ -f $WTL_WORKING_DIR"/extensions.list.version" ]] ; then
         extension_filename=$extension"-"$extension_version".tar.gz"
         URL="https://extdist.wmflabs.org/dist/extensions/"$extension_filename
         cd $WTL_CACHE"/download/extensions/"
-        test -f $extension_filename || wget -N $URL
+        test -f $extension_filename || wget -N $URL || true
+
+        if test ! -f $extension_filename ; then
+                branchname=$(echo $extension_version | awk -F"-" '{ print $1 }')
+                commit=$(echo $extension_version | awk -F"-" '{ print $2 }')
+                commit=${commit:0:7}
+                if test -d $extension ; then
+                    cd $extension
+                    git checkout $branchname
+                    git pull
+                    cd ..
+                else
+                    git clone https://gerrit.wikimedia.org/r/p/mediawiki/extensions/$extension.git -b $branchname
+                fi
+                cd $extension
+                git archive $branchname --prefix $extension/ --format=tar.gz --output ../$extension-$branchname-$commit.tar.gz
+        fi
 
         cd $WTL_WORKING_DIR"/extensions/"
         echo "Extension: "$extension" ("$extension_version")"
