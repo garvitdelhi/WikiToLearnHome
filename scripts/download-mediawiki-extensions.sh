@@ -77,12 +77,29 @@ if [[ -f $WTL_WORKING_DIR"/extensions.list.version" ]] ; then
                     cd $extension
                     git checkout $branchname
                     git pull
+                    git submodule sync
+                    git submodule update --init --checkout --recursive
                     cd ..
                 else
-                    git clone https://gerrit.wikimedia.org/r/p/mediawiki/extensions/$extension.git -b $branchname
+                    git clone https://gerrit.wikimedia.org/r/p/mediawiki/extensions/$extension.git -b $branchname --recursive
                 fi
                 cd $extension
-                git archive $branchname --prefix $extension/ --format=tar.gz --output ../$extension-$branchname-$commit.tar.gz
+                {
+                    ext_cwd=`pwd`
+                    git archive $branchname --prefix $extension/ --format=tar --output ../$extension-$branchname-$commit.tar
+                    I=0
+                    for e in $(git submodule | awk '{ print $2 }')
+                    do
+                        I=$(($I+1))
+                        cd "$ext_cwd"
+                        cd "$e"
+                        git archive $(git log -1 --format=%H) --prefix $extension/$e/ --format=tar --output $ext_cwd/../$extension-$branchname-$commit-$I.tar
+                        tar --concatenate --file=$ext_cwd/../$extension-$branchname-$commit.tar $ext_cwd/../$extension-$branchname-$commit-$I.tar
+                        rm $ext_cwd/../$extension-$branchname-$commit-$I.tar
+                    done
+                    cd "$ext_cwd"
+                    gzip ../$extension-$branchname-$commit.tar
+                }
         fi
 
         cd $WTL_WORKING_DIR"/extensions/"
