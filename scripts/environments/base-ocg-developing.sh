@@ -13,8 +13,6 @@ if [[ -f $WTL_WORKING_DIR/docker-images.conf ]] ; then
     . $WTL_WORKING_DIR/docker-images.conf
 fi
 
-export WTL_MATHOID_NUM_WORKERS=1
-
 export WTL_HELPER_CREATE="single-node-ocg-develop"
 export WTL_HELPER_START="single-node-ocg-develop"
 export WTL_HELPER_RESTORE_BACKUP="single-node"
