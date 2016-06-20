@@ -41,8 +41,8 @@ fi
 
 wtl-log create-running.sh 3 CREATE_RUN_SEARCH_VERSION "Searching for commit for "${WTL_REFERENCE}
 
-git show ${WTL_REFERENCE} &> /dev/null
-if [[ $? -ne 0 ]] ; then
+
+if ! git show ${WTL_REFERENCE} &> /dev/null ; then
     wtl-log create-running.sh 0 CREATE_RUN_MISSING_VERSION "The "${WTL_REFERENCE}" is not an uniq id for a commit"
     exit 1
 fi
@@ -57,8 +57,7 @@ if [[ -d $WTL_WORKING_DIR ]] ; then
     wtl-log create-running.sh 1 CREATE_RUN_EXIST "Directory already "$WTL_WORKING_DIR" exist"
 else
     rsync -a --stats --delete ${WTL_REPO_DIR}"/" $WTL_WORKING_DIR
-    cd $WTL_WORKING_DIR
-    if [[ $? -ne 0 ]] ; then
+    if ! cd $WTL_WORKING_DIR ; then
         wtl-log create-running.sh 0 CREATE_RUN_ERROR_CREATE_COPY "Error in the change directory operation"
         exit 1
     else
