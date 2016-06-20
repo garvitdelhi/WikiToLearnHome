@@ -17,8 +17,7 @@ if [[ -d "$WTL_REPO_DIR" ]] ; then
     cd "$WTL_REPO_DIR"
 
     if [[ "$WTL_BRANCH_AUTO_CHECKOUT" == "1" ]] ; then
-        git checkout "$WTL_BRANCH"
-        if [[ $? -ne 0 ]] ; then
+        if ! git checkout "$WTL_BRANCH" ; then
             echo "[download-code] Error during checkout"
             exit 1
         fi
