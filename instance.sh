@@ -26,6 +26,11 @@ fi
 #    exit
 #fi
 
+if [[ $# -eq 0 ]] ; then
+    $0 help
+    exit $?
+fi
+
 if test -f $WTL_LOCK_FILE ; then
     echo "WTLH lockfile ($WTL_LOCK_FILE) exists, this can be due to another process that is using $0 script"
     echo "Please wait"
@@ -33,14 +38,9 @@ if test -f $WTL_LOCK_FILE ; then
 fi
 touch $WTL_LOCK_FILE
 
-if [[ $# -eq 0 ]] ; then
-    $0 help
-    exit $?
-fi
-
 case $1 in
     help)
-        cat doc/wtlh-user-guide/instance-doc.mdown
+        cat doc/wtlh-user-guide/instance-doc.md
     ;;
     create)
         $WTL_SCRIPTS/create.sh
