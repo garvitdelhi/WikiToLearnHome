@@ -15,11 +15,9 @@ fi
 #reading author of last commit
 author=$(git show --pretty="Author: %h | %an | %ae" $COMMIT | grep Author)
 #checking signature
-git verify-commit $COMMIT &> /dev/null
-trusted=$?
 
 # if trusted is = 0 then the commit is trusted
-if [[ $trusted -gt 0 ]]; then
+if git verify-commit $COMMIT &> /dev/null ; then
     echo "[git-gpg-check] Last commit is NOT TRUSTED.    $author "
     exit 1
 fi

@@ -11,11 +11,10 @@ TAG=$1
 #reading author of the tag
 author=$(git tag -v $1 &> /dev/null | grep tagger | awk -F '<' '{print $1}')
 #checking signature
-git verify-tag $1 &> /dev/null
-# gpg signature is valid if $? = 0
-if [[ $? -gt 0 ]]; then
-    echo "[git-gpg-check] Tag $1 is NOT TRUSTED. $author "
-    exit 1
+
+if git verify-tag $1 &> /dev/null ; then
+  echo "[git-gpg-check] Tag $1 is TRUSTED. $author"
+  exit 0
 fi
-echo "[git-gpg-check] Tag $1 is TRUSTED. $author"
-exit 0
+echo "[git-gpg-check] Tag $1 is NOT TRUSTED. $author "
+exit 1
