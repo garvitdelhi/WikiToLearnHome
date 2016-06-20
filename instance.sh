@@ -26,6 +26,13 @@ fi
 #    exit
 #fi
 
+if test -f $WTL_LOCK_FILE ; then
+    echo "WTLH lockfile ($WTL_LOCK_FILE) exists, this can be due to another process that is using $0 script"
+    echo "Please wait"
+    exit 1
+fi
+touch $WTL_LOCK_FILE
+
 if [[ $# -eq 0 ]] ; then
     $0 help
     exit $?
@@ -134,3 +141,5 @@ case $1 in
         exit
     ;;
 esac
+
+rm $WTL_LOCK_FILE
