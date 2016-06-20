@@ -169,7 +169,7 @@ WTL is build to work on GNU/Linux. It uses GNU/Linux software, enclosed
 inside docker containers, that require the GNU/Linux kernel.
 Hence, if you want to develop WTL from a Windows/OSX environment you need to
 install a virtual linux system.
-We remind yout in order do use a virtualization software, you have to enable virtalization in your BIOS, as explained in [this page][video-virtual]
+We remind yout in order do use a virtualization software, you have to enable virtalization in your BIOS, as explained in [this page](/How_To_Enable_Virtualization_On_Your_PC).
 
 ### Vagrant Installation
 
@@ -236,11 +236,11 @@ Guide, starting from [cloning the git repo][cloning-repo-section].
 [help]: https://help.github.com/articles/generating-an-ssh-key/
 [www.tuttorotto.biz]: http://www.tuttorotto.biz
 [meta]: https://meta.wikitolearn.org
-[meta-guide]: http://meta.wikitolearn.org/Guide_for_the_development_of_WikiToLearn/Run_WikiToLearnHome "WTLH - meta.wikitolearn.org"
+[meta-guide]: http://meta.wikitolearn.org/WTLH_Doc/wtlh-user-guide/local-wtl-instance "WTLH - meta.wikitolearn.org"
 
 [VirtualBox]: https://www.virtualbox.org/wiki/Downloads/
 [Vagrant]: https://docs.vagrantup.com/v2/installation/
 [devvagrant]: https://github.com/WikiToLearn/devvagrant
 [video-virtual]: http://meta.wikitolearn.org/Guide_for_the_development_of_WikiToLearn/How_To_Enable_Virtualization_On_Your_PC
 
-[cloning-repo-section]: http://meta.wikitolearn.org/Guide_for_the_development_of_WikiToLearn/Run_WikiToLearnHome#Download_this_repo
+[cloning-repo-section]: http://meta.wikitolearn.org/WTLH_Doc/wtlh-user-guide/local-wtl-instance#Download_this_repo
