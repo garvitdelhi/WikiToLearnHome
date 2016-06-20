@@ -1,7 +1,6 @@
 #!/bin/bash
 
-docker start ${WTL_INSTANCE_NAME}-websrv
-if [[ $? -ne 0 ]] ; then
+if ! docker start ${WTL_INSTANCE_NAME}-websrv ; then
     echo "[start/single-node] FATAL ERROR: MISSING WEBSRV"
     exit 1
 fi

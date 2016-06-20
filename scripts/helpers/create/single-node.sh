@@ -13,8 +13,7 @@ echo "[create/single-node] Running in PRODUCTION mode!"
 $WTL_SCRIPTS"/helpers/create/commons/single-node-pre.sh"
 
 
-docker inspect ${WTL_INSTANCE_NAME}-ocg &> /dev/null
-if [[ $? -ne 0 ]] ; then
+if ! docker inspect ${WTL_INSTANCE_NAME}-ocg &> /dev/null ; then
     docker create -ti $MORE_ARGS -v ${WTL_VOLUME_DIR}wikitolearn-ocg:/tmp/ocg/ocg-output/ --hostname ocg \
         --link ${WTL_INSTANCE_NAME}-restbase:restbase \
         --link ${WTL_INSTANCE_NAME}-parsoid:parsoid \
@@ -22,8 +21,7 @@ if [[ $? -ne 0 ]] ; then
     echo "[create/single-node] Creating docker ${WTL_INSTANCE_NAME}-ocg"
 fi
 
-docker inspect ${WTL_INSTANCE_NAME}-websrv &> /dev/null
-if [[ $? -ne 0 ]] ; then
+if ! docker inspect ${WTL_INSTANCE_NAME}-websrv &> /dev/null ; then
 
     echo "[create/single-node] Creating docker ${WTL_INSTANCE_NAME}-websrv"
     docker create -ti $MORE_ARGS  \

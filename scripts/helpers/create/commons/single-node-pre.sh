@@ -1,8 +1,7 @@
 #!/bin/bash
 
 #Control the existance of docker instances and create them if they are not existing
-docker inspect ${WTL_INSTANCE_NAME}-parsoid &> /dev/null
-if [[ $? -ne 0 ]] ; then
+if ! docker inspect ${WTL_INSTANCE_NAME}-parsoid &> /dev/null ; then
     docker create -ti $MORE_ARGS --hostname parsoid --name ${WTL_INSTANCE_NAME}-parsoid $WTL_DOCKER_PARSOID
     echo "[create/single-node] Creating docker ${WTL_INSTANCE_NAME}-parsoid"
 fi
@@ -11,20 +10,19 @@ if [[ "$WTL_MATHOID_NUM_WORKERS" == "" ]] ; then
     export WTL_MATHOID_NUM_WORKERS=1
 fi
 
-docker inspect ${WTL_INSTANCE_NAME}-mathoid &> /dev/null
-if [[ $? -ne 0 ]] ; then
+if ! docker inspect ${WTL_INSTANCE_NAME}-mathoid &> /dev/null ; then
     docker create -ti $MORE_ARGS --hostname mathoid --name ${WTL_INSTANCE_NAME}-mathoid -e NUM_WORKERS=$WTL_MATHOID_NUM_WORKERS $WTL_DOCKER_MATHOID
     echo "[create/single-node] Creating docker ${WTL_INSTANCE_NAME}-mathoid with $WTL_MATHOID_NUM_WORKERS workers"
 fi
 
-docker inspect ${WTL_INSTANCE_NAME}-memcached &> /dev/null
-if [[ $? -ne 0 ]] ; then
+
+if ! docker inspect ${WTL_INSTANCE_NAME}-memcached &> /dev/null ; then
     docker create -ti $MORE_ARGS --hostname memcached --name ${WTL_INSTANCE_NAME}-memcached $WTL_DOCKER_MEMCACHED
     echo "[create/single-node] Creating docker ${WTL_INSTANCE_NAME}-memcached"
 fi
 
-docker inspect ${WTL_INSTANCE_NAME}-mysql &> /dev/null
-if [[ $? -ne 0 ]] ; then
+
+if ! docker inspect ${WTL_INSTANCE_NAME}-mysql &> /dev/null ; then
     if [[ -f $WTL_CONFIGS_DIR/mysql-users/root ]] ; then
         ROOT_PWD=$(cat $WTL_CONFIGS_DIR/mysql-users/root)
         echo "[create/single-node] Using existing mysql root passwd"
@@ -51,12 +49,11 @@ if [[ $? -ne 0 ]] ; then
     echo "password=$ROOT_PWD" >> $WTL_CONFIGS_DIR/mysql-root-password.cnf
 fi
 
-docker inspect ${WTL_INSTANCE_NAME}-restbase &> /dev/null
-if [[ $? -ne 0 ]] ; then
+
+if ! docker inspect ${WTL_INSTANCE_NAME}-restbase &> /dev/null ; then
     docker create -ti $MORE_ARGS --hostname restbase \
         --link ${WTL_INSTANCE_NAME}-parsoid:parsoid \
         --link ${WTL_INSTANCE_NAME}-mathoid:mathoid \
         --name ${WTL_INSTANCE_NAME}-restbase $WTL_DOCKER_RESTBASE
     echo "[create/single-node] Creating docker ${WTL_INSTANCE_NAME}-restbase"
 fi
-

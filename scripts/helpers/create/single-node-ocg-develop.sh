@@ -11,8 +11,8 @@ echo "[create/single-node-ocg-develop] Running in PRODUCTION mode!"
 
 $WTL_SCRIPTS"/helpers/create/commons/single-node-pre.sh"
 
-docker inspect ${WTL_INSTANCE_NAME}-websrv &> /dev/null
-if [[ $? -ne 0 ]] ; then
+
+if ! docker inspect ${WTL_INSTANCE_NAME}-websrv &> /dev/null ; then
 
     echo "[create/single-node-ocg-develop] Creating docker ${WTL_INSTANCE_NAME}-websrv"
     docker create -ti $MORE_ARGS  \

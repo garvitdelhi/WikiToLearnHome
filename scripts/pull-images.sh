@@ -30,8 +30,7 @@ for img_env_name in $WTL_DOCKER_IMAGES_LIST; do
     fi
 
     wtl-log pull-images.sh 3 PULL_IMAGE_INSPECT " '$img' pulled, inspecting"
-    docker inspect $img &> /dev/null
-    if [[ $? -ne 0 ]] ; then
+    if ! docker inspect $img &> /dev/null ; then
         wtl-log pull-images.sh 3 PULL_IMAGE_FAILED "Error downloading '$img' image. Check Internet connection and then restart the script"
         exit 1
     fi

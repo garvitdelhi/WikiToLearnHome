@@ -19,8 +19,7 @@ if [[ ! -f ${WTL_CERTS}/wikitolearn.crt ]] && [[ ! -f ${WTL_CERTS}/wikitolearn.k
 
     docker pull $image
 
-    docker inspect $image &> /dev/null
-    if [[ $? -ne 0 ]] ; then
+    if ! docker inspect $image &> /dev/null ; then
         echo "Failed to download the "$image
         exit 1
     fi
