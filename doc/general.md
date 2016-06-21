@@ -2,7 +2,7 @@
 ===============================
 
 We assume that you ended up here after reading
-[README.mdown](../README.mdown), if this is not the case, we higly
+`README.md` inside WTLH repo or [WTLH Online Introduction page][WTLH-Online-Intro], if this is not the case, we higly
 recommend you to do so!
 
 Introduction
@@ -16,7 +16,7 @@ Mediawiki documentation file generation
 ---------------------------------------
 
 The WTLH repo `doc` folder contains a script, `mediawiki-online.sh`, whose
-purpose is converting `.mdown` files to mediawiki code, that can easily be
+purpose is converting `.md` files to mediawiki code, that can easily be
 imported online.
 
 WTLH User Guide: Overview
@@ -30,12 +30,12 @@ bundle all the basic operations that one would perform to the WTL local instance
 
 WTL setup guides
 
-* [Local WTL instance](./wtlh-user-guide/local-wtl-instance.mdown): This guide describes how to locally deploy for the first time a WTL instance, using WTLH.
+* [Local WTL instance](/Local_WikiToLearn_Instance): This guide describes how to locally deploy for the first time a WTL instance, using WTLH.
 
 Detailed script guides: these are a complete and detailed description about how to use `create-config.sh` and `instance.sh`.
 
-* [create-config.sh](./wtlh-user-guide/create-config-doc.mdown)
-* [instance.sh](./wtlh-user-guide/instance-doc.mdown)
+* [create-config.sh](/Create_Config_Doc)
+* [instance.sh](/Instance_Doc)
 
 WTLH Developer Guide: Overview
 ------------------------------
@@ -79,12 +79,14 @@ different environments.
 
 First pages to read:
 
-* [Conventions](./wtlh-user-guide/conventions.mdown): This contains coding style conventions for WTLH, and should be read before diving into WTLH code.
-* [Recurring](./wtlh-user-guide/recurring.mdown): This describes commands that are contained in more than one script
+* [Conventions](/Conventions): This contains coding style conventions for WTLH, and should be read before diving into WTLH code.
+* [Recurring](/Recurring): This describes commands that are contained in more than one script
 
 Detailed script description (this section is still under completion.
 Sincerely, I do not know whether it will ever be completed. In case of need do
 not esistate to contact the mantainers)
 
-* [const.sh](./wtlh-user-guide/const-doc.mdown):
-* [load-libs-doc.sh](./wtlh-user-guide/load-libs-doc.mdown):
+* [const.sh](/Const_Doc):
+* [load-libs-doc.sh](/Load_Libs_Doc):
+
+[WTLH-Online-Intro]: http://meta.wikitolearn.org/WikiToLearn_Home

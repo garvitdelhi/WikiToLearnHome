@@ -236,11 +236,10 @@ Guide, starting from [cloning the git repo][cloning-repo-section].
 [help]: https://help.github.com/articles/generating-an-ssh-key/
 [www.tuttorotto.biz]: http://www.tuttorotto.biz
 [meta]: https://meta.wikitolearn.org
-[meta-guide]: http://meta.wikitolearn.org/WTLH_Doc/wtlh-user-guide/local-wtl-instance "WTLH - meta.wikitolearn.org"
+[meta-guide]: http://meta.wikitolearn.org/WikiToLearn_Home/WikitoLearn_Home_Documentation/Local_WikiToLearn_Instance "WTLH - meta.wikitolearn.org"
 
 [VirtualBox]: https://www.virtualbox.org/wiki/Downloads/
 [Vagrant]: https://docs.vagrantup.com/v2/installation/
 [devvagrant]: https://github.com/WikiToLearn/devvagrant
-[video-virtual]: http://meta.wikitolearn.org/Guide_for_the_development_of_WikiToLearn/How_To_Enable_Virtualization_On_Your_PC
 
-[cloning-repo-section]: http://meta.wikitolearn.org/WTLH_Doc/wtlh-user-guide/local-wtl-instance#Download_this_repo
+[cloning-repo-section]: http://meta.wikitolearn.org/WikiToLearn_Home/WikitoLearn_Home_Documentation/Local_WikiToLearn_Instance#Download_this_repo
