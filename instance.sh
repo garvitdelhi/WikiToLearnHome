@@ -138,7 +138,6 @@ case $1 in
     ;;
     *)
         echo "Command not found ($@)"
-        exit
     ;;
 esac
 
