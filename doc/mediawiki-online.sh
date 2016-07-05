@@ -6,6 +6,17 @@
 # set the name of the folder containing the mediawiki exported files
 mediawiki_page_folder="mediawiki-online.d"
 
+# checks whether pandoc is installed
+for cmd in pandoc; do
+    echo -n "[create-config] Searching for "$cmd"..."
+    if ! which $cmd &> /dev/null ; then
+        echo -e "\e[31mFATAL ERROR \e[0m"
+        exit 1
+    else
+        echo "OK"
+    fi
+done
+
 case $1 in
     make)
         # if the folder is not present, it creates it and creates the
