@@ -33,10 +33,16 @@ fi
 
 if test -f $WTL_LOCK_FILE ; then
     echo "WTLH lockfile ($WTL_LOCK_FILE) exists, this can be due to another process that is using $0 script"
-    echo "Please wait"
-    exit 1
+    if kill -0 $(cat $WTL_LOCK_FILE) &> /dev/null ; then
+        echo "The process is running, exit"
+        exit 1
+    else
+        echo "The process is not running"
+        rm -fv $WTL_LOCK_FILE
+    fi
 fi
-touch $WTL_LOCK_FILE
+
+echo $$ > $WTL_LOCK_FILE
 
 case $1 in
     help)
@@ -52,8 +58,8 @@ case $1 in
         $WTL_SCRIPTS/fix-hosts.sh
     ;;
     first-run)
-        $WTL_SCRIPTS/download-mediawiki-extensions.sh
         $WTL_SCRIPTS/download-all.sh
+        $WTL_SCRIPTS/download-mediawiki-extensions.sh
         $WTL_SCRIPTS/create.sh
         $WTL_SCRIPTS/start.sh
         $WTL_SCRIPTS/backup-restore.sh $WTL_REPO_DIR/DeveloperDump/
@@ -138,7 +144,6 @@ case $1 in
     ;;
     *)
         echo "Command not found ($@)"
-        exit
     ;;
 esac
 

@@ -61,7 +61,7 @@ sudo pacman -Sy curl rsync coreutils git python3 pandoc
 
 #### Docker installation
 
-Dcoker is a quickly evolving technology, and it may be possible that the
+Docker is a quickly evolving technology, and it may be possible that the
 your distro official repository do not have yet the docker version
 requierd to run WTL. We thus recommend to install docker following the
 [official guide][docker-install]
