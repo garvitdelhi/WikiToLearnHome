@@ -32,6 +32,9 @@ make this list as exhaustive as possible!
 * Update WTLH
         `./instance.sh update-home`
 
+* Update WTL, Mediawiki and Mediawiki extensions
+        `./instance.sh download`
+
 * Update docker images and containers
         `./instance.sh update-docker-container`
 

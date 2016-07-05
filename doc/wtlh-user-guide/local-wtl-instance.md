@@ -154,13 +154,7 @@ Sometimes you might want to wipe out the server and for this you can use
 ./instance.sh delete
 ```
 
-### Update WikiToLearnHome
-
-In order to keep WikiToLearnHome updated you have to run
-
-``` {.bash}
-./instance.sh update-home
-```
+Read [the guide to instance.sh](../Instance_Doc) for a deatailed description of how to use WTLH to manage the WTL instance.
 
 Vagrant Installation for Windows/OSX
 -------------------------------------
