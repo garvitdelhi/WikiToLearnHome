@@ -67,14 +67,14 @@ Now follows a detailed description of what each parameter do.
 #### Help
 
 * `help`
-    ```
+    ```{.bash}
     cat doc/wtlh-user-guide/instance-doc.mdown
     ```
 
 #### Creating and starting the environment
 
 * `create`
-    ```
+    ```{.bash}
     $WTL_SCRIPTS/create.sh
     ```
 
@@ -82,7 +82,7 @@ Now follows a detailed description of what each parameter do.
     others containers, accordingly to the environment specifications.
 
 * `start`
-    ```
+    ```{.bash}
     $WTL_SCRIPTS/start.sh
     $WTL_SCRIPTS/unuse-instance.sh
     $WTL_SCRIPTS/use-instance.sh
@@ -94,7 +94,7 @@ Now follows a detailed description of what each parameter do.
     * then fixes the hosts in parsoid ocg and restbase docker containers
 
 * `first-run`
-    ```
+    ```{.bash}
     $WTL_SCRIPTS/download-all.sh
     $WTL_SCRIPTS/download-mediawiki-extensions.sh
     $WTL_SCRIPTS/create.sh
@@ -119,7 +119,7 @@ Now follows a detailed description of what each parameter do.
 #### Stopping and deleting the environment
 
 * `stop`
-    ```
+    ```{.bash}{.bash}
     $WTL_SCRIPTS/unuse-instance.sh
     $WTL_SCRIPTS/stop.sh
     ```
@@ -128,7 +128,7 @@ Now follows a detailed description of what each parameter do.
     * stops every current version WTL docker
 
 * `delete`
-    ```
+    ```{.bash}
     $WTL_SCRIPTS/unuse-instance.sh
     $WTL_SCRIPTS/stop.sh
     $WTL_SCRIPTS/delete.sh
@@ -137,14 +137,14 @@ Now follows a detailed description of what each parameter do.
     * delete every curent version WTL docker container
 
 * `delete-volumes`
-    ```
+    ```{.bash}
     $WTL_SCRIPTS/delete-volumes.sh
     ```
 
     * delete every current version WTL docker volume
 
 * `delete-full`
-    ```
+    ```{.bash}
     $WTL_SCRIPTS/unuse-instance.sh
     $WTL_SCRIPTS/stop.sh
     $WTL_SCRIPTS/delete.sh
@@ -156,7 +156,7 @@ Now follows a detailed description of what each parameter do.
 #### Mantainance
 
 * `fix-hosts`
-    ```
+    ```{.bash}
     $WTL_SCRIPTS/fix-hosts.sh
     ```
 
@@ -165,14 +165,14 @@ Now follows a detailed description of what each parameter do.
 #### Update Procedures
 
 * `update-home`
-    ```
+    ```{.bash}
     $WTL_SCRIPTS/update-home.sh
     ```
 
     Update WTLH git repo
 
 * `download`
-    ```
+    ```{.bash}
     $WTL_SCRIPTS/download-code.sh
     $WTL_SCRIPTS/download-mediawiki-extensions.sh
     ```
@@ -182,7 +182,7 @@ Now follows a detailed description of what each parameter do.
     * Download Mediawiki extensions
 
 * `update-docker-container`
-    ```
+    ```{.bash}
     $WTL_SCRIPTS/pull-images.sh
     $WTL_SCRIPTS/unuse-instance.sh
     $WTL_SCRIPTS/stop.sh
@@ -199,7 +199,7 @@ Now follows a detailed description of what each parameter do.
     * fix the hosts in ocg restbase and parsoid containers
 
 * `update-code-and-db`
-    ```
+    ```{.bash}
     $WTL_SCRIPTS/download-code.sh
     $WTL_SCRIPTS/download-mediawiki-extensions.sh
     $WTL_SCRIPTS/pull-images.sh
@@ -223,7 +223,7 @@ Now follows a detailed description of what each parameter do.
 #### Database Management
 
 * `devdump-import`
-    ```
+    ```{.bash}
     $WTL_SCRIPTS/backup-restore.sh $WTL_REPO_DIR/DeveloperDump/
     $WTL_SCRIPTS/update-db.sh
     ```
@@ -231,7 +231,7 @@ Now follows a detailed description of what each parameter do.
         Import a test database, contained in ./DeveloperDump
 
 * `devdump-export`
-    ```
+    ```{.bash}
     $WTL_SCRIPTS/backup-do.sh
     $WTL_SCRIPTS/copy-last-backup-to-devdump.sh
     ```
