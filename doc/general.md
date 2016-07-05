@@ -29,7 +29,7 @@ bundle all the basic operations that one would perform to the WTL local instance
 These are a complete and detailed description about how to use `create-config.sh` and `instance.sh`.
 
 * [create-config.sh](//Create_Config_Doc): Creating the confiuration files
-* : [instance.sh](//Instance_Doc): Managing the local WTL environment
+* [instance.sh](//Instance_Doc): Managing the local WTL environment
 
 #### Other Common Operations
 
