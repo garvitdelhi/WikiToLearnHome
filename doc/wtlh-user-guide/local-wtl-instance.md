@@ -163,7 +163,7 @@ WTL is build to work on GNU/Linux. It uses GNU/Linux software, enclosed
 inside docker containers, that require the GNU/Linux kernel.
 Hence, if you want to develop WTL from a Windows/OSX environment you need to
 install a virtual linux system.
-We remind yout in order do use a virtualization software, you have to enable virtalization in your BIOS, as explained in [this page](/How_To_Enable_Virtualization_On_Your_PC).
+We remind yout in order do use a virtualization software, you have to enable virtalization in your BIOS, as explained in [this page](//How_To_Enable_Virtualization_On_Your_PC).
 
 ### Vagrant Installation
 

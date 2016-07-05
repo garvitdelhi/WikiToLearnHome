@@ -24,7 +24,8 @@ How to find the documentation
 The WTLH documentaion is written in markdown and stored inside the WTLH repo `doc`
 folder. It is then converted into mediawiki with `doc/mediawiki-online.sh`
 and imported on [wikitolearn meta page][meta].
-We suggest that now you start reading [The Documentation](/WikitoLearn_Home_Documentation).
+
+We suggest that now you start reading [The Documentation](//WikitoLearn_Home_Documentation).
 
 Happy Wiki!
 

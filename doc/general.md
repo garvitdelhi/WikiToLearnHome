@@ -10,7 +10,7 @@ Introduction
 
 This documentation describes both how to use WTLH to setup a WTL environment
 and how WTLH works. The first part will be called *WTLH user guide*,
-sice a the WTLH user is a WTL developer, while the second part willbe referred to as *WTLH developer guide*, and is thought to help further WTLH development.
+sice a the WTLH user is a WTL developer, while the second part will be referred to as *WTLH developer guide*, and is thought to help further WTLH development.
 
 WTLH User Guide: Overview
 -------------------------
@@ -21,17 +21,21 @@ bundle all the basic operations that one would perform to the WTL local instance
 
 ### Pages Overview
 
-WTL setup guides
+#### WTL setup guides
 
-* [Local WTL instance](/Local_WikiToLearn_Instance): This guide describes how to locally deploy for the first time a WTL instance, using WTLH.
+* [Local WTL instance](//Local_WikiToLearn_Instance): This guide describes how to locally deploy for the first time a WTL instance, using WTLH.
 
-Detailed script guides: these are a complete and detailed description about how to use `create-config.sh` and `instance.sh`.
+#### Detailed script guides:
+These are a complete and detailed description about how to use `create-config.sh` and `instance.sh`.
 
-* [create-config.sh](/Create_Config_Doc)
-* [instance.sh](/Instance_Doc)
+* Creating the confiuration files: [create-config.sh](//Create_Config_Doc)
+* Managing the local WTL environment: [instance.sh](//Instance_Doc)
+
+#### Other Common Operations
 
 Hot to add or update a mediawiki extension
-* [Add or update mediawiki extension](/Add_Update_Mediawiki_Extension)
+
+* [Add or update mediawiki extension](//Add_Update_Mediawiki_Extension)
 
 WTLH Developer Guide: Overview
 ------------------------------
@@ -75,15 +79,15 @@ different environments.
 
 First pages to read:
 
-* [Conventions](/Conventions): This contains coding style conventions for WTLH, and should be read before diving into WTLH code.
-* [Recurring](/Recurring): This describes commands that are contained in more than one script
+* [Conventions](//Conventions): This contains coding style conventions for WTLH, and should be read before diving into WTLH code.
+* [Recurring](//Recurring): This describes commands that are contained in more than one script
 
 Detailed script description (this section is still under completion.
 Sincerely, I do not know whether it will ever be completed. In case of need do
 not esistate to contact the mantainers)
 
-* [const.sh](/Const_Doc):
-* [load-libs-doc.sh](/Load_Libs_Doc):
+* [const.sh](//Const_Doc):
+* [load-libs-doc.sh](//Load_Libs_Doc):
 
 Documentation webpage generation
 --------------------------------
@@ -115,16 +119,19 @@ where `<path>` is the relative path from the current folder to the page you want
 ### List of the files/pages
 
 General
+
 * `Readme.md`: [Introduction][WTLH-Online-Intro]
 * `general.md`: [WTLH Documentation][WTLH-Doc]
 
 WTLH User guide
+
 * `instance-doc.md`: [Local WTL instance][Local-WTL-instance]
 * `local-wtl-instance.md`: [create-config.sh][create-config]
 * `create-config-doc.md`: [instance.sh][instance]
 * `add-or-update-mediawiki-extension.md` [mediawiki extension][mw-extension]
 
 WTLH dev guide
+
 * `const-doc.md`: [const.sh][const]
 * `conventions.md`: [Conventions][conventions]
 * `load-libs-doc.md`: [load-libs-doc.sh][load-libs-doc]
