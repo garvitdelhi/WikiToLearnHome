@@ -10,14 +10,7 @@ Introduction
 
 This documentation describes both how to use WTLH to setup a WTL environment
 and how WTLH works. The first part will be called *WTLH user guide*,
-sice a the WTLH user is a WTL developer, while the second part willbe referred to as *WTLH developer guide*, and is thought to help further WTLH development.
-
-Mediawiki documentation file generation
----------------------------------------
-
-The WTLH repo `doc` folder contains a script, `mediawiki-online.sh`, whose
-purpose is converting `.md` files to mediawiki code, that can easily be
-imported online.
+sice a the WTLH user is a WTL developer, while the second part will be referred to as *WTLH developer guide*, and is thought to help further WTLH development.
 
 WTLH User Guide: Overview
 -------------------------
@@ -28,14 +21,21 @@ bundle all the basic operations that one would perform to the WTL local instance
 
 ### Pages Overview
 
-WTL setup guides
+#### WTL setup guides
 
-* [Local WTL instance](/Local_WikiToLearn_Instance): This guide describes how to locally deploy for the first time a WTL instance, using WTLH.
+* [Local WTL instance](//Local_WikiToLearn_Instance): This guide describes how to locally deploy for the first time a WTL instance, using WTLH.
 
-Detailed script guides: these are a complete and detailed description about how to use `create-config.sh` and `instance.sh`.
+#### Detailed script guides:
+These are a complete and detailed description about how to use `create-config.sh` and `instance.sh`.
 
-* [create-config.sh](/Create_Config_Doc)
-* [instance.sh](/Instance_Doc)
+* [create-config.sh](//Create_Config_Doc): Creating the confiuration files
+* : [instance.sh](//Instance_Doc): Managing the local WTL environment
+
+#### Other Common Operations
+
+Hot to add or update a mediawiki extension
+
+* [Add or update mediawiki extension](//Add_Update_Mediawiki_Extension)
 
 WTLH Developer Guide: Overview
 ------------------------------
@@ -79,14 +79,77 @@ different environments.
 
 First pages to read:
 
-* [Conventions](/Conventions): This contains coding style conventions for WTLH, and should be read before diving into WTLH code.
-* [Recurring](/Recurring): This describes commands that are contained in more than one script
+* [Conventions](//Conventions): This contains coding style conventions for WTLH, and should be read before diving into WTLH code.
+* [Recurring](//Recurring): This describes commands that are contained in more than one script
 
 Detailed script description (this section is still under completion.
 Sincerely, I do not know whether it will ever be completed. In case of need do
 not esistate to contact the mantainers)
 
-* [const.sh](/Const_Doc):
-* [load-libs-doc.sh](/Load_Libs_Doc):
+* [const.sh](//Const_Doc):
+* [load-libs-doc.sh](//Load_Libs_Doc):
+
+Documentation webpage generation
+--------------------------------
+
+The documentation is at first written in markdown inside the WTLH repo.
+The WTLH repo `doc` folder contains a script, `mediawiki-online.sh`, whose
+purpose is converting `.md` files to mediawiki code, that is used to generate
+the documentation pages on the [meta][meta] website.
+
+This allows to have both online (on the [meta][meta] website) and offline (distributed with the code, inside the WTLH repo) documentation, and that these two instances ofthe doc are kept in sync.
+
+The main documentation creation workflow is:
+
+1. writing the .md files
+2. using the script to generate the mediawiki files
+3. import those file into [meta][meta]
+
+If you have no access to the WTLH repo but you are willing to contribute to its doc, feel free to edit the online pages, every edit will be reviewed and eventually integrated into offline markdown files if considered valuable.
+
+### How to write links in markdown
+
+Markdown link are to be written keeping in mind that those files are then translated to mediawiki text endthen imported on [meta][meta], hence please use this convention:
+
+```
+        [name of the link][<path>]
+```
+
+where `<path>` is the relative path from the current folder to the page you want to refer to.
+
+### List of the files/pages
+
+General
+
+* `Readme.md`: [Introduction][WTLH-Online-Intro]
+* `general.md`: [WTLH Documentation][WTLH-Doc]
+
+WTLH User guide
+
+* `instance-doc.md`: [Local WTL instance][Local-WTL-instance]
+* `local-wtl-instance.md`: [create-config.sh][create-config]
+* `create-config-doc.md`: [instance.sh][instance]
+* `add-or-update-mediawiki-extension.md` [mediawiki extension][mw-extension]
+
+WTLH dev guide
+
+* `const-doc.md`: [const.sh][const]
+* `conventions.md`: [Conventions][conventions]
+* `load-libs-doc.md`: [load-libs-doc.sh][load-libs-doc]
+* `recurring.md`: [Recurring][recurring]
 
 [WTLH-Online-Intro]: http://meta.wikitolearn.org/WikiToLearn_Home
+[WTLH-Doc]: http://meta.wikitolearn.org/WikiToLearn_Home/WikitoLearn_Home_Documentation
+
+[Local-WTL-instance]: http://meta.wikitolearn.org/WikiToLearn_Home/WikitoLearn_Home_Documentation/Local_WikiToLearn_Instance
+[create-config]: http://meta.wikitolearn.org/WikiToLearn_Home/WikitoLearn_Home_Documentation/Create_Config_Doc
+[instance]: http://meta.wikitolearn.org/WikiToLearn_Home/WikitoLearn_Home_Documentation/Instance_Doc
+[mw-extension]: http://meta.wikitolearn.org/WikiToLearn_Home/WikitoLearn_Home_Documentation/Add_Update_Mediawiki_Extension
+
+[conventions]: http://meta.wikitolearn.org/WikiToLearn_Home/WikitoLearn_Home_Documentation/Conventions
+[recurring]: http://meta.wikitolearn.org/WikiToLearn_Home/WikitoLearn_Home_Documentation/Recurring
+[const]: http://meta.wikitolearn.org/WikiToLearn_Home/WikitoLearn_Home_Documentation/Const_Doc
+[load-libs-doc]: http://meta.wikitolearn.org/WikiToLearn_Home/WikitoLearn_Home_Documentation/Load_Libs_Doc
+
+
+[meta]: https://meta.wikitolearn.org
