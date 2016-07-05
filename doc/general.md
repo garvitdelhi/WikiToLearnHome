@@ -28,8 +28,8 @@ bundle all the basic operations that one would perform to the WTL local instance
 #### Detailed script guides:
 These are a complete and detailed description about how to use `create-config.sh` and `instance.sh`.
 
-* Creating the confiuration files: [create-config.sh](//Create_Config_Doc)
-* Managing the local WTL environment: [instance.sh](//Instance_Doc)
+* [create-config.sh](//Create_Config_Doc): Creating the confiuration files
+* : [instance.sh](//Instance_Doc): Managing the local WTL environment
 
 #### Other Common Operations
 
@@ -100,6 +100,7 @@ the documentation pages on the [meta][meta] website.
 This allows to have both online (on the [meta][meta] website) and offline (distributed with the code, inside the WTLH repo) documentation, and that these two instances ofthe doc are kept in sync.
 
 The main documentation creation workflow is:
+
 1. writing the .md files
 2. using the script to generate the mediawiki files
 3. import those file into [meta][meta]
