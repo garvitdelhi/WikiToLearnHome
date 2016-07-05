@@ -19,28 +19,42 @@ may be used in. We would really like to hear from you in order to
 make this list as exhaustive as possible!
 
 * First time you run the local environment
-        `./instance-sh first-run`
+    ```{.bash}
+    ./instance-sh first-run
+    ```
 
 * Close the local instance (should be done before shutdown/restart)
-        `./instance.sh stop`
+    ```{.bash}
+    ./instance.sh stop
+    ```
 
 * Start the local instance, assuming you have already have done a completed
     configure and start with `./instance.sh first run`, and then stopped
     the instance with `./instance.sh stop`
-        `./instance.sh start`
+    ```{.bash}
+    ./instance.sh start
+    ```
 
 * Update WTLH
-        `./instance.sh update-home`
+    ```{.bash}
+    ./instance.sh update-home
+    ```
 
 * Update WTL, Mediawiki and Mediawiki extensions
-        `./instance.sh download`
+    ```{.bash}
+    ./instance.sh download
+    ```
 
 * Update docker images and containers
-        `./instance.sh update-docker-container`
+    ```{.bash}
+    ./instance.sh update-docker-container
+    ```
 
 * Full update: WTL and submodules, Mediawiki and extensions, docker images and      
     containers
-        `./instance.sh update-code-and-db`
+    ```{.bash}
+    ./instance.sh update-code-and-db
+    ```
 
 
 ### Options
@@ -50,38 +64,46 @@ argument, it automatically assumes that you passed `help`.
 
 Now follows a detailed description of what each parameter do.
 
-* `help`
-        cat doc/wtlh-user-guide/instance-doc.mdown
+#### Help
 
-Creating and starting the environment
+* `help`
+    ```
+    cat doc/wtlh-user-guide/instance-doc.mdown
+    ```
+
+#### Creating and starting the environment
 
 * `create`
-        $WTL_SCRIPTS/create.sh
+    ```
+    $WTL_SCRIPTS/create.sh
+    ```
 
     This creates the WTL webserver docker container, linking to it all the
     others containers, accordingly to the environment specifications.
 
 * `start`
-        $WTL_SCRIPTS/start.sh
-        $WTL_SCRIPTS/unuse-instance.sh
-        $WTL_SCRIPTS/use-instance.sh
-        $WTL_SCRIPTS/fix-hosts.sh
-
+    ```
+    $WTL_SCRIPTS/start.sh
+    $WTL_SCRIPTS/unuse-instance.sh
+    $WTL_SCRIPTS/use-instance.sh
+    $WTL_SCRIPTS/fix-hosts.sh
+    ```
     * Starts the webserver docker container
     * stops and remove the haproxy docker container
     * creates and starts haproxy docerk container again
     * then fixes the hosts in parsoid ocg and restbase docker containers
 
 * `first-run`
-        $WTL_SCRIPTS/download-all.sh
-        $WTL_SCRIPTS/download-mediawiki-extensions.sh
-        $WTL_SCRIPTS/create.sh
-        $WTL_SCRIPTS/start.sh
-        $WTL_SCRIPTS/backup-restore.sh $WTL_REPO_DIR/DeveloperDump/
-        $WTL_SCRIPTS/unuse-instance.sh
-        $WTL_SCRIPTS/use-instance.sh
-        $WTL_SCRIPTS/update-db.sh
-
+    ```
+    $WTL_SCRIPTS/download-all.sh
+    $WTL_SCRIPTS/download-mediawiki-extensions.sh
+    $WTL_SCRIPTS/create.sh
+    $WTL_SCRIPTS/start.sh
+    $WTL_SCRIPTS/backup-restore.sh $WTL_REPO_DIR/DeveloperDump/
+    $WTL_SCRIPTS/unuse-instance.sh
+    $WTL_SCRIPTS/use-instance.sh
+    $WTL_SCRIPTS/update-db.sh
+    ```
     Do everything that is needed at the first run of WTL instance:
     * pull docker images
     * git checkuot and pull of WTL repo
@@ -94,67 +116,82 @@ Creating and starting the environment
     * creates and starts haproxy docerk container again
     * update-db
 
-Stopping and deleting the environment
+#### Stopping and deleting the environment
 
 * `stop`
-        $WTL_SCRIPTS/unuse-instance.sh
-        $WTL_SCRIPTS/stop.sh
+    ```
+    $WTL_SCRIPTS/unuse-instance.sh
+    $WTL_SCRIPTS/stop.sh
+    ```
 
     * stops and remove the haproxy docker container
     * stops every current version WTL docker
 
 * `delete`
-        $WTL_SCRIPTS/unuse-instance.sh
-        $WTL_SCRIPTS/stop.sh
-        $WTL_SCRIPTS/delete.sh
-
+    ```
+    $WTL_SCRIPTS/unuse-instance.sh
+    $WTL_SCRIPTS/stop.sh
+    $WTL_SCRIPTS/delete.sh
+    ```
     Same as `stop` (#FIXME) , then
     * delete every curent version WTL docker container
 
 * `delete-volumes`
-        $WTL_SCRIPTS/delete-volumes.sh
+    ```
+    $WTL_SCRIPTS/delete-volumes.sh
+    ```
 
     * delete every current version WTL docker volume
 
 * `delete-full`
-        $WTL_SCRIPTS/unuse-instance.sh
-        $WTL_SCRIPTS/stop.sh
-        $WTL_SCRIPTS/delete.sh
-        $WTL_SCRIPTS/delete-volumes.sh
+    ```
+    $WTL_SCRIPTS/unuse-instance.sh
+    $WTL_SCRIPTS/stop.sh
+    $WTL_SCRIPTS/delete.sh
+    $WTL_SCRIPTS/delete-volumes.sh
+    ```
 
      This is like `delete` + `delete-volumes`
 
-Mantainance
+#### Mantainance
 
 * `fix-hosts`
-        $WTL_SCRIPTS/fix-hosts.sh
+    ```
+    $WTL_SCRIPTS/fix-hosts.sh
+    ```
 
     fixes the hosts in parsoid ocg and restbase docker containers
 
-Update Procedures
+#### Update Procedures
 
 * `update-home`
-        $WTL_SCRIPTS/update-home.sh
+    ```
+    $WTL_SCRIPTS/update-home.sh
+    ```
 
     Update WTLH git repo
 
 * `download`
-        $WTL_SCRIPTS/download-code.sh
-        $WTL_SCRIPTS/download-mediawiki-extensions.sh
+    ```
+    $WTL_SCRIPTS/download-code.sh
+    $WTL_SCRIPTS/download-mediawiki-extensions.sh
+    ```
 
     * git checkuot and pull of WTL repo
     * git submodule sync and submodule update
     * Download Mediawiki extensions
 
 * `update-docker-container`
-        $WTL_SCRIPTS/pull-images.sh
-        $WTL_SCRIPTS/unuse-instance.sh
-        $WTL_SCRIPTS/stop.sh
-        $WTL_SCRIPTS/delete.sh
-        $WTL_SCRIPTS/create.sh
-        $WTL_SCRIPTS/start.sh
-        $WTL_SCRIPTS/use-instance.sh
-        $WTL_SCRIPTS/fix-hosts.sh
+    ```
+    $WTL_SCRIPTS/pull-images.sh
+    $WTL_SCRIPTS/unuse-instance.sh
+    $WTL_SCRIPTS/stop.sh
+    $WTL_SCRIPTS/delete.sh
+    $WTL_SCRIPTS/create.sh
+    $WTL_SCRIPTS/start.sh
+    $WTL_SCRIPTS/use-instance.sh
+    $WTL_SCRIPTS/fix-hosts.sh
+    ```
 
     * download the new docker images
     * stop and delete the current containers
@@ -162,17 +199,19 @@ Update Procedures
     * fix the hosts in ocg restbase and parsoid containers
 
 * `update-code-and-db`
-        $WTL_SCRIPTS/download-code.sh
-        $WTL_SCRIPTS/download-mediawiki-extensions.sh
-        $WTL_SCRIPTS/pull-images.sh
-        $WTL_SCRIPTS/unuse-instance.sh
-        $WTL_SCRIPTS/stop.sh
-        $WTL_SCRIPTS/delete.sh
-        $WTL_SCRIPTS/create.sh
-        $WTL_SCRIPTS/start.sh
-        $WTL_SCRIPTS/use-instance.sh
-        $WTL_SCRIPTS/fix-hosts.sh
-        $WTL_SCRIPTS/update-db.sh
+    ```
+    $WTL_SCRIPTS/download-code.sh
+    $WTL_SCRIPTS/download-mediawiki-extensions.sh
+    $WTL_SCRIPTS/pull-images.sh
+    $WTL_SCRIPTS/unuse-instance.sh
+    $WTL_SCRIPTS/stop.sh
+    $WTL_SCRIPTS/delete.sh
+    $WTL_SCRIPTS/create.sh
+    $WTL_SCRIPTS/start.sh
+    $WTL_SCRIPTS/use-instance.sh
+    $WTL_SCRIPTS/fix-hosts.sh
+    $WTL_SCRIPTS/update-db.sh
+    ```
 
     This command makes a full update of the WTL local instance.
     It updates WTL repo, the submodules it uses
@@ -181,17 +220,21 @@ Update Procedures
     * same as `./isntance.sh update-docker-container`
     * update database
 
-Database Management
+#### Database Management
 
 * `devdump-import`
-        $WTL_SCRIPTS/backup-restore.sh $WTL_REPO_DIR/DeveloperDump/
-        $WTL_SCRIPTS/update-db.sh
+    ```
+    $WTL_SCRIPTS/backup-restore.sh $WTL_REPO_DIR/DeveloperDump/
+    $WTL_SCRIPTS/update-db.sh
+    ```
 
         Import a test database, contained in ./DeveloperDump
 
 * `devdump-export`
-        $WTL_SCRIPTS/backup-do.sh
-        $WTL_SCRIPTS/copy-last-backup-to-devdump.sh
+    ```
+    $WTL_SCRIPTS/backup-do.sh
+    $WTL_SCRIPTS/copy-last-backup-to-devdump.sh
+    ```
 
         Export the current database to ./DeveloperDump
 
