@@ -154,13 +154,7 @@ Sometimes you might want to wipe out the server and for this you can use
 ./instance.sh delete
 ```
 
-### Update WikiToLearnHome
-
-In order to keep WikiToLearnHome updated you have to run
-
-``` {.bash}
-./instance.sh update-home
-```
+Read [the guide to instance.sh](../Instance_Doc) for a deatailed description of how to use WTLH to manage the WTL instance.
 
 Vagrant Installation for Windows/OSX
 -------------------------------------
@@ -169,7 +163,7 @@ WTL is build to work on GNU/Linux. It uses GNU/Linux software, enclosed
 inside docker containers, that require the GNU/Linux kernel.
 Hence, if you want to develop WTL from a Windows/OSX environment you need to
 install a virtual linux system.
-We remind yout in order do use a virtualization software, you have to enable virtalization in your BIOS, as explained in [this page](/How_To_Enable_Virtualization_On_Your_PC).
+We remind yout in order do use a virtualization software, you have to enable virtalization in your BIOS, as explained in [this page](//How_To_Enable_Virtualization_On_Your_PC).
 
 ### Vagrant Installation
 
