@@ -14,7 +14,6 @@ fi
 
 . ./load-libs.sh
 
-echo "[wtl-delete] wtl-destroy: Loading Environment"
 . $WTL_SCRIPTS/environments/$WTL_ENV.sh
 
 if [[ $(docker volume ls | grep $WTL_INSTANCE_NAME |  awk '{print $2}' | wc -l) -gt 0 ]] ; then

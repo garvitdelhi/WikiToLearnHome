@@ -22,8 +22,6 @@ if [[ -f $WTL_WORKING_DIR"/mediawiki.version" ]] ; then
     export MW_MAJOR=`cat $WTL_WORKING_DIR"/mediawiki.version" | head -1`
     export MW_MINOR=`cat $WTL_WORKING_DIR"/mediawiki.version" | head -2 | tail -1`
 
-
-
     if [[ "$MW_MAJOR" == "snapshot" ]] ; then
         export _MW_FILE="mediawiki-snapshot-"$MW_MINOR".tar.gz"
         test -f $_MW_FILE || wget -N https://tools.wmflabs.org/snapshots/builds/mediawiki-core/$_MW_FILE
@@ -35,7 +33,7 @@ if [[ -f $WTL_WORKING_DIR"/mediawiki.version" ]] ; then
         fi
         mkdir mediawiki
         cd mediawiki
-        echo "Mediawiki snapshot:"$MW_MINOR
+        wtl-log download-mediawiki-extensions.sh 3 DOWNLOAD_MEDIAWIKI_EXTENSIONS_CORE_SNAPSHOT "Mediawiki snapshot:"$MW_MINOR
         tar xfz $WTL_CACHE"/download/"$_MW_FILE
 
     else
@@ -49,7 +47,7 @@ if [[ -f $WTL_WORKING_DIR"/mediawiki.version" ]] ; then
         if [[ -d mediawiki ]] ; then
             rm -Rf mediawiki
         fi
-        echo "Mediawiki: "$MW_MAJOR"."$MW_MINOR
+        wtl-log download-mediawiki-extensions.sh 3 DOWNLOAD_MEDIAWIKI_EXTENSIONS_CORE "Mediawiki: "$MW_MAJOR"."$MW_MINOR
         tar xfz $WTL_CACHE"/download/"$_MW_FILE
         mv $_MW_DIR_NAME mediawiki
     fi
@@ -103,7 +101,7 @@ if [[ -f $WTL_WORKING_DIR"/extensions.list.version" ]] ; then
         fi
 
         cd $WTL_WORKING_DIR"/extensions/"
-        echo "Extension: "$extension" ("$extension_version")"
+        wtl-log download-mediawiki-extensions.sh 3 DOWNLOAD_MEDIAWIKI_EXTENSIONS_EXT "Extension: "$extension" ("$extension_version")"
         if test -d $extension ; then
             rm -Rf $extension
         fi

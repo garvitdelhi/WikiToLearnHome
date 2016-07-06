@@ -29,18 +29,17 @@ fi
 
 # check the config file version
 if [[ "$WTL_CONFIG_FILE_VERSION" != "1" ]] ; then
-    echo "Wrong config file version."
-    wtl-log load-libs.sh 0 CONFIG_VERSION_ERROR "You are running the version $WTL_CONFIG_FILE_VERSION and this requires version 1"
+    wtl-log load-libs.sh 3 CONFIG_VERSION_ERROR "You are running the version $WTL_CONFIG_FILE_VERSION and this requires version 1"
     exit 1
 fi
 
 if [[ "$WTL_USER_UID" != $(id -u) ]] ; then
-    wtl-log load-libs.sh 0 CONFIG_UID_ERROR "Your UID is not the one in the config file ($WTL_USER_UID != "$(id -u)")"
+    wtl-log load-libs.sh 3 CONFIG_UID_ERROR "Your UID is not the one in the config file ($WTL_USER_UID != "$(id -u)")"
     exit 1
 fi
 
 if [[ "$WTL_USER_GID" != $(id -g) ]] ; then
-    wtl-log load-libs.sh 0 CONFIG_GID_ERROR "Your GID is not the one in the config file ($WTL_USER_GID != "$(id -g)")"
+    wtl-log load-libs.sh 3 CONFIG_GID_ERROR "Your GID is not the one in the config file ($WTL_USER_GID != "$(id -g)")"
     exit 1
 fi
 test -d $WTL_CACHE || mkdir $WTL_CACHE

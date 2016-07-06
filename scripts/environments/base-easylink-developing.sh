@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "[environment] Using 'base-ocg-developing' environment"
+echo "[environment] Using 'base-easylink-developing' environment"
 
 if [[ "$WTL_WORKING_DIR" == "" ]] ; then
     export WTL_WORKING_DIR=$WTL_REPO_DIR

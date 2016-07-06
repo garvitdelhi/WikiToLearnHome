@@ -36,7 +36,7 @@ docker inspect wikitolearn-haproxy &> /dev/null && {
 }
 
 if [[ "$NEW_WTL_INSTANCE_NAME" != "$OLD_WTL_INSTANCE_NAME" ]] ; then
-    echo "New running"
+    wtl-log relase-procedure.sh 0 RELASE_PROCEDURE_NEW_RUN "New running"
     $WTL_SCRIPTS/create-running.sh $GIT_ID_NEW
 
     export WTL_INSTANCE_NAME=$NEW_WTL_INSTANCE_NAME

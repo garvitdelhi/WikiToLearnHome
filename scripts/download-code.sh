@@ -18,21 +18,21 @@ if [[ -d "$WTL_REPO_DIR" ]] ; then
 
     if [[ "$WTL_BRANCH_AUTO_CHECKOUT" == "1" ]] ; then
         if ! git checkout "$WTL_BRANCH" ; then
-            echo "[download-code] Error during checkout"
+            wtl-log download-code.sh 3 DOWNLOAD_CODE_ERROR_CHECKOUT "Error during checkout"
             exit 1
         fi
      fi
 
-    echo "[download-code] pulling repo"
+    wtl-log download-code.sh 3 DOWNLOAD_CODE_PULL "pulling repo"
     git pull
-    echo "[download-code] syncing submodules"
+    wtl-log download-code.sh 3 DOWNLOAD_CODE_SUBMODULE_SYNC "syncing submodules"
     git submodule sync
-    echo "[download-code] updating submodules"
+    wtl-log download-code.sh 3 DOWNLOAD_CODE_SUBMODULE_INIT_UPDATE "updating submodules"
     git submodule update --init --checkout --recursive
     #TODO add depth support
 
     cd ..
 else
-    echo "[download-code] cloning recursive"
+    wtl-log download-code.sh 3 DOWNLOAD_CODE_CLONE "cloning recursive"
     git clone --recursive -b "$WTL_BRANCH" "$WTL_URL" "$WTL_REPO_DIR"
 fi
