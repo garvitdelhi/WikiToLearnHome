@@ -16,7 +16,7 @@ fi
 . $WTL_SCRIPTS/environments/${WTL_ENV}.sh
 
 if [[ "$WTL_INSTANCE_NAME" == "" ]] ; then
-    wtl-log start.sh 0 START_MISSING_INSTANCE_NAME "You need the WTL_INSTANCE_NAME env variable"
+    wtl-log scripts/start.sh 0 START_MISSING_INSTANCE_NAME "You need the WTL_INSTANCE_NAME env variable"
     exit 1
 fi
 

@@ -1,10 +1,20 @@
 #!/bin/bash
 # Install composer dependencies from composer.json in the $1 folder
+[[  "$WTL_SCRIPT_DEBUG" == "1" ]] && set -x
+set -e
+if [[ $(basename $0) != "composer-dir.sh" ]] ; then
+    echo "Wrong way to execute composer-dir.sh"
+    exit 1
+fi
+cd $(dirname $(realpath $0))"/.."
+if [[ ! -f "const.sh" ]] ; then
+    echo "Error changing directory"
+    exit 1
+fi
 
 #check if $1 is null
 if [ -z "$1" ]; then
-    echo "[composer-dir] Error: required parameter 'path of composer.json'"
-    echo -e "\e[31mFATAL ERROR \e[0m"
+    wtl-log scripts/composer-dir.sh 0 COMPOSER_DIR_MISSING_PATH_COMPOSER_JSON "Required parameter 'path of composer.json'"
     exit 1
 fi
 
@@ -13,21 +23,21 @@ COMPOSER_DIR="$1"
 #call ./load-libs.sh script: load environment variables from const and config file
 . ./load-libs.sh
 
-wtl-log composer-dir.sh 2 COMPOSER_DIR_WORKING_DIR "Composing '$COMPOSER_DIR'"
+wtl-log scripts/composer-dir.sh 2 COMPOSER_DIR_WORKING_DIR "Composing '$COMPOSER_DIR'"
 
 if [[ ! -f $COMPOSER_DIR"/composer.json" ]] ; then
-    wtl-log composer-dir.sh 0 COMPOSER_DIR_MISSING_COMPOSER_DOT_JSON "composer.json missing in the directory '$COMPOSER_DIR'"
+    wtl-log scripts/composer-dir.sh 0 COMPOSER_DIR_MISSING_COMPOSER_DOT_JSON "composer.json missing in the directory '$COMPOSER_DIR'"
     exit 1
 fi
 
 #check if auth.json is in the composer folder
 if [[ ! -f "$WTL_DIR/configs/composer/auth.json" ]] ; then
-    wtl-log composer-dir.sh 0 COMPOSER_DIR_MISSING_AUTH "Composer config missing, please run create-config.sh"
+    wtl-log scripts/composer-dir.sh 0 COMPOSER_DIR_MISSING_AUTH "Composer config missing, please run create-config.sh"
     exit 1
 fi
 
 if [[ ! -d $WTL_CACHE/composer ]] ; then
-    wtl-log composer-dir.sh 3 COMPOSER_DIR_CREATE_CACHE "Creating new dir for cache"
+    wtl-log scripts/composer-dir.sh 3 COMPOSER_DIR_CREATE_CACHE "Creating new dir for cache"
     mkdir -p $WTL_CACHE/composer
 fi
 

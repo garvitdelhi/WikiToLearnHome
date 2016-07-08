@@ -17,11 +17,11 @@ $WTL_SCRIPTS/download-code.sh
 
 $WTL_SCRIPTS/pull-images.sh
 
-wtl-log download-all.sh 3 DOWNLOAD_ALL_PRE "Composer STUFF"
+wtl-log scripts/download-all.sh 3 DOWNLOAD_ALL_PRE "Composer STUFF"
 if [[ $WTL_PRODUCTION == "0" ]] ; then
-    wtl-log download-all.sh 3 DOWNLOAD_ALL_STEP_1 "Auto compser step 1"
+    wtl-log scripts/download-all.sh 3 DOWNLOAD_ALL_STEP_1 "Auto compser step 1"
     if [[ $WTL_AUTO_COMPOSER == "1" ]] ; then
-        wtl-log download-all.sh 3 DOWNLOAD_ALL_STEP_2 "Auto compser step 2"
+        wtl-log scripts/download-all.sh 3 DOWNLOAD_ALL_STEP_2 "Auto compser step 2"
         $WTL_SCRIPTS/composer-for-dirs.sh ${WTL_REPO_DIR}
     fi
 fi

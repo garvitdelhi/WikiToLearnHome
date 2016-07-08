@@ -20,7 +20,7 @@ if [[ ! -f ${WTL_CERTS}/wikitolearn.crt ]] && [[ ! -f ${WTL_CERTS}/wikitolearn.k
     docker pull $image
 
     if ! docker inspect $image &> /dev/null ; then
-        echo "Failed to download the "$image
+        wtl-log scripts/make-self-signed-certs.sh 0 MAKE_SELF_SIGNED_CERTS_DOWNLOAD_FAIL "Failed to download the "$image
         exit 1
     fi
 
@@ -38,11 +38,11 @@ if [[ ! -f ${WTL_CERTS}/wikitolearn.crt ]] && [[ ! -f ${WTL_CERTS}/wikitolearn.k
 fi
 
 if [[ -f ${WTL_CERTS}/wikitolearn.crt ]] && [[ ! -f ${WTL_CERTS}/wikitolearn.key ]] ; then
- echo "You have only the key, plese insert crt also"
- exit
+ wtl-log scripts/make-self-signed-certs.sh 0 MAKE_SELF_SIGNED_CERTS_MISSING_CERT "You have only the key, plese insert crt also"
+ exit 1
 fi
 
 if [[ ! -f ${WTL_CERTS}/wikitolearn.crt ]] && [[ -f ${WTL_CERTS}/wikitolearn.key ]] ; then
- echo "You have only the crt, plese insert key also"
- exit
+ wtl-log scripts/make-self-signed-certs.sh 0 MAKE_SELF_SIGNED_CERTS_MISSING_KEY "You have only the crt, plese insert key also"
+ exit 1
 fi

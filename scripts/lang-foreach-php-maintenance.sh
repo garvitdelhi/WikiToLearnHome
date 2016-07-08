@@ -17,13 +17,13 @@ fi
 . $WTL_SCRIPTS/environments/${WTL_ENV}.sh
 
 
-echo "[lang-foreach] Finding Languages"
+wtl-log scripts/lang-foreach-php-maintenance.sh 3 LANG_FOREACH_PHP_MAINTENANCE_GET_LANG_LIST "Finding Languages"
 langlist=$(cat $WTL_WORKING_DIR/databases.conf | sed 's/wikitolearn//g' | grep -v shared)
 
 CMD="$@"
 
-echo "[lang-foreach] Found Languages: "$(echo ${langlist[*]})
+wtl-log scripts/lang-foreach-php-maintenance.sh 3 LANG_FOREACH_PHP_MAINTENANCE_LANG_LIST "Found Languages: "$(echo ${langlist[*]})
 for lang in $langlist; do
-    echo "[lang-foreach] Current lang: $lang"
+    wtl-log scripts/lang-foreach-php-maintenance.sh 3 LANG_FOREACH_PHP_MAINTENANCE_RUN_LANG "Current lang: $lang"
     docker exec -ti ${WTL_INSTANCE_NAME}-websrv sh -c "/bin/bash -c 'WIKI=$lang.wikitolearn.org php /var/www/WikiToLearn/mediawiki/maintenance/$CMD'" -m www-data
 done

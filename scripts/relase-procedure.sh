@@ -36,15 +36,16 @@ docker inspect wikitolearn-haproxy &> /dev/null && {
 }
 
 if [[ "$NEW_WTL_INSTANCE_NAME" != "$OLD_WTL_INSTANCE_NAME" ]] ; then
-    wtl-log relase-procedure.sh 0 RELASE_PROCEDURE_NEW_RUN "New running"
+    wtl-log scripts/relase-procedure.sh 0 RELASE_PROCEDURE_NEW_RUN "New running"
     $WTL_SCRIPTS/create-running.sh $GIT_ID_NEW
 
     export WTL_INSTANCE_NAME=$NEW_WTL_INSTANCE_NAME
     export WTL_WORKING_DIR=$NEW_WTL_WORKING_DIR
+    $WTL_SCRIPTS/pull-images.sh
+
     $WTL_SCRIPTS/create.sh
     $WTL_SCRIPTS/start.sh
 
-    $WTL_SCRIPTS/pull-images.sh
 
 
     docker inspect wikitolearn-haproxy &> /dev/null && {

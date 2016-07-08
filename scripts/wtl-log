@@ -12,6 +12,7 @@ fi
 
 wtl-log () {
     SCRIPT_NAME=$1 ; shift
+    SCRIPT_FILENAME=$(basename $SCRIPT_NAME)
     LOG_LEVEL=$1   ; shift
     EVENT_ID=$1    ; shift
     LOG_MSG=$@
@@ -33,7 +34,7 @@ wtl-log () {
         ;;
     esac
     echo -n ": "
-    echo $SCRIPT_NAME" > "$LOG_MSG
+    echo $SCRIPT_FILENAME" > "$LOG_MSG
     if test -d $WTL_HOOKS"/"$EVENT_ID ; then
         ls $WTL_HOOKS"/"$EVENT_ID | sort | while read file ; do
             echo $file
