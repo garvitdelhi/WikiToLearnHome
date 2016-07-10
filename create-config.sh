@@ -24,6 +24,17 @@ if [[ $(id -u) -eq 0 ]] || [[ $(id -g) -eq 0 ]] ; then
 fi
 # -------------------------------------------------------------
 
+# checks whether the host machine is running GNU/Linux kernel
+# It exits with a Fatal Error otherwise
+
+if [[ "$(uname)" -ne "Linux" ]] ;then
+	echo "The host machine is not running Linux" ;
+    echo -e "\e[31mFATAL ERROR \e[0m"
+    exit 1
+else
+	echo "The host machine is running Linux. That's good!" ;
+fi
+
 # checks whether git docker curl and rsync are installed
 for cmd in git docker curl rsync python3 dirname realpath ; do
     echo -n "[create-config] Searching for "$cmd"..."
