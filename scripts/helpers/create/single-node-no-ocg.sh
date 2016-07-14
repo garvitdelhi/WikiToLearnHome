@@ -9,7 +9,6 @@ export MORE_ARGS=" -e WTL_PRODUCTION=$WTL_PRODUCTION"
 if [[ "$WTL_PRODUCTION" == "1" ]] ; then
     export MORE_ARGS=" --restart=always $MORE_ARGS"
 fi
-wtl-log scripts/helpers/create/single-node-no-ocg.sh 3 NN "[create/single-node-no-ocg] Running in PRODUCTION mode!"
 
 $WTL_SCRIPTS"/helpers/create/commons/single-node-pre.sh"
 
