@@ -62,6 +62,7 @@ case $1 in
         $WTL_SCRIPTS/download-mediawiki-extensions.sh
         $WTL_SCRIPTS/create.sh
         $WTL_SCRIPTS/start.sh
+        $WTL_SCRIPTS/fix-hosts.sh
         $WTL_SCRIPTS/backup-restore.sh $WTL_REPO_DIR/DeveloperDump/
         $WTL_SCRIPTS/unuse-instance.sh
         $WTL_SCRIPTS/use-instance.sh
