@@ -14,6 +14,11 @@ else
     wtl-log scripts/helpers/create/commons/single-node-pre.sh 3 NN "Using "$WTL_MATHOID_NUM_WORKERS" mathoid workers"
 fi
 
+if [[ "$WTL_RESTBASE_CASSANDRA_HOSTS" == "" ]] ; then
+    wtl-log scripts/helpers/create/commons/single-node-pre.sh 3 NN "Using sqlite as restbase backend"
+    export WTL_RESTBASE_CASSANDRA_HOSTS=""
+fi
+
 if ! docker inspect ${WTL_INSTANCE_NAME}-mathoid &> /dev/null ; then
     docker create -ti $MORE_ARGS --hostname mathoid --name ${WTL_INSTANCE_NAME}-mathoid -e NUM_WORKERS=$WTL_MATHOID_NUM_WORKERS $WTL_DOCKER_MATHOID
     wtl-log scripts/helpers/create/commons/single-node-pre.sh 3 NN "[create/single-node] Creating docker ${WTL_INSTANCE_NAME}-mathoid with $WTL_MATHOID_NUM_WORKERS workers"
@@ -56,6 +61,7 @@ fi
 
 if ! docker inspect ${WTL_INSTANCE_NAME}-restbase &> /dev/null ; then
     docker create -ti $MORE_ARGS --hostname restbase \
+        -e CASSANDRA_HOSTS=$WTL_RESTBASE_CASSANDRA_HOSTS \
         --link ${WTL_INSTANCE_NAME}-parsoid:parsoid \
         --link ${WTL_INSTANCE_NAME}-mathoid:mathoid \
         --name ${WTL_INSTANCE_NAME}-restbase $WTL_DOCKER_RESTBASE
