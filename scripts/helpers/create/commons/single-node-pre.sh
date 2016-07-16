@@ -8,7 +8,10 @@ if ! docker inspect ${WTL_INSTANCE_NAME}-parsoid &> /dev/null ; then
 fi
 
 if [[ "$WTL_MATHOID_NUM_WORKERS" == "" ]] ; then
+    wtl-log scripts/helpers/create/commons/single-node-pre.sh 3 NN "Using the default WTL_MATHOID_NUM_WORKERS value (is 1)"
     export WTL_MATHOID_NUM_WORKERS=1
+else
+    wtl-log scripts/helpers/create/commons/single-node-pre.sh 3 NN "Using "$WTL_MATHOID_NUM_WORKERS" mathoid workers"
 fi
 
 if ! docker inspect ${WTL_INSTANCE_NAME}-mathoid &> /dev/null ; then
