@@ -263,6 +263,10 @@ export WTL_MAIL_RELAY_FROM_ADDRESS=
 export WTL_MAIL_RELAY_STARTTLS=1
 
 export WTL_VOLUME_DIR=
+
+# export WTL_MATHOID_NUM_WORKERS=1
+# export WTL_RESTBASE_CASSANDRA_HOSTS="wtl-cassandra.host.localnet"
+
 EOF
 } > $WTL_CONFIG_FILE
 
