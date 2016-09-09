@@ -23,7 +23,7 @@ TMP_DIR=`mktemp -d`
 cd $TMP_DIR
 
 if [[ $# -lt 3 ]] ; then
-    wtl-log scripts/mw-dumps-from-production.sh 0 MW_DUMPS_FROM_PRODUCTOIN_MISSING_ARGS  "This command must be runned as "$0" <langcode> <output name> <page1> <page2> ... <pageN>"
+    wtl-log scripts/mw-dumps-from-production.sh 4 MW_DUMPS_FROM_PRODUCTOIN_MISSING_ARGS  "This command must be runned as "$0" <langcode> <output name> <page1> <page2> ... <pageN>"
     exit 1
 fi
 lang=$1

@@ -5,12 +5,12 @@ BACKUP_DIR=$WTL_BACKUPS"/"$(date +'%Y_%m_%d__%H_%M_%S')"_quick"
 
 test -d $BACKUP_DIR || mkdir $BACKUP_DIR
 
-wtl-log scripts/helpers/backup-do-quick/single-node.sh 3 BACKUP_STARTED "Started backup for "${WTL_INSTANCE_NAME}
+wtl-log scripts/helpers/backup-do-quick/single-node.sh 7 BACKUP_STARTED "Started backup for "${WTL_INSTANCE_NAME}
 
 rsync -a --stats --delete $WTL_WORKING_DIR"/mediawiki/images/" ${BACKUP_DIR}"/images/"
 
 for db in $(docker exec -ti ${WTL_INSTANCE_NAME}-mysql mysql -e "SHOW DATABASES" | grep wikitolearn | awk '{ print $2 }') ; do
- wtl-log scripts/helpers/backup-do-quick/single-node.sh 3 BACKUP_QUICK_DB "Backup "$db
+ wtl-log scripts/helpers/backup-do-quick/single-node.sh 7 BACKUP_QUICK_DB "Backup "$db
  BACKUP_FILE=$BACKUP_DIR"/"$db
  BACKUP_FILE_STRUCT=$BACKUP_FILE".struct.sql"
  BACKUP_FILE_DATA=$BACKUP_FILE".data.sql"
@@ -23,4 +23,4 @@ done
 
 rsync -a --stats --delete $WTL_WORKING_DIR"/mediawiki/images/" ${BACKUP_DIR}"/images/"
 
-wtl-log scripts/helpers/backup-do-quick/single-node.sh 3 BACKUP_FINISHED "Backup for "${WTL_INSTANCE_NAME}" finished"
+wtl-log scripts/helpers/backup-do-quick/single-node.sh 7 BACKUP_FINISHED "Backup for "${WTL_INSTANCE_NAME}" finished"

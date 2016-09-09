@@ -15,14 +15,14 @@ fi
 . $WTL_SCRIPTS/environments/$WTL_ENV.sh
 
 if [[ "$WTL_INSTANCE_NAME" == "" ]] ; then
-    wtl-log scripts/use-instance.sh 0 USE_INSTANCE_MISSING_INSTANCE_NAME "Missing key environment variabile WTL_INSTANCE_NAME in $WTL_ENV.sh"
+    wtl-log scripts/use-instance.sh 4 USE_INSTANCE_MISSING_INSTANCE_NAME "Missing key environment variabile WTL_INSTANCE_NAME in $WTL_ENV.sh"
     exit 1
 fi
 
 if docker inspect wikitolearn-haproxy &> /dev/null ; then
-    wtl-log scripts/use-instance.sh 0 USE_INSTANCE_STOP_OLD "You have to un use the old instance first"
+    wtl-log scripts/use-instance.sh 4 USE_INSTANCE_STOP_OLD "You have to un use the old instance first"
 else
-    wtl-log scripts/use-instance.sh 3 USE_INSTANCE_START "Bringing up \"${WTL_INSTANCE_NAME}\"..."
+    wtl-log scripts/use-instance.sh 7 USE_INSTANCE_START "Bringing up \"${WTL_INSTANCE_NAME}\"..."
     docker create --name wikitolearn-haproxy --restart=always \
         --label WTL_INSTANCE_NAME=${WTL_INSTANCE_NAME} \
         --label WTL_WORKING_DIR=$WTL_WORKING_DIR \
@@ -34,5 +34,5 @@ else
     docker cp ${WTL_CERTS}/wikitolearn.crt wikitolearn-haproxy:/etc/ssl/certs/haproxy.crt
     docker cp ${WTL_CERTS}/wikitolearn.key wikitolearn-haproxy:/etc/ssl/private/haproxy.key
     docker start wikitolearn-haproxy
-    wtl-log scripts/use-instance.sh 3 USE_INSTANCE_DONE "Is up \"${WTL_INSTANCE_NAME}\""
+    wtl-log scripts/use-instance.sh 7 USE_INSTANCE_DONE "Is up \"${WTL_INSTANCE_NAME}\""
 fi

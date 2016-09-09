@@ -16,7 +16,7 @@ fi
 . $WTL_SCRIPTS/environments/${WTL_ENV}.sh
 
 if [[ "$WTL_INSTANCE_NAME" == "" ]] ; then
-    wtl-log scripts/mw-dumps-import.sh 0 MIGGING_WTL_INSTANCE_NAME "You need the WTL_INSTANCE_NAME env"
+    wtl-log scripts/mw-dumps-import.sh 4 MIGGING_WTL_INSTANCE_NAME "You need the WTL_INSTANCE_NAME env"
     exit 1
 fi
 if [[ "$1" != "" ]] ; then
@@ -26,7 +26,7 @@ if test -f "$2" ; then
     FILE=$2
 fi
 if [[ "$SUBDOM" == "" ]] || [[ "$FILE" == "" ]] ; then
-    wtl-log scripts/mw-dumps-import.sh 0 MW_DUMPS_IMPORT_MISSING_ARGS "This command must be runned as "$0" <file to import>"
+    wtl-log scripts/mw-dumps-import.sh 4 MW_DUMPS_IMPORT_MISSING_ARGS "This command must be runned as "$0" <file to import>"
     exit 1
 fi
 cat $FILE | docker exec -i ${WTL_INSTANCE_NAME}-websrv sh -c "export WIKI='$SUBDOM.$WTL_DOMAIN_NAME' && pwd && cd /var/www/WikiToLearn/mediawiki/maintenance/ && php importDump.php"

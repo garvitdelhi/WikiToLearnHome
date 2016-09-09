@@ -4,7 +4,7 @@
 $WTL_SCRIPTS"/helpers/start/commons/single-node-pre.sh"
 
 if ! docker start ${WTL_INSTANCE_NAME}-ocg ; then
-    wtl-log scripts/helpers/start/single-node-easylink-develop.sh 0 START_MIGGING_OCG "[start/single-node] FATAL ERROR: MISSING OCG"
+    wtl-log scripts/helpers/start/single-node-easylink-develop.sh 4 START_MIGGING_OCG "[start/single-node] FATAL ERROR: MISSING OCG"
     exit 1
 fi
 
