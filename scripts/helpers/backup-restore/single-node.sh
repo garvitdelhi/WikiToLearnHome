@@ -12,8 +12,22 @@ for dbname in $(cat $WTL_WORKING_DIR/databases.conf) ; do
 done
 
 for dbname in $(cat $WTL_WORKING_DIR/databases.conf) ; do
-    wtl-log scripts/helpers/backup-restore/single-node.sh 0 RESTORE_DB "Restore for $dbname"
-    cat $WTL_BACKUP_DIR"/"$dbname".struct.sql" | docker exec -i ${WTL_INSTANCE_NAME}-mysql mysql $dbname
-    cat $WTL_BACKUP_DIR"/"$dbname".data.sql"   | docker exec -i ${WTL_INSTANCE_NAME}-mysql mysql $dbname
+    if test -f $WTL_BACKUP_DIR"/"$dbname".struct.sql"
+    then
+        wtl-log scripts/helpers/backup-restore/single-node.sh 0 RESTORE_DB "Restore for $dbname"
+        cat $WTL_BACKUP_DIR"/"$dbname".struct.sql" | docker exec -i ${WTL_INSTANCE_NAME}-mysql mysql $dbname
+        if test -f $WTL_BACKUP_DIR"/"$dbname".data.sql"
+        then
+            cat $WTL_BACKUP_DIR"/"$dbname".data.sql"   | docker exec -i ${WTL_INSTANCE_NAME}-mysql mysql $dbname
+        fi
+    else
+        if test -f $WTL_REPO_DIR"/DeveloperDump/"$dbname".struct.sql"
+        then
+            wtl-log scripts/helpers/backup-restore/single-node.sh 0 RESTORE_DB_DEVELOPER_DUMP "Restore for $dbname from DeveloperDump"
+            cat $WTL_REPO_DIR"/DeveloperDump/"$dbname".struct.sql" | docker exec -i ${WTL_INSTANCE_NAME}-mysql mysql $dbname
+        else
+            wtl-log scripts/helpers/backup-restore/single-node.sh 0 RESTORE_DB_MISSING_DUMP "Missing dump for $dbname"
+        fi
+    fi
 done
 rsync -a --stats --delete $WTL_BACKUP_DIR"/images/" $WTL_WORKING_DIR"/mediawiki/images/"
