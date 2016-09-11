@@ -128,7 +128,7 @@ case $1 in
         $WTL_SCRIPTS/copy-last-backup-to-devdump.sh
     ;;
     release-do)
-        $WTL_SCRIPTS/relase-procedure.sh
+        $WTL_SCRIPTS/release-procedure.sh
     ;;
     release-clean)
         $WTL_SCRIPTS/backup-auto-delete.sh
@@ -137,7 +137,7 @@ case $1 in
         $WTL_SCRIPTS/docker-images-clean.sh
     ;;
     staging)
-        $WTL_SCRIPTS/relase-procedure.sh
+        $WTL_SCRIPTS/release-procedure.sh
         $WTL_SCRIPTS/backup-auto-delete.sh
         $WTL_SCRIPTS/unused-instance-stop-delete.sh
         $WTL_SCRIPTS/docker-images-delete-old-images.sh

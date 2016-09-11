@@ -1,8 +1,8 @@
 #!/bin/bash
 [[  "$WTL_SCRIPT_DEBUG" == "1" ]] && set -x
 set -e
-if [[ $(basename $0) != "relase-procedure.sh" ]] ; then
-    echo "Wrong way to execute relase-procedure.sh"
+if [[ $(basename $0) != "release-procedure.sh" ]] ; then
+    echo "Wrong way to execute release-procedure.sh"
     exit 1
 fi
 cd $(dirname $(realpath $0))"/.."
@@ -36,7 +36,11 @@ docker inspect wikitolearn-haproxy &> /dev/null && {
 }
 
 if [[ "$NEW_WTL_INSTANCE_NAME" != "$OLD_WTL_INSTANCE_NAME" ]] ; then
-    wtl-log scripts/relase-procedure.sh 4 RELASE_PROCEDURE_NEW_RUN "New running"
+    if [[ "$WTL_RELEASE_GPG_CHECK" == "1" ]]
+    then
+      # FIXME do gpg-check-stuff
+    fi
+    wtl-log scripts/release-procedure.sh 4 RELEASE_PROCEDURE_NEW_RUN "New running"
     $WTL_SCRIPTS/create-running.sh $GIT_ID_NEW
 
     export WTL_INSTANCE_NAME=$NEW_WTL_INSTANCE_NAME

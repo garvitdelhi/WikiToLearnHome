@@ -262,6 +262,9 @@ export WTL_MAIL_RELAY_PASSWORD=
 export WTL_MAIL_RELAY_FROM_ADDRESS=
 export WTL_MAIL_RELAY_STARTTLS=1
 
+# by default we don't check the gpg signature
+export WTL_RELEASE_GPG_CHECK=0
+
 export WTL_VOLUME_DIR=
 
 # export WTL_MATHOID_NUM_WORKERS=1

@@ -10,27 +10,29 @@
 # keyfile from the folder and execute this script.
 #######
 
+if [[ "$WTL_REPO_DIR" != "" ]]
+then
+    #removing keys
+    if test ! -f $WTL_TRUSTED_KEYS_INDEX
+    then
+        touch $WTL_TRUSTED_KEYS_INDEX
+    fi
+    for key in $(cat $WTL_TRUSTED_KEYS_INDEX); do
+        sed -i '/'$key'/d' $WTL_TRUSTED_KEYS_INDEX
+        gpg --batch --yes --delete-keys $key &> /dev/null
+    done
 
-KEYS_FILE=$WTL_CONFIGS_DIR"gpg-trusted-keys"
+    #adding all the keys inside the folder
+    if test ! -d $WTL_TRUSTED_KEYS_REPO
+    then
+        mkdir $WTL_TRUSTED_KEYS_REPO
+    fi
 
-#removing keys
-echo "Removing keys:"
-
-for key in $(cat $KEYS_FILE); do
-    echo "    -Removing pubkey: "$key
-    gpg --batch --yes --delete-keys $key &> /dev/null
-done
-#cleaning the truste-key config file
-> $KEYS_FILE
-
-#adding all the keys inside the folder
-echo "Adding keys:"
-
-for f in $(find $WTL_TRUSTED_KEYS_REPO -name '*.key'); do
-    key=$(gpg $f | grep pub | awk -F '/' '{print $2}')
-    key=${key:0:9}
-    echo "    -Adding pubkey: "$key
-    gpg --import $f &> /dev/null
-    #saving the trusted key in config file
-    echo $key >> $WTL_CONFIGS_DIR"gpg-trusted-keys"
-done
+    for f in $(find $WTL_TRUSTED_KEYS_REPO -name '*.key'); do
+        key=$(gpg $f | grep pub | awk -F '/' '{print $2}')
+        key=${key:0:9}
+        gpg --import $f &> /dev/null
+        #saving the trusted key in config file
+        echo $key >> $WTL_TRUSTED_KEYS_INDEX
+    done
+fi
