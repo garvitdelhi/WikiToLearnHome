@@ -16,11 +16,11 @@ then
         author=$(git log --pretty="Author: %h | %an | %ae" $TAG -n1)
         #checking signature
 
-        if git verify-tag $1 &> /dev/null ; then
-          echo "[git-gpg-check] Tag $1 is TRUSTED. $author"
-          exit 0
+        if ! git verify-tag $1 &> /dev/null ; then
+          echo "[git-gpg-check] Tag $1 is NOT TRUSTED. $author "
+          exit 1
         fi
-        echo "[git-gpg-check] Tag $1 is NOT TRUSTED. $author "
-        exit 1
+        echo "[git-gpg-check] Tag $1 is TRUSTED. $author"
+        exit 0
     fi
 fi

@@ -19,7 +19,7 @@ then
     #checking signature
 
     # if trusted is = 0 then the commit is trusted
-    if git verify-commit $COMMIT &> /dev/null ; then
+    if ! git verify-commit $COMMIT &> /dev/null ; then
         echo "[git-gpg-check] Last commit is NOT TRUSTED.    $author "
         exit 1
     fi
