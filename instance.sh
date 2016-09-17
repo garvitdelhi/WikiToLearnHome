@@ -143,6 +143,29 @@ case $1 in
         $WTL_SCRIPTS/docker-images-delete-old-images.sh
         $WTL_SCRIPTS/docker-images-clean.sh
     ;;
+    production)
+        . $WTL_SCRIPTS/load-productoin-instance.sh
+        case $2 in
+            runJobs)
+                $WTL_SCRIPTS/lang-foreach-php-maintenance.sh runJobs.php
+            ;;
+            backup-do)
+                $WTL_SCRIPTS/backup-do.sh
+            ;;
+            backup-do-quick)
+                $WTL_SCRIPTS/backup-do-quick.sh
+            ;;
+            backup-auto-delete)
+                $WTL_SCRIPTS/backup-auto-delete.sh
+            ;;
+            mw-dumps-do)
+                $WTL_SCRIPTS/mw-dumps-do.sh
+            ;;
+            *)
+                echo "Production ommand not found ($@)"
+            ;;
+        esac
+    ;;
     *)
         echo "Command not found ($@)"
     ;;
