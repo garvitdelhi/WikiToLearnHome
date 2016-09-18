@@ -1,0 +1,104 @@
+#!/bin/bash0
+if [[ "$WTL_DIR" == "" ]]
+then
+    echo "Missing WTL_DIR env var. FATAL"
+    exit 1
+fi
+
+if [[ "$WTL_LOG_LANG" == "" ]]
+then
+    export WTL_LOG_LANG="en"
+fi
+export WTL_LOG_MSG_TEMPLATE=$WTL_DIR"/log-templates/"$WTL_LOG_LANG"/"
+export WTL_HOOK_ALL_EVENTS=$WTL_HOOKS"/ALL_EVENTS/"
+
+
+wtl-event () {
+
+  LOG_MSG_ID=$1
+  shift
+
+  LOG_MSG_FILE=$WTL_LOG_MSG_TEMPLATE$LOG_MSG_ID
+  LOG_HOOK_DIR=$WTL_HOOKS$LOG_MSG_ID
+  LOG_LEVEL=0
+  LOG_DATE_TIME=`date +'%F %T'`
+
+  if test -f $LOG_MSG_FILE
+  then
+    n=1
+    while [[ "$1" != "" ]]
+    do
+      export ARG${n}="$1"
+      shift
+      n=$(($n+1))
+    done
+
+    LOG_LEVEL=`cat "$LOG_MSG_FILE" | head -1 | tail -1`
+    LOG_MSG=$({
+      echo -n "echo "
+      cat "$LOG_MSG_FILE" | head -2 | tail -1
+    } | bash)
+  else
+    {
+      echo "0"
+      echo "\$1"
+    } > $LOG_MSG_FILE
+    LOG_MSG="Missing message "$LOG_MSG_ID": "$@
+  fi
+
+  case $LOG_LEVEL in
+      "0")
+          echo -e -n "\e[31mEMERGENCY    \e[0m"
+      ;;
+      "1")
+          echo -e -n "\e[32mALERT        \e[0m"
+      ;;
+      "2")
+          echo -e -n "\e[32mCRITICAL     \e[0m"
+      ;;
+      "3")
+          echo -e -n "\e[34mERROR        \e[0m"
+      ;;
+      "4")
+          echo -e -n "\e[34mWARNING      \e[0m"
+      ;;
+      "5")
+          echo -e -n "\e[34mNOTICE       \e[0m"
+      ;;
+      "6")
+          echo -e -n "\e[34mINFORMATIONAL\e[0m"
+      ;;
+      "7")
+          echo -e -n "\e[37mDEBUG        \e[0m"
+      ;;
+      *)
+          echo -e -n "\e[93mUNKNOWN      \e[0m"
+      ;;
+  esac
+  echo " ("$LOG_DATE_TIME") : "$LOG_MSG
+
+  export LOG_LEVEL
+  export LOG_MSG
+  export LOG_DATE_TIME
+
+  {
+    if test -d $WTL_HOOK_ALL_EVENTS
+    then
+      find $WTL_HOOK_ALL_EVENTS -type f -executable | sort
+    fi
+    if test -d $LOG_HOOK_DIR
+    then
+      find $LOG_HOOK_DIR -type f -executable | sort
+    fi
+  } | while read hook
+  do
+      echo "              Running hook: "$hook
+      $hook | while read line
+      do
+          echo -e "              | "$line
+      done
+  done
+}
+if [[ $(basename $0) == "wtl-event" ]] ; then
+    wtl-event "$@"
+fi

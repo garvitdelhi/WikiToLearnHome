@@ -26,6 +26,7 @@ else
 fi
 
 . ./scripts/wtl-log
+. ./scripts/wtl-event
 
 # check the config file version
 if [[ "$WTL_CONFIG_FILE_VERSION" != "1" ]] ; then

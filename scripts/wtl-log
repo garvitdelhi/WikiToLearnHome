@@ -2,7 +2,7 @@
 
 # create the function to log messages
 # first  parameter must be the script name
-# second parameter must be the log level (0=CRITICAL,1=NORMAL,2=DEBUG,3=TRACE)
+# second parameter must be the log level
 # third  parameter must be the id of the event (must be unique across all scripts)
 # evrything else is the log message
 if [[ "$WTL_DIR" == "" ]] ; then
