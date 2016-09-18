@@ -48,7 +48,7 @@ if [[ "$NEW_WTL_INSTANCE_NAME" != "$OLD_WTL_INSTANCE_NAME" ]] ; then
     else
         wtl-log scripts/release-procedure.sh 4 RELEASE_PROCEDURE_GPG_CHECK_SKIP "GPG Key skip"
     fi
-    wtl-log scripts/release-procedure.sh 4 RELEASE_PROCEDURE_NEW_RUN "New running"
+    wtl-event RELEASE_PROCEDURE_NEW_RUN $GIT_ID_NEW
     $WTL_SCRIPTS/create-running.sh $GIT_ID_NEW
 
     export WTL_INSTANCE_NAME=$NEW_WTL_INSTANCE_NAME
