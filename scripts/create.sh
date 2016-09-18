@@ -31,7 +31,7 @@ if [[ ! -f $WTL_WORKING_DIR/composer-dirs.conf ]] ; then
 fi
 
 if [[ "$WTL_INSTANCE_NAME" == "" ]] ; then
-    wtl-log scripts/create.sh 4 MIGGING_WTL_INSTANCE_NAME "You need the WTL_INSTANCE_NAME env to run create"
+    wtl-event MIGGING_WTL_INSTANCE_NAME
     exit 1
 fi
 

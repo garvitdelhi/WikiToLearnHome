@@ -39,10 +39,6 @@ wtl-event () {
       cat "$LOG_MSG_FILE" | head -2 | tail -1
     } | bash)
   else
-    {
-      echo "0"
-      echo "\$1"
-    } > $LOG_MSG_FILE
     LOG_MSG="Missing message "$LOG_MSG_ID": "$@
   fi
 

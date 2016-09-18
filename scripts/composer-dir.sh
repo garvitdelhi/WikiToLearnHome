@@ -11,10 +11,10 @@ if [[ ! -f "const.sh" ]] ; then
     echo "Error changing directory"
     exit 1
 fi
-
+. ./load-libs.sh
 #check if $1 is null
 if [ -z "$1" ]; then
-    wtl-log scripts/composer-dir.sh 4 COMPOSER_DIR_MISSING_PATH_COMPOSER_JSON "Required parameter 'path of composer.json'"
+    wtl-event COMPOSER_DIR_MISSING_PATH_COMPOSER_JSON
     exit 1
 fi
 
@@ -23,10 +23,10 @@ COMPOSER_DIR="$1"
 #call ./load-libs.sh script: load environment variables from const and config file
 . ./load-libs.sh
 
-wtl-log scripts/composer-dir.sh 6 COMPOSER_DIR_WORKING_DIR "Composing '$COMPOSER_DIR'"
+wtl-event COMPOSER_DIR_WORKING_DIR $COMPOSER_DIR
 
 if [[ ! -f $COMPOSER_DIR"/composer.json" ]] ; then
-    wtl-log scripts/composer-dir.sh 4 COMPOSER_DIR_MISSING_COMPOSER_DOT_JSON "composer.json missing in the directory '$COMPOSER_DIR'"
+    wtl-event COMPOSER_DIR_MISSING_COMPOSER_DOT_JSON $COMPOSER_DIR
     exit 1
 fi
 
