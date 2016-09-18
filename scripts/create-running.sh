@@ -16,17 +16,17 @@ fi
 if [[ -d "$WTL_REPO_DIR" ]] ; then
     cd "$WTL_REPO_DIR"
 else
-    wtl-log scripts/create-running.sh 4 REPO_MISSING "Missing the '$WTL_REPO_DIR' directory"
+    wtl-event REPO_MISSING $WTL_REPO_DIR
     exit 1
 fi
 
 git update-index -q --refresh
 if [[ $(git diff-index --name-only HEAD -- | wc -l) -gt 0 ]] ; then
-    wtl-log scripts/create-running.sh 4 REPO_DIRTY "Dirty repo. You have to rollback/commit before"
+    wtl-event REPO_DIRTY
     exit 1
 fi
 if [[ $(git status --porcelain | wc -l) -gt 0 ]] ; then
-    wtl-log scripts/create-running.sh 4 REPO_DIRTY "Dirty repo. You have to rollback/commit before"
+    wtl-event REPO_DIRTY
     exit 1
 fi
 
@@ -35,33 +35,33 @@ if [[ $# -eq 1 ]] ; then
 fi
 
 if [[ "$WTL_REFERENCE" == "" ]] ; then
-    wtl-log scripts/create-running.sh 4 CREATE_RUN_MISSING_VERSION_REFERENCE "You have to specify the version of WikiToLearn (commit or tag)"
+    wtl-event CREATE_RUN_MISSING_VERSION_REFERENCE
     exit 1
 fi
 
-wtl-log scripts/create-running.sh 7 CREATE_RUN_SEARCH_VERSION "Searching for commit for "${WTL_REFERENCE}
+wtl-event CREATE_RUN_SEARCH_VERSION ${WTL_REFERENCE}
 
 
 if ! git show ${WTL_REFERENCE} &> /dev/null ; then
-    wtl-log scripts/create-running.sh 4 CREATE_RUN_MISSING_VERSION "The "${WTL_REFERENCE}" is not an uniq id for a commit"
+    wtl-event CREATE_RUN_MISSING_VERSION ${WTL_REFERENCE}
     exit 1
 fi
 
-wtl-log scripts/create-running.sh 7 CREATE_RUN_FOUND_VERSION "Found!"
+wtl-event CREATE_RUN_FOUND_VERSION
 
 git show ${WTL_REFERENCE} | cat
 
 export WTL_WORKING_DIR=${WTL_RUNNING}"/"${WTL_REFERENCE}
 
 if [[ -d $WTL_WORKING_DIR ]] ; then
-    wtl-log scripts/create-running.sh 5 CREATE_RUN_EXIST "Directory already "$WTL_WORKING_DIR" exist"
+    wtl-event CREATE_RUN_EXIST $WTL_WORKING_DIR
 else
     rsync -a --stats --delete ${WTL_REPO_DIR}"/" $WTL_WORKING_DIR
     if ! cd $WTL_WORKING_DIR ; then
-        wtl-log scripts/create-running.sh 4 CREATE_RUN_ERROR_CREATE_COPY "Error in the change directory operation"
+        wtl-event CREATE_RUN_ERROR_CREATE_COPY
         exit 1
     else
-        wtl-log scripts/create-running.sh 5 CREATE_RUN_COPY_CREATED "New location: "$(pwd)
+        wtl-event CREATE_RUN_COPY_CREATED $(pwd)
 
         git checkout ${WTL_REFERENCE}
         git submodule update --init --checkout --recursive
@@ -70,9 +70,6 @@ else
         find -name .git -delete
 
         cd ${WTL_RUNNING}
-
-        wtl-log scripts/create-running.sh 5 CREATE_RUN_COPY_CREATED "Started composer"
-
         $WTL_SCRIPTS/download-mediawiki-extensions.sh
         $WTL_SCRIPTS/composer-for-dirs.sh $WTL_WORKING_DIR
     fi

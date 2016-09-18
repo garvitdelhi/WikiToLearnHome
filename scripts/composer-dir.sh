@@ -32,12 +32,12 @@ fi
 
 #check if auth.json is in the composer folder
 if [[ ! -f "$WTL_DIR/configs/composer/auth.json" ]] ; then
-    wtl-log scripts/composer-dir.sh 4 COMPOSER_DIR_MISSING_AUTH "Composer config missing, please run create-config.sh"
+    wtl-event COMPOSER_DIR_MISSING_AUTH
     exit 1
 fi
 
 if [[ ! -d $WTL_CACHE/composer ]] ; then
-    wtl-log scripts/composer-dir.sh 7 COMPOSER_DIR_CREATE_CACHE "Creating new dir for cache"
+    wtl-event COMPOSER_DIR_CREATE_CACHE
     mkdir -p $WTL_CACHE/composer
 fi
 
