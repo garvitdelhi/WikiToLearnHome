@@ -12,9 +12,9 @@ if [[ ! -f "const.sh" ]] ; then
 fi
 
 . ./load-libs.sh
-. $WTL_SCRIPTS/load-productoin-instance.sh
 
 if docker inspect wikitolearn-haproxy &> /dev/null ; then
+    . $WTL_SCRIPTS/load-productoin-instance.sh
     wtl-event UNUSE_INSTANCE_START ${WTL_INSTANCE_NAME}
     docker stop wikitolearn-haproxy
     docker rm wikitolearn-haproxy
