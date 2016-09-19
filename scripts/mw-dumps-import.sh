@@ -26,7 +26,7 @@ if test -f "$2" ; then
     FILE=$2
 fi
 if [[ "$SUBDOM" == "" ]] || [[ "$FILE" == "" ]] ; then
-    wtl-log scripts/mw-dumps-import.sh 4 MW_DUMPS_IMPORT_MISSING_ARGS "This command must be runned as "$0" <file to import>"
+    wtl-event MW_DUMPS_IMPORT_MISSING_ARGS $0
     exit 1
 fi
 cat $FILE | docker exec -i ${WTL_INSTANCE_NAME}-websrv sh -c "export WIKI='$SUBDOM.$WTL_DOMAIN_NAME' && pwd && cd /var/www/WikiToLearn/mediawiki/maintenance/ && php importDump.php"

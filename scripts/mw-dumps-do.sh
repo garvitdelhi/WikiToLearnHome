@@ -25,7 +25,7 @@ if ! test -d $WTL_MW_DUMPS"/"$CURRENT_DUMP_DIR"/" ; then
 fi
 for db in $(docker exec -ti ${WTL_INSTANCE_NAME}-mysql mysql -e "SHOW DATABASES" | grep wikitolearn | awk '{ print $2 }') ; do
     SUBDOM=$(echo $db | sed 's/wikitolearn//g')
-    wtl-log scripts/mw-dumps-do.sh 4 DUMPING "Dump for $SUBDOM.$WTL_DOMAIN_NAME"
+    wtl-event MW_DUMP_RUNNING $SUBDOM $WTL_DOMAIN_NAME
     docker exec -ti ${WTL_INSTANCE_NAME}-websrv sh -c "export WIKI='$SUBDOM.$WTL_DOMAIN_NAME' && pwd && cd /var/www/WikiToLearn/mediawiki/maintenance/ && php dumpBackup.php --full" > $WTL_MW_DUMPS"/"$CURRENT_DUMP_DIR"/"$SUBDOM.xml
 done
-wtl-log scripts/mw-dumps-do.sh 4 DUMP_END "Dump finished"
+wtl-event MW_DUMP_END

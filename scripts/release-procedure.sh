@@ -38,15 +38,15 @@ docker inspect wikitolearn-haproxy &> /dev/null && {
 if [[ "$NEW_WTL_INSTANCE_NAME" != "$OLD_WTL_INSTANCE_NAME" ]] ; then
     if [[ "$WTL_RELEASE_GPG_CHECK" == "1" ]]
     then
-        wtl-log scripts/release-procedure.sh 4 RELEASE_PROCEDURE_GPG_CHECK "GPG Key checking"
+        wtl-event RELEASE_PROCEDURE_GPG_CHECK
         $WTL_SCRIPTS/git-gpg-check/update-trusted-keys.sh
         if ! $WTL_SCRIPTS/git-gpg-check/check-commit-signature.sh
         then
-            wtl-log scripts/release-procedure.sh 0 RELEASE_PROCEDURE_GPG_KO "GPG Key not trusted"
+            wtl-event RELEASE_PROCEDURE_GPG_KO
             exit 1
         fi
     else
-        wtl-log scripts/release-procedure.sh 4 RELEASE_PROCEDURE_GPG_CHECK_SKIP "GPG Key skip"
+        wtl-event RELEASE_PROCEDURE_GPG_CHECK_SKIP
     fi
     wtl-event RELEASE_PROCEDURE_NEW_RUN $GIT_ID_NEW
     $WTL_SCRIPTS/create-running.sh $GIT_ID_NEW

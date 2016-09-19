@@ -16,17 +16,17 @@ fi
 . $WTL_SCRIPTS/environments/${WTL_ENV}.sh
 
 if [[ ! -f $WTL_WORKING_DIR/docker-images.conf ]] ; then
-    wtl-log scripts/create.sh 4 CREATE_MIGGING_DOCKER_IMAGES_CONF "Missing $WTL_WORKING_DIR/docker-images.conf file"
+    wtl-event CREATE_MIGGING_DOCKER_IMAGES_CONF $WTL_WORKING_DIR
     exit 1
 fi
 
 if [[ ! -f $WTL_WORKING_DIR/databases.conf ]] ; then
-    wtl-log scripts/create.sh 4 CREATE_MIGGING_DATABASES_CONF "Missing $WTL_WORKING_DIR/databases.conf file"
+    wtl-event CREATE_MIGGING_DATABASES_CONF $WTL_WORKING_DIR
     exit 1
 fi
 
 if [[ ! -f $WTL_WORKING_DIR/composer-dirs.conf ]] ; then
-    wtl-log scripts/create.sh 4 CREATE_MIGGING_COMPOSER_DIRS_CONF "Missing $WTL_WORKING_DIR/composer-dirs.conf file"
+    wtl-event CREATE_MIGGING_COMPOSER_DIRS_CONF $WTL_WORKING_DIR
     exit 1
 fi
 

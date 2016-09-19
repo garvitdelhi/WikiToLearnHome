@@ -6,5 +6,5 @@ if ! docker inspect ${WTL_INSTANCE_NAME}-ocg &> /dev/null ; then
         --link ${WTL_INSTANCE_NAME}-restbase:restbase \
         --link ${WTL_INSTANCE_NAME}-parsoid:parsoid \
         --name ${WTL_INSTANCE_NAME}-ocg $WTL_DOCKER_OCG
-    wtl-log helpers/create/single-node.sh 4 CREATE_OCG "Creating docker ${WTL_INSTANCE_NAME}-ocg"
+    wtl-event CREATE_OCG ${WTL_INSTANCE_NAME}
 fi

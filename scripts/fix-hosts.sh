@@ -24,7 +24,7 @@ done))
 
 for d in ${WTL_INSTANCE_NAME}-{parsoid,ocg,restbase} ; do
     docker inspect $d &> /dev/null && {
-        wtl-log scripts/fix-hosts.sh 7 FIX_HOSTS_DO_IP "In '$d' fixing '${web_hosts[@]}' to '$WEBSRV_IP'"
+        wtl-event FIX_HOSTS_DO_IP $d "${web_hosts[@]}" $WEBSRV_IP
         {
             docker exec $d sed '/FIXHOSTWEBSRV/d' /etc/hosts | docker exec -i $d tee /tmp/tmp_hosts
             docker exec $d cat /tmp/tmp_hosts | docker exec -i $d tee /etc/hosts

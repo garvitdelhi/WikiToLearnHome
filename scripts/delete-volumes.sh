@@ -17,6 +17,6 @@ fi
 . $WTL_SCRIPTS/environments/$WTL_ENV.sh
 
 if [[ $(docker volume ls | grep $WTL_INSTANCE_NAME |  awk '{print $2}' | wc -l) -gt 0 ]] ; then
-    wtl-log scripts/delete-volumes.sh 4 DELETING_VOLUMES  "Removing volumes with prefix '$WTL_INSTANCE_NAME'"
+    wtl-event DELETING_VOLUMES $WTL_INSTANCE_NAME
     docker volume rm $(docker volume ls | grep $WTL_INSTANCE_NAME |  awk '{print $2}')
 fi

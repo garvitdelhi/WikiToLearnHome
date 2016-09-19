@@ -12,10 +12,11 @@ if [[ ! -f "const.sh" ]] ; then
 fi
 
 . ./load-libs.sh
+. $WTL_SCRIPTS/load-productoin-instance.sh
 
 if docker inspect wikitolearn-haproxy &> /dev/null ; then
-    wtl-log scripts/unuse-instance.sh 7 UNUSE_INSTANCE_START "Bringing down old instance..."
+    wtl-event UNUSE_INSTANCE_START ${WTL_INSTANCE_NAME}
     docker stop wikitolearn-haproxy
     docker rm wikitolearn-haproxy
-    wtl-log scripts/unuse-instance.sh 7 UNUSE_INSTANCE_DONE "Is down old instance..."
+    wtl-event UNUSE_INSTANCE_DONE ${WTL_INSTANCE_NAME}
 fi
