@@ -73,6 +73,7 @@ wtl-event () {
   esac
   echo " ("$LOG_DATE_TIME") : "$LOG_MSG
 
+  export LOG_MSG_ID
   export LOG_LEVEL
   export LOG_MSG
   export LOG_DATE_TIME
