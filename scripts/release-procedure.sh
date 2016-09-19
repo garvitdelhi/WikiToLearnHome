@@ -1,8 +1,8 @@
 #!/bin/bash
 [[  "$WTL_SCRIPT_DEBUG" == "1" ]] && set -x
 set -e
-if [[ $(basename $0) != "relase-procedure.sh" ]] ; then
-    echo "Wrong way to execute relase-procedure.sh"
+if [[ $(basename $0) != "release-procedure.sh" ]] ; then
+    echo "Wrong way to execute release-procedure.sh"
     exit 1
 fi
 cd $(dirname $(realpath $0))"/.."
@@ -36,15 +36,28 @@ docker inspect wikitolearn-haproxy &> /dev/null && {
 }
 
 if [[ "$NEW_WTL_INSTANCE_NAME" != "$OLD_WTL_INSTANCE_NAME" ]] ; then
-    echo "New running"
+    if [[ "$WTL_RELEASE_GPG_CHECK" == "1" ]]
+    then
+        wtl-event RELEASE_PROCEDURE_GPG_CHECK
+        $WTL_SCRIPTS/git-gpg-check/update-trusted-keys.sh
+        if ! $WTL_SCRIPTS/git-gpg-check/check-commit-signature.sh
+        then
+            wtl-event RELEASE_PROCEDURE_GPG_KO
+            exit 1
+        fi
+    else
+        wtl-event RELEASE_PROCEDURE_GPG_CHECK_SKIP
+    fi
+    wtl-event RELEASE_PROCEDURE_NEW_RUN $GIT_ID_NEW
     $WTL_SCRIPTS/create-running.sh $GIT_ID_NEW
 
     export WTL_INSTANCE_NAME=$NEW_WTL_INSTANCE_NAME
     export WTL_WORKING_DIR=$NEW_WTL_WORKING_DIR
+    $WTL_SCRIPTS/pull-images.sh
+
     $WTL_SCRIPTS/create.sh
     $WTL_SCRIPTS/start.sh
 
-    $WTL_SCRIPTS/pull-images.sh
 
 
     docker inspect wikitolearn-haproxy &> /dev/null && {
@@ -79,8 +92,5 @@ if [[ "$NEW_WTL_INSTANCE_NAME" != "$OLD_WTL_INSTANCE_NAME" ]] ; then
     $WTL_SCRIPTS/unuse-instance.sh
     $WTL_SCRIPTS/use-instance.sh
 
-    if [[ -f $WTL_CONFIGS_DIR"/bot-notify.sh" ]] ; then
-        . $WTL_CONFIGS_DIR"/bot-notify.sh" # this sets the WTL_BOT_URL var
-        curl --data "commit="${GIT_ID_NEW:0:8}"&host=$(hostname -f)&baseurl=www."$WTL_DOMAIN_NAME "$WTL_BOT_URL"
-    fi
+    wtl-event RELEASE_PROCEDURE_FINISH ${GIT_ID_NEW:0:8} $WTL_DOMAIN_NAME
 fi

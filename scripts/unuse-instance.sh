@@ -14,7 +14,9 @@ fi
 . ./load-libs.sh
 
 if docker inspect wikitolearn-haproxy &> /dev/null ; then
-    echo "Bringing down old instance..."
+    . $WTL_SCRIPTS/load-productoin-instance.sh
+    wtl-event UNUSE_INSTANCE_START ${WTL_INSTANCE_NAME}
     docker stop wikitolearn-haproxy
     docker rm wikitolearn-haproxy
+    wtl-event UNUSE_INSTANCE_DONE ${WTL_INSTANCE_NAME}
 fi

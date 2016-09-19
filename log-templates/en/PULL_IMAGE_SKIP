@@ -1,0 +1,2 @@
+7
+"The image "$ARG1" is on your system, you can run 'docker pull "$ARG1"' to force the update"

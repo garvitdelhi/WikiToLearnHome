@@ -1,4 +1,5 @@
 #!/bin/bash
+. ./load-libs.sh
 
 MSG='This wiki is currently being upgraded to a newer software version.'
 

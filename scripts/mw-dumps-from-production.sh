@@ -23,7 +23,7 @@ TMP_DIR=`mktemp -d`
 cd $TMP_DIR
 
 if [[ $# -lt 3 ]] ; then
-    echo "This command must be runned as "$0" <langcode> <output name> <page1> <page2> ... <pageN>"
+    wtl-event MW_DUMPS_FROM_PRODUCTOIN_MISSING_ARGS $0
     exit 1
 fi
 lang=$1

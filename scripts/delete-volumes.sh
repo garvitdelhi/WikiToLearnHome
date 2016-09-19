@@ -14,10 +14,9 @@ fi
 
 . ./load-libs.sh
 
-echo "[wtl-delete] wtl-destroy: Loading Environment"
 . $WTL_SCRIPTS/environments/$WTL_ENV.sh
 
 if [[ $(docker volume ls | grep $WTL_INSTANCE_NAME |  awk '{print $2}' | wc -l) -gt 0 ]] ; then
-    wtl-log delete-volumes.sh 0 DELETING_VOLUMES  "Removing volumes with prefix '$WTL_INSTANCE_NAME'"
+    wtl-event DELETING_VOLUMES $WTL_INSTANCE_NAME
     docker volume rm $(docker volume ls | grep $WTL_INSTANCE_NAME |  awk '{print $2}')
 fi

@@ -18,12 +18,12 @@ docker images --format "{{.Repository}}:{{.Tag}}" --filter "dangling=false" | so
 do
     img_name=`echo $img | awk -F":" '{ print $1 }'`
     img_tag=`echo $img | awk -F":" '{ print $2 }'`
-    echo "Image: "$img
+    wtl-event DOCKER_IMAGES_EXPORT_CURRENT $img
     DIRNAME=$WTL_CACHE"/docker-images/"$img_name"/"
     test -d $DIRNAME || mkdir -p $DIRNAME
     FILENAME=$DIRNAME$img_tag".tar"
     if test ! -f $FILENAME ; then
-        echo "Export to "$FILENAME
+        wtl-event DOCKER_IMAGES_EXPORT_CURRENT_FILE $FILENAME
         docker save -o $FILENAME $img
     fi
 done

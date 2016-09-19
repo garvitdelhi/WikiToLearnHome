@@ -25,7 +25,6 @@ do
         DIR_NAME=`ls $WTL_RUNNING | grep ^$instance`
         export WTL_INSTANCE_NAME="wtl-"${DIR_NAME:0:8}
         export WTL_WORKING_DIR=$WTL_RUNNING"/"$DIR_NAME
-        echo $WTL_INSTANCE_NAME
         $WTL_SCRIPTS/stop.sh
         $WTL_SCRIPTS/delete.sh
         $WTL_SCRIPTS/delete-volumes.sh

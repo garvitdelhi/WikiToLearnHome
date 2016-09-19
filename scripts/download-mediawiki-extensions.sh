@@ -1,4 +1,5 @@
 #!/bin/bash
+#FIXME: if the download of a file stops and the file is corrupted we have to detect and clean up che broken file
 [[  "$WTL_SCRIPT_DEBUG" == "1" ]] && set -x
 set -e
 if [[ $(basename $0) != "download-mediawiki-extensions.sh" ]] ; then
@@ -22,8 +23,6 @@ if [[ -f $WTL_WORKING_DIR"/mediawiki.version" ]] ; then
     export MW_MAJOR=`cat $WTL_WORKING_DIR"/mediawiki.version" | head -1`
     export MW_MINOR=`cat $WTL_WORKING_DIR"/mediawiki.version" | head -2 | tail -1`
 
-
-
     if [[ "$MW_MAJOR" == "snapshot" ]] ; then
         export _MW_FILE="mediawiki-snapshot-"$MW_MINOR".tar.gz"
         test -f $_MW_FILE || wget -N https://tools.wmflabs.org/snapshots/builds/mediawiki-core/$_MW_FILE
@@ -35,7 +34,7 @@ if [[ -f $WTL_WORKING_DIR"/mediawiki.version" ]] ; then
         fi
         mkdir mediawiki
         cd mediawiki
-        echo "Mediawiki snapshot:"$MW_MINOR
+        wtl-event DOWNLOAD_MEDIAWIKI_EXTENSIONS_CORE_SNAPSHOT $MW_MINOR
         tar xfz $WTL_CACHE"/download/"$_MW_FILE
 
     else
@@ -49,7 +48,7 @@ if [[ -f $WTL_WORKING_DIR"/mediawiki.version" ]] ; then
         if [[ -d mediawiki ]] ; then
             rm -Rf mediawiki
         fi
-        echo "Mediawiki: "$MW_MAJOR"."$MW_MINOR
+        wtl-event DOWNLOAD_MEDIAWIKI_EXTENSIONS_CORE $MW_MAJOR $MW_MINOR
         tar xfz $WTL_CACHE"/download/"$_MW_FILE
         mv $_MW_DIR_NAME mediawiki
     fi
@@ -103,7 +102,7 @@ if [[ -f $WTL_WORKING_DIR"/extensions.list.version" ]] ; then
         fi
 
         cd $WTL_WORKING_DIR"/extensions/"
-        echo "Extension: "$extension" ("$extension_version")"
+        wtl-event DOWNLOAD_MEDIAWIKI_EXTENSIONS_EXT $extension $extension_version
         if test -d $extension ; then
             rm -Rf $extension
         fi

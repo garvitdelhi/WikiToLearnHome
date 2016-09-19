@@ -1,4 +1,6 @@
 #!/bin/bash
+. ./load-libs.sh
+
 test -d $WTL_CONFIGS_DIR || mkdir -p $WTL_CONFIGS_DIR
 test -d $WTL_CONFIGS_DIR/mysql-users/ || mkdir -p $WTL_CONFIGS_DIR/mysql-users/
 test -d $WTL_CONFIGS_DIR/LocalSettings.d/ || mkdir -p $WTL_CONFIGS_DIR/LocalSettings.d/
@@ -7,13 +9,12 @@ export MORE_ARGS=" -e WTL_PRODUCTION=$WTL_PRODUCTION"
 if [[ "$WTL_PRODUCTION" == "1" ]] ; then
     export MORE_ARGS=" --restart=always $MORE_ARGS"
 fi
-echo "[create/single-node-no-ocg] Running in PRODUCTION mode!"
 
 $WTL_SCRIPTS"/helpers/create/commons/single-node-pre.sh"
 
 if ! docker inspect ${WTL_INSTANCE_NAME}-websrv &> /dev/null ; then
 
-    echo "[create/single-node-no-ocg] Creating docker ${WTL_INSTANCE_NAME}-websrv"
+    wtl-log scripts/helpers/create/single-node-no-ocg.sh 7 NN "[create/single-node-no-ocg] Creating docker ${WTL_INSTANCE_NAME}-websrv"
     docker create -ti $MORE_ARGS  \
         -v ${WTL_VOLUME_DIR}${WTL_INSTANCE_NAME}-var-log-webserver:/var/log/webserver \
         --hostname websrv \
@@ -29,7 +30,7 @@ if ! docker inspect ${WTL_INSTANCE_NAME}-websrv &> /dev/null ; then
         --link ${WTL_INSTANCE_NAME}-restbase:restbase \
         $WTL_DOCKER_WEBSRV
 
-    echo "[create/single-node-no-ocg] Copying certs to websrv"
+    wtl-log scripts/helpers/create/single-node-no-ocg.sh 7 NN "[create/single-node-no-ocg] Copying certs to websrv"
     if ! docker inspect ${WTL_INSTANCE_NAME}-websrv &> /dev/null ; then
         TMPDIR=`mktemp -d`
         chmod 700 $TMPDIR
@@ -38,7 +39,7 @@ if ! docker inspect ${WTL_INSTANCE_NAME}-websrv &> /dev/null ; then
         cp ${WTL_CERTS}/wikitolearn.key $TMPDIR/certs/websrv.key
         if ! docker cp ${TMPDIR}/certs/ ${WTL_INSTANCE_NAME}-websrv:/certs/ ; then
             rm ${TMPDIR} -Rf
-            echo "[create/single-node-no-ocg] Error: Unable to copy wikitolearn.crt to the webserver"
+            wtl-log scripts/helpers/create/single-node-no-ocg.sh 7 NN "[create/single-node-no-ocg] Error: Unable to copy wikitolearn.crt to the webserver"
             exit 1
         fi
         rm ${TMPDIR} -Rf

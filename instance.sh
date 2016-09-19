@@ -62,6 +62,7 @@ case $1 in
         $WTL_SCRIPTS/download-mediawiki-extensions.sh
         $WTL_SCRIPTS/create.sh
         $WTL_SCRIPTS/start.sh
+        $WTL_SCRIPTS/fix-hosts.sh
         $WTL_SCRIPTS/backup-restore.sh $WTL_REPO_DIR/DeveloperDump/
         $WTL_SCRIPTS/unuse-instance.sh
         $WTL_SCRIPTS/use-instance.sh
@@ -127,7 +128,7 @@ case $1 in
         $WTL_SCRIPTS/copy-last-backup-to-devdump.sh
     ;;
     release-do)
-        $WTL_SCRIPTS/relase-procedure.sh
+        $WTL_SCRIPTS/release-procedure.sh
     ;;
     release-clean)
         $WTL_SCRIPTS/backup-auto-delete.sh
@@ -136,11 +137,34 @@ case $1 in
         $WTL_SCRIPTS/docker-images-clean.sh
     ;;
     staging)
-        $WTL_SCRIPTS/relase-procedure.sh
+        $WTL_SCRIPTS/release-procedure.sh
         $WTL_SCRIPTS/backup-auto-delete.sh
         $WTL_SCRIPTS/unused-instance-stop-delete.sh
         $WTL_SCRIPTS/docker-images-delete-old-images.sh
         $WTL_SCRIPTS/docker-images-clean.sh
+    ;;
+    production)
+        . $WTL_SCRIPTS/load-productoin-instance.sh
+        case $2 in
+            runJobs)
+                $WTL_SCRIPTS/lang-foreach-php-maintenance.sh runJobs.php
+            ;;
+            backup-do)
+                $WTL_SCRIPTS/backup-do.sh
+            ;;
+            backup-do-quick)
+                $WTL_SCRIPTS/backup-do-quick.sh
+            ;;
+            backup-auto-delete)
+                $WTL_SCRIPTS/backup-auto-delete.sh
+            ;;
+            mw-dumps-do)
+                $WTL_SCRIPTS/mw-dumps-do.sh
+            ;;
+            *)
+                echo "Production ommand not found ($@)"
+            ;;
+        esac
     ;;
     *)
         echo "Command not found ($@)"

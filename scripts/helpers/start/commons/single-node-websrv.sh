@@ -1,23 +1,24 @@
 #!/bin/bash
+. ./load-libs.sh
 
 if ! docker start ${WTL_INSTANCE_NAME}-websrv ; then
-    echo "[start/single-node] FATAL ERROR: MISSING WEBSRV"
+    wtl-log scripts/helpers/start/commons/single-node-websrv.sh 7 NN "[start/single-node] FATAL ERROR: MISSING WEBSRV"
     exit 1
 fi
 
 if [[ ! -f $WTL_CONFIGS_DIR/LocalSettings.d/wgSecretKey.php ]] ; then
-    echo "[start/single-node] Creating new '$WTL_CONFIGS_DIR/LocalSettings.d/wgSecretKey.php' file"
+    wtl-log scripts/helpers/start/commons/single-node-websrv.sh 7 NN "[start/single-node] Creating new '$WTL_CONFIGS_DIR/LocalSettings.d/wgSecretKey.php' file"
     WG_SECRET_KEY=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 64 | head -n 1)
     {
         echo "<?php"
         echo "\$wgSecretKey = '$WG_SECRET_KEY';"
     } > $WTL_CONFIGS_DIR/LocalSettings.d/wgSecretKey.php
 else
-    echo "[start/single-node] Using the existent '$WTL_CONFIGS_DIR/LocalSettings.d/wgSecretKey.php' file"
+    wtl-log scripts/helpers/start/commons/single-node-websrv.sh 7 NN "[start/single-node] Using the existent '$WTL_CONFIGS_DIR/LocalSettings.d/wgSecretKey.php' file"
 fi
 
 if [[ "$WTL_MAIL_RELAY_HOST" != "" ]] ; then
-    echo "[start/single-node] Setup the relay host to "${WTL_MAIL_RELAY_HOST}
+    wtl-log scripts/helpers/start/commons/single-node-websrv.sh 7 NN "[start/single-node] Setup the relay host to "${WTL_MAIL_RELAY_HOST}
     {
         docker exec ${WTL_INSTANCE_NAME}-websrv sed '/^mailhub/d' -i /etc/ssmtp/ssmtp.conf
         echo "mailhub=${WTL_MAIL_RELAY_HOST}" | docker exec -i ${WTL_INSTANCE_NAME}-websrv tee -a /etc/ssmtp/ssmtp.conf

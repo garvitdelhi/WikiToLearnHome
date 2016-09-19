@@ -20,5 +20,5 @@ LAST_BACKUP=$(ls -r $WTL_BACKUPS | head -1)
 if [[ "$LAST_BACKUP" != "" ]] ; then
     rsync -a --stats --delete $WTL_BACKUPS"/"$LAST_BACKUP"/" ${WTL_REPO_DIR}"/DeveloperDump/"
 else
-    wtl-log copy-last-backup-to-devdump.sh 0 BACKUP_NOT_FOUND "No backup founds"
+    wtl-event COPY_LAST_TO_DEVDUMP_BACKUP_NOT_FOUND
 fi

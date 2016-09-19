@@ -24,6 +24,20 @@ if [[ $(id -u) -eq 0 ]] || [[ $(id -g) -eq 0 ]] ; then
 fi
 # -------------------------------------------------------------
 
+# checks whether the host machine is running GNU/Linux kernel
+# It exits with a Fatal Error otherwise
+
+if [[ "$(uname)" -ne "Linux" ]] ;then
+	echo -n "The host machine is not running Linux, but WTL needs a GNU/Linux "
+    echo "kernel to run."
+    echo "We suggest that you run a virtualized Linux environment using vagrant"
+    echo "More detailed info here: http://meta.wikitolearn.org/WikiToLearn_Home/WikitoLearn_Home_Documentation/Local_WikiToLearn_Instance"
+    echo -e "\e[31mFATAL ERROR \e[0m"
+    exit 1
+else
+	echo "The host machine is running Linux. That's good!"
+fi
+
 # checks whether git docker curl and rsync are installed
 for cmd in git docker curl rsync python3 dirname realpath ; do
     echo -n "[create-config] Searching for "$cmd"..."
@@ -248,7 +262,14 @@ export WTL_MAIL_RELAY_PASSWORD=
 export WTL_MAIL_RELAY_FROM_ADDRESS=
 export WTL_MAIL_RELAY_STARTTLS=1
 
+# by default we don't check the gpg signature
+export WTL_RELEASE_GPG_CHECK=0
+
 export WTL_VOLUME_DIR=
+
+# export WTL_MATHOID_NUM_WORKERS=1
+# export WTL_RESTBASE_CASSANDRA_HOSTS="wtl-cassandra.host.localnet"
+
 EOF
 } > $WTL_CONFIG_FILE
 

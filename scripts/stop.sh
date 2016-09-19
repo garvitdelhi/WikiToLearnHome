@@ -13,10 +13,10 @@ fi
 
 . ./load-libs.sh
 
-echo "wtl-stop: Loading Environment"
 . $WTL_SCRIPTS/environments/$WTL_ENV.sh
 
 if [[ $(docker ps -aq  --filter "name=$WTL_INSTANCE_NAME" | wc -l) -gt 0 ]] ; then
-    echo "wtl-stop: Stopping Dockers with prefix '$WTL_INSTANCE_NAME'"
+    wtl-event STOP_DOING $WTL_INSTANCE_NAME
     docker stop $(docker ps -aq  --filter "name=$WTL_INSTANCE_NAME")
+    wtl-event STOP_DONE $WTL_INSTANCE_NAME
 fi
