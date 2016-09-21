@@ -74,6 +74,7 @@ if [[ -f $WTL_WORKING_DIR"/extensions.list.version" ]] ; then
                 commit=${commit:0:7}
                 if test -d $extension ; then
                     cd $extension
+                    git fetch
                     git checkout $branchname
                     git pull
                     git submodule sync

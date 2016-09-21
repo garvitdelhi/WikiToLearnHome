@@ -16,6 +16,8 @@ fi
 if [[ -d "$WTL_REPO_DIR" ]] ; then
     cd "$WTL_REPO_DIR"
 
+    wtl-event DOWNLOAD_CODE_FETCH
+    git fetch origin
     if [[ "$WTL_BRANCH_AUTO_CHECKOUT" == "1" ]] ; then
         if ! git checkout "$WTL_BRANCH" ; then
             wtl-event DOWNLOAD_CODE_ERROR_CHECKOUT

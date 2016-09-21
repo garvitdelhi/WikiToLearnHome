@@ -63,6 +63,7 @@ else
     else
         wtl-event CREATE_RUN_COPY_CREATED $(pwd)
 
+        git fetch
         git checkout ${WTL_REFERENCE}
         git submodule update --init --checkout --recursive
 
