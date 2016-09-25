@@ -14,7 +14,7 @@ $WTL_SCRIPTS"/helpers/create/commons/single-node-pre.sh"
 
 if ! docker inspect ${WTL_INSTANCE_NAME}-websrv &> /dev/null ; then
 
-    wtl-log scripts/helpers/create/single-node-no-ocg.sh 7 NN "[create/single-node-no-ocg] Creating docker ${WTL_INSTANCE_NAME}-websrv"
+    wtl-event CREATE_DOCKER_WEBSRV ${WTL_INSTANCE_NAME}
     docker create -ti $MORE_ARGS  \
         -v ${WTL_VOLUME_DIR}${WTL_INSTANCE_NAME}-var-log-webserver:/var/log/webserver \
         --hostname websrv \
@@ -30,7 +30,7 @@ if ! docker inspect ${WTL_INSTANCE_NAME}-websrv &> /dev/null ; then
         --link ${WTL_INSTANCE_NAME}-restbase:restbase \
         $WTL_DOCKER_WEBSRV
 
-    wtl-log scripts/helpers/create/single-node-no-ocg.sh 7 NN "[create/single-node-no-ocg] Copying certs to websrv"
+    wtl-event CERTS_COPY
     if ! docker inspect ${WTL_INSTANCE_NAME}-websrv &> /dev/null ; then
         TMPDIR=`mktemp -d`
         chmod 700 $TMPDIR
@@ -39,7 +39,7 @@ if ! docker inspect ${WTL_INSTANCE_NAME}-websrv &> /dev/null ; then
         cp ${WTL_CERTS}/wikitolearn.key $TMPDIR/certs/websrv.key
         if ! docker cp ${TMPDIR}/certs/ ${WTL_INSTANCE_NAME}-websrv:/certs/ ; then
             rm ${TMPDIR} -Rf
-            wtl-log scripts/helpers/create/single-node-no-ocg.sh 7 NN "[create/single-node-no-ocg] Error: Unable to copy wikitolearn.crt to the webserver"
+            wtl-event CERTS_COPY_FAIL
             exit 1
         fi
         rm ${TMPDIR} -Rf

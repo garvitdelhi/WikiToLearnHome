@@ -2,49 +2,48 @@
 . ./load-libs.sh
 
 if ! docker start ${WTL_INSTANCE_NAME}-parsoid ; then
-    wtl-log scripts/helpers/start/commons/single-node-pre.sh 7 NN "[start/single-node] FATAL ERROR: MISSING PARSOID"
+    wtl-event MISSING_PARSOID
     exit 1
 fi
 
 if ! docker start ${WTL_INSTANCE_NAME}-mathoid ; then
-    wtl-log scripts/helpers/start/commons/single-node-pre.sh 7 NN "[start/single-node]  FATAL ERROR: MISSING MATHOID"
+    wtl-event MISSING_MATHOID
     exit 1
 fi
 
 
 if ! docker start ${WTL_INSTANCE_NAME}-memcached ; then
-    wtl-log scripts/helpers/start/commons/single-node-pre.sh 7 NN "[start/single-node] FATAL ERROR: MISSING MEMCACHED"
+    wtl-event MISSING_MEMCACHED
     exit 1
 fi
 
 
 if ! docker start ${WTL_INSTANCE_NAME}-mysql; then
-    wtl-log scripts/helpers/start/commons/single-node-pre.sh 7 NN "[start/single-node] FATAL ERROR: MISSING MYSQL"
+    wtl-event MISSING_MYSQL
     exit 1
 else
     ROOT_PWD=$(cat $WTL_CONFIGS_DIR/mysql-users/root)
     WTLMYSQL_PWD=$(cat $WTL_CONFIGS_DIR/mysql-users/wtlmysql)
-    wtl-log scripts/helpers/start/commons/single-node-pre.sh 7 NN "[start/single-node] mysql root password: $ROOT_PWD"
 
     docker cp $WTL_CONFIGS_DIR/mysql-root-password.cnf ${WTL_INSTANCE_NAME}-mysql:/root/mysql-root-password.cnf
 
-    wtl-log scripts/helpers/start/commons/single-node-pre.sh 7 NN "[start/single-node] waiting for mysql initialization"
+    wtl-event WAITING_FOR_MYSQL
     while ! docker exec ${WTL_INSTANCE_NAME}-mysql mysql --defaults-file=/root/mysql-root-password.cnf -e "SELECT 1" &> /dev/null
     do
-        wtl-log scripts/helpers/start/commons/single-node-pre.sh 7 NN "[start/single-node] Waiting for mysql... (this can take some time, usually less then 5 minute)"
+        wtl-event WAITING_FOR_MYSQL_INFO
         sleep 1
     done
     docker cp $WTL_CONFIGS_DIR/mysql-root-password.cnf ${WTL_INSTANCE_NAME}-mysql:/root/.my.cnf
-    wtl-log scripts/helpers/start/commons/single-node-pre.sh 7 NN "[start/single-node] mysql running"
+    wtl-event MYSQL_IS_UP
 
-    wtl-log scripts/helpers/start/commons/single-node-pre.sh 7 NN "[start/single-node] Granting privileges to mysql users"
+    wtl-event MYSQL_GRANT_PRIVS_TO_USER
     echo "GRANT ALL PRIVILEGES ON * . * TO 'wtlmysql'@'%' IDENTIFIED BY '$WTLMYSQL_PWD';" | docker exec -i ${WTL_INSTANCE_NAME}-mysql mysql
     if ! docker exec ${WTL_INSTANCE_NAME}-mysql mysql -uwtlmysql -p$WTLMYSQL_PWD -e "SELECT 1" &> /dev/null ; then
-        wtl-log scripts/helpers/start/commons/single-node-pre.sh 7 NN "[start/single-node] FATAL ERROR: mysql authentication didn't work"
+        wtl-event MYSQL_AUTH_TEST_FAIL
         exit 1
     fi
 
-    wtl-log scripts/helpers/start/commons/single-node-pre.sh 7 NN "[start/single-node] Creating '$WTL_CONFIGS_DIR/LocalSettings.d/mysql-username-and-password.php'"
+    wtl-event MAKE_USERNAME_AND_PASSWORD_PHP_FILE $WTL_CONFIGS_DIR
     {
         echo "<?php"
         echo "\$wgDBuser = 'wtlmysql';"
@@ -53,22 +52,17 @@ else
 
     for dbname in $(cat $WTL_WORKING_DIR/databases.conf)
     do
-        wtl-log scripts/helpers/start/commons/single-node-pre.sh 7 NN "[start/single-node] DB: $dbname"
+        wtl-event CREATE_DB $dbname
         if [[ $dbname =~ ^[a-z_]+$ ]]; then
             docker exec -i ${WTL_INSTANCE_NAME}-mysql mysql -e "CREATE DATABASE IF NOT EXISTS $dbname"
         else
-            wtl-log scripts/helpers/start/commons/single-node-pre.sh 7 NN "[start/single-node] DB name '$dbname' not allowed"
+            wtl-event DB_NAME_NOT_ALLOWD $dbname
         fi
     done
 fi
 
-if ! docker start ${WTL_INSTANCE_NAME}-parsoid ; then
-    wtl-log scripts/helpers/start/commons/single-node-pre.sh 7 NN "[start/single-node] FATAL ERROR: MISSING PARSOID"
-    exit 1
-fi
 
 if ! docker start ${WTL_INSTANCE_NAME}-restbase ; then
-    wtl-log scripts/helpers/start/commons/single-node-pre.sh 7 NN "[start/single-node] FATAL ERROR: MISSING RESTBASE"
+    wtl-event MISSING_RESTBASE
     exit 1
 fi
-

@@ -38,7 +38,7 @@ Takes care of loading the environment and configuration files.
 * loads `const.sh`
 * checks that the config file `wtl.conf` has been properly generated,
     and loads it
-* loads `wtl-log`, a script that contains the definition of the log
+* loads `wtl-event`, a script that contains the definition of the log
     library we use to have a standard way of logging, which is necessary
     for implementing a good hook system.
 * checks that the cofnig file version is the correct one

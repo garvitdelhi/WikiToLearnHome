@@ -25,7 +25,6 @@ else
     . $WTL_CONFIG_FILE
 fi
 
-. ./scripts/wtl-log
 . ./scripts/wtl-event
 
 # check the config file version

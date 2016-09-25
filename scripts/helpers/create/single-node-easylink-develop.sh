@@ -15,7 +15,7 @@ $WTL_SCRIPTS"/helpers/create/commons/single-node-ocg.sh"
 
 if ! docker inspect ${WTL_INSTANCE_NAME}-websrv &> /dev/null ; then
 
-    wtl-log scripts/helpers/create/single-node-easylink-develop.sh 7 CREATE_DOCKERS "Creating docker ${WTL_INSTANCE_NAME}-websrv"
+    wtl-event CREATE_DOCKER_WEBSRV ${WTL_INSTANCE_NAME}
     docker create -ti $MORE_ARGS  \
         -v ${WTL_VOLUME_DIR}${WTL_INSTANCE_NAME}-var-log-webserver:/var/log/webserver \
         --hostname websrv \
@@ -33,7 +33,7 @@ if ! docker inspect ${WTL_INSTANCE_NAME}-websrv &> /dev/null ; then
         --add-host=easylink:`docker run -ti --rm debian:8 /sbin/ip route | awk '/default/ { print  $3}'` \
         $WTL_DOCKER_WEBSRV
 
-    wtl-log scripts/helpers/create/single-node-easylink-develop.sh 7 CREATE_COPY_WEBSRV_CERTS "Copying certs to websrv"
+    wtl-event CERTS_COPY
     if ! docker inspect ${WTL_INSTANCE_NAME}-websrv &> /dev/null ; then
         TMPDIR=`mktemp -d`
         chmod 700 $TMPDIR
@@ -42,7 +42,7 @@ if ! docker inspect ${WTL_INSTANCE_NAME}-websrv &> /dev/null ; then
         cp ${WTL_CERTS}/wikitolearn.key $TMPDIR/certs/websrv.key
         if ! docker cp ${TMPDIR}/certs/ ${WTL_INSTANCE_NAME}-websrv:/certs/ ; then
             rm ${TMPDIR} -Rf
-            wtl-log scripts/helpers/create/single-node-easylink-develop.sh 4 CREATE_COPY_WEBSRV_CERTS_FAIL "Error: Unable to copy wikitolearn.crt to the webserver"
+            wtl-event CERTS_COPY_FAIL
             exit 1
         fi
         rm ${TMPDIR} -Rf
