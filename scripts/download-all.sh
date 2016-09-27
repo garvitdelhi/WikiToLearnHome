@@ -20,4 +20,5 @@ $WTL_SCRIPTS/pull-images.sh
 if [[ $WTL_PRODUCTION == "0" ]] || [[ $WTL_AUTO_COMPOSER == "1" ]] ; then
     wtl-event DOWNLOAD_ALL_COMPOSER_FOR_DIRS ${WTL_REPO_DIR}
     $WTL_SCRIPTS/composer-for-dirs.sh ${WTL_REPO_DIR}
+    $WTL_SCRIPTS/make-skins.sh ${WTL_REPO_DIR}
 fi

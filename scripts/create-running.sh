@@ -73,5 +73,6 @@ else
         cd ${WTL_RUNNING}
         $WTL_SCRIPTS/download-mediawiki-extensions.sh
         $WTL_SCRIPTS/composer-for-dirs.sh $WTL_WORKING_DIR
+        $WTL_SCRIPTS/make-skins.sh $WTL_WORKING_DIR
     fi
 fi
