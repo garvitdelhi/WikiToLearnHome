@@ -78,6 +78,17 @@ wtl-event () {
   export LOG_MSG
   export LOG_DATE_TIME
 
+  export WTL_DIR
+  export WTL_REPO_DIR
+  export WTL_CONFIGS_DIR
+  export WTL_RUNNING
+  export WTL_CERTS
+  export WTL_CACHE
+  export WTL_BACKUPS
+  export WTL_SCRIPTS
+  export WTL_HOOKS
+  export WTL_CONFIG_FILE
+
   {
     if test -d $WTL_HOOK_ALL_EVENTS
     then
