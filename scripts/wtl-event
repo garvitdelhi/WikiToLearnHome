@@ -78,6 +78,10 @@ wtl-event () {
   export LOG_MSG
   export LOG_DATE_TIME
 
+  export WTL_BRANCH
+  export WTL_URL
+  export WTL_DOMAIN_NAME
+
   export WTL_DIR
   export WTL_REPO_DIR
   export WTL_CONFIGS_DIR
