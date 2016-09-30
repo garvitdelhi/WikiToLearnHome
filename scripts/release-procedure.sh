@@ -39,7 +39,6 @@ if [[ "$NEW_WTL_INSTANCE_NAME" != "$OLD_WTL_INSTANCE_NAME" ]] ; then
     if [[ "$WTL_RELEASE_GPG_CHECK" == "1" ]]
     then
         wtl-event RELEASE_PROCEDURE_GPG_CHECK
-        $WTL_SCRIPTS/git-gpg-check/update-trusted-keys.sh
         if ! $WTL_SCRIPTS/git-gpg-check/check-commit-signature.sh
         then
             wtl-event RELEASE_PROCEDURE_GPG_KO
