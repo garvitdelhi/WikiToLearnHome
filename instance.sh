@@ -166,6 +166,9 @@ case $1 in
             ;;
         esac
     ;;
+    gpg-update)
+        $WTL_SCRIPTS/git-gpg-check/update-trusted-keys.sh
+    ;;
     *)
         echo "Command not found ($@)"
     ;;
