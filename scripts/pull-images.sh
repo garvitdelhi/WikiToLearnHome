@@ -24,9 +24,25 @@ for img_env_name in $WTL_DOCKER_IMAGES_LIST; do
         fi
     fi
 
-    wtl-event PULL_IMAGE_DO $img
-    if ! docker pull $img ; then
-        wtl-event PULL_IMAGE_FAILED $img
+    PULLED=0
+    echo $img | if grep ^wikitolearn &> /dev/null
+    then
+        wtl-event PULL_IMAGE_DO registry.wikitolearn.org/$img
+        if docker pull registry.wikitolearn.org/$img ; then
+          docker tag registry.wikitolearn.org/$img $img
+          docker rmi registry.wikitolearn.org/$img
+          PULLED=1
+        else
+          wtl-event PULL_IMAGE_FAILED registry.wikitolearn.org/$img
+        fi
+    fi
+
+    if [[ $PULLED -eq 0 ]]
+    then
+        wtl-event PULL_IMAGE_DO $img
+        if ! docker pull $img ; then
+            wtl-event PULL_IMAGE_FAILED $img
+        fi
     fi
 
     wtl-event PULL_IMAGE_INSPECT $img

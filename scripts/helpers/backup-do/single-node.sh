@@ -29,4 +29,6 @@ rsync -a --stats --delete $WTL_WORKING_DIR"/mediawiki/images/" ${BACKUP_DIR}"/im
 
 $WTL_SCRIPTS/make-readwrite.sh "This wiki is currently being backed up"
 
+wtl-event BACKUP_RW ${WTL_INSTANCE_NAME}
+
 wtl-event BACKUP_FINISHED ${WTL_INSTANCE_NAME}
