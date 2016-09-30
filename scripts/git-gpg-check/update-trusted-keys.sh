@@ -31,12 +31,10 @@ then
     gpgVersion=$(gpg --version | grep ^gpg)
     echo "Running $gpgVersion"
     for f in $(find $WTL_TRUSTED_KEYS_REPO -name '*.key'); do
-        if [[ $gpgVersion == gpg\ \(GnuPG\)\ 2* ]] ; then
-            echo "New version"
+        if [[ $gpgVersion == gpg\ \(GnuPG\)\ 2* ]] ; then #don't add quotes or it will check equality, not similarity
             key=$(gpg --with-fingerprint $f | grep ^pub -A1 | tail -n1 | tr -d '[:space:]')
         else #it is the ancient debian version with different output yay!
-            echo "Old version"
-            key=$(gpg --with-fingerprint $f | grep ^pub -A1 | tail -n1 | tr -d '[:space:]' |  awk 'BEGIN { FS = "=" } ; { print $2 }')
+            key=$(gpg --with-fingerprint $f | grep ^pub -A1 | tail -n1 | tr -d '[:space:]' |  awk 'BEGIN { FS = "=" } ; { print $2 }') #ancient gpg has Fingerpint=XXX to it's output
         fi
 
         gpg --import $f
