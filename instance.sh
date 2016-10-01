@@ -58,12 +58,20 @@ case $1 in
         $WTL_SCRIPTS/fix-hosts.sh
     ;;
     first-run)
+        INITIAL_BACKUP=$WTL_REPO_DIR/DeveloperDump/
+        if [[ "$2" != "" ]]
+        then
+            if test -d "$2"
+            then
+                INITIAL_BACKUP="$2"
+            fi
+        fi
         $WTL_SCRIPTS/download-all.sh
         $WTL_SCRIPTS/download-mediawiki-extensions.sh
         $WTL_SCRIPTS/create.sh
         $WTL_SCRIPTS/start.sh
         $WTL_SCRIPTS/fix-hosts.sh
-        $WTL_SCRIPTS/backup-restore.sh $WTL_REPO_DIR/DeveloperDump/
+        $WTL_SCRIPTS/backup-restore.sh $INITIAL_BACKUP
         $WTL_SCRIPTS/unuse-instance.sh
         $WTL_SCRIPTS/use-instance.sh
         $WTL_SCRIPTS/update-db.sh
