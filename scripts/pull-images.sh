@@ -19,8 +19,10 @@ for img_env_name in $WTL_DOCKER_IMAGES_LIST; do
 
     if [[ "$WTL_FORCE_DOCKER_PULL" != "1" ]] ; then
         if [[ "$WTL_PRODUCTION" != "1" ]] ; then
-            wtl-event PULL_IMAGE_SKIP $img
-            continue
+            if docker inspect --format '{{ .ID }}' $img &> /dev/null ; then
+                wtl-event PULL_IMAGE_SKIP $img
+                continue
+            fi
         fi
     fi
 
