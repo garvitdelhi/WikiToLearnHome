@@ -34,5 +34,5 @@ docker exec ${WTL_INSTANCE_NAME}-websrv chown www-data: /var/www/
 
 for lang in $langlist; do
     wtl-event LANG_FOREACH_PHP_MAINTENANCE_RUN_LANG $lang "$CMD"
-    docker exec -ti ${WTL_INSTANCE_NAME}-websrv su -s /bin/sh -c "/bin/bash -c 'WIKI=$lang.wikitolearn.org php /var/www/WikiToLearn/mediawiki/maintenance/$CMD'" www-data
+    docker exec -ti ${WTL_INSTANCE_NAME}-websrv su -s /bin/sh -c "/bin/bash -c 'WIKI=$lang.$WTL_DOMAIN_NAME php /var/www/WikiToLearn/mediawiki/maintenance/$CMD'" www-data
 done
