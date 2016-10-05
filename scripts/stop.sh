@@ -15,8 +15,8 @@ fi
 
 . $WTL_SCRIPTS/environments/$WTL_ENV.sh
 
-if [[ $(docker ps -aq  --filter "name=$WTL_INSTANCE_NAME" | wc -l) -gt 0 ]] ; then
+if [[ $(docker ps -aq  --filter name="^/$WTL_INSTANCE_NAME" | wc -l) -gt 0 ]] ; then
     wtl-event STOP_DOING $WTL_INSTANCE_NAME
-    docker stop $(docker ps -aq  --filter "name=$WTL_INSTANCE_NAME")
+    docker stop $(docker ps -aq  --filter name="^/$WTL_INSTANCE_NAME")
     wtl-event STOP_DONE $WTL_INSTANCE_NAME
 fi
