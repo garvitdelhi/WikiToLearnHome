@@ -16,7 +16,7 @@ fi
 
 . $WTL_SCRIPTS/environments/$WTL_ENV.sh
 
-if [[ $(docker volume ls | grep $WTL_INSTANCE_NAME |  awk '{print $2}' | wc -l) -gt 0 ]] ; then
+if [[ $(docker volume ls -q --filter name="^$WTL_INSTANCE_NAME" | wc -l) -gt 0 ]] ; then
     wtl-event DELETING_VOLUMES $WTL_INSTANCE_NAME
-    docker volume rm $(docker volume ls | grep $WTL_INSTANCE_NAME |  awk '{print $2}')
+    docker volume rm $(docker volume ls -q --filter name="^$WTL_INSTANCE_NAME")
 fi
