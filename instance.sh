@@ -66,13 +66,13 @@ case $1 in
                 INITIAL_BACKUP="$2"
             fi
         fi
+        $WTL_SCRIPTS/unuse-instance.sh
         $WTL_SCRIPTS/download-all.sh
         $WTL_SCRIPTS/download-mediawiki-extensions.sh
         $WTL_SCRIPTS/create.sh
         $WTL_SCRIPTS/start.sh
         $WTL_SCRIPTS/fix-hosts.sh
         $WTL_SCRIPTS/backup-restore.sh $INITIAL_BACKUP
-        $WTL_SCRIPTS/unuse-instance.sh
         $WTL_SCRIPTS/use-instance.sh
         $WTL_SCRIPTS/update-db.sh
     ;;
