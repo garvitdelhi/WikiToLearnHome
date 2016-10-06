@@ -86,6 +86,7 @@ if [[ "$NEW_WTL_INSTANCE_NAME" != "$OLD_WTL_INSTANCE_NAME" ]] ; then
 
     export WTL_INSTANCE_NAME=$NEW_WTL_INSTANCE_NAME
     export WTL_WORKING_DIR=$NEW_WTL_WORKING_DIR
+    wtl-event RELEASE_PROCEDURE_BACKUP_SELECTED "$BACKUPDIR"
     $WTL_SCRIPTS/backup-restore.sh "$BACKUPDIR"
     $WTL_SCRIPTS/update-db.sh
     $WTL_SCRIPTS/unuse-instance.sh
