@@ -5,7 +5,7 @@ test -d $WTL_CONFIGS_DIR || mkdir -p $WTL_CONFIGS_DIR
 test -d $WTL_CONFIGS_DIR/mysql-users/ || mkdir -p $WTL_CONFIGS_DIR/mysql-users/
 test -d $WTL_CONFIGS_DIR/LocalSettings.d/ || mkdir -p $WTL_CONFIGS_DIR/LocalSettings.d/
 
-export MORE_ARGS=" -e WTL_PRODUCTION=$WTL_PRODUCTION"
+export MORE_ARGS=" -e WTL_PRODUCTION=$WTL_PRODUCTION -e WTL_DOMAIN_NAME=$WTL_DOMAIN_NAME"
 if [[ "$WTL_PRODUCTION" == "1" ]] ; then
     export MORE_ARGS=" --restart=always $MORE_ARGS"
 fi
