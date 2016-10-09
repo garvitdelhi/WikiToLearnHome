@@ -9,9 +9,16 @@ fi
 
 if [[ "$WTL_MATHOID_NUM_WORKERS" == "" ]] ; then
     wtl-event MATHOID_NUM_WORKERS_DEFAULT_VALUE
-    export WTL_MATHOID_NUM_WORKERS=1
+    export WTL_MATHOID_NUM_WORKERS=4
 else
     wtl-event MATHOID_NUM_WORKERS_CONF_VALUE $WTL_MATHOID_NUM_WORKERS
+fi
+
+if [[ "$WTL_RESTBASE_NUM_WORKERS" == "" ]] ; then
+    wtl-event RESTBASE_NUM_WORKERS_DEFAULT_VALUE
+    export WTL_RESTBASE_NUM_WORKERS=4
+else
+    wtl-event RESTBASE_NUM_WORKERS_CONF_VALUE $WTL_RESTBASE_NUM_WORKERS
 fi
 
 if [[ "$WTL_RESTBASE_CASSANDRA_HOSTS" == "" ]] ; then
@@ -62,6 +69,7 @@ fi
 if ! docker inspect ${WTL_INSTANCE_NAME}-restbase &> /dev/null ; then
     docker create -ti $MORE_ARGS --hostname restbase \
         -e CASSANDRA_HOSTS=$WTL_RESTBASE_CASSANDRA_HOSTS \
+        -e NUM_WORKERS=$WTL_RESTBASE_NUM_WORKERS \
         --link ${WTL_INSTANCE_NAME}-parsoid:parsoid \
         --link ${WTL_INSTANCE_NAME}-mathoid:mathoid \
         --name ${WTL_INSTANCE_NAME}-restbase $WTL_DOCKER_RESTBASE
