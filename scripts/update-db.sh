@@ -15,3 +15,5 @@ fi
 . ./load-libs.sh
 
 $WTL_SCRIPTS/lang-foreach-php-maintenance.sh update.php --conf=/var/www/WikiToLearn/mediawiki/LocalSettings.php --quick --doShared
+
+wtl-event UPDATE_DB_FINISH
