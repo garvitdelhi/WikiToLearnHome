@@ -57,7 +57,11 @@ if ! docker inspect ${WTL_INSTANCE_NAME}-mysql &> /dev/null ; then
         echo $WTLMYSQL_PWD > $WTL_CONFIGS_DIR/mysql-users/wtlmysql
     fi
 
-    docker create -ti $MORE_ARGS -v ${WTL_VOLUME_DIR}${WTL_INSTANCE_NAME}-var-lib-mysql:/var/lib/mysql --hostname mysql --name ${WTL_INSTANCE_NAME}-mysql -e MYSQL_ROOT_PASSWORD=$ROOT_PWD $WTL_DOCKER_MYSQL
+    if test ! -d $WTL_CONFIGS_DIR/mysql-config.d/
+    then
+        mkdir $WTL_CONFIGS_DIR/mysql-config.d/
+    fi
+    docker create -ti $MORE_ARGS -v $WTL_CONFIGS_DIR/mysql-config.d/:/etc/mysql/conf.d -v ${WTL_VOLUME_DIR}${WTL_INSTANCE_NAME}-var-lib-mysql:/var/lib/mysql --hostname mysql --name ${WTL_INSTANCE_NAME}-mysql -e MYSQL_ROOT_PASSWORD=$ROOT_PWD $WTL_DOCKER_MYSQL
     wtl-event CREATE_DOCKER_MYSQL ${WTL_INSTANCE_NAME}
 
     echo "[client]" > $WTL_CONFIGS_DIR/mysql-root-password.cnf
