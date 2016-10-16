@@ -75,6 +75,7 @@ case $1 in
         $WTL_SCRIPTS/backup-restore.sh $INITIAL_BACKUP
         $WTL_SCRIPTS/use-instance.sh
         $WTL_SCRIPTS/update-db.sh
+        $WTL_SCRIPTS/mw-import-struct-wikipages.sh
     ;;
     stop)
         $WTL_SCRIPTS/unuse-instance.sh
@@ -126,10 +127,12 @@ case $1 in
         $WTL_SCRIPTS/use-instance.sh
         $WTL_SCRIPTS/fix-hosts.sh
         $WTL_SCRIPTS/update-db.sh
+        $WTL_SCRIPTS/mw-import-struct-wikipages.sh
     ;;
     devdump-import)
         $WTL_SCRIPTS/backup-restore.sh $WTL_REPO_DIR/DeveloperDump/
         $WTL_SCRIPTS/update-db.sh
+        $WTL_SCRIPTS/mw-import-struct-wikipages.sh
     ;;
     devdump-export)
         $WTL_SCRIPTS/backup-do.sh
