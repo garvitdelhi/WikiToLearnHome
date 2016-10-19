@@ -13,6 +13,32 @@ fi
 
 . ./load-libs.sh
 
+if [[ "$WTL_MATHOID_NUM_WORKERS" == "" ]] ; then
+    wtl-event MATHOID_NUM_WORKERS_DEFAULT_VALUE
+    export WTL_MATHOID_NUM_WORKERS=4
+else
+    wtl-event MATHOID_NUM_WORKERS_CONF_VALUE $WTL_MATHOID_NUM_WORKERS
+fi
+
+if [[ "$WTL_RESTBASE_NUM_WORKERS" == "" ]] ; then
+    wtl-event RESTBASE_NUM_WORKERS_DEFAULT_VALUE
+    export WTL_RESTBASE_NUM_WORKERS=4
+else
+    wtl-event RESTBASE_NUM_WORKERS_CONF_VALUE $WTL_RESTBASE_NUM_WORKERS
+fi
+
+if [[ "$WTL_HHVM_NUM_WORKERS" == "" ]] ; then
+    wtl-event HHVM_NUM_WORKERS_DEFAULT_VALUE
+    export WTL_HHVM_NUM_WORKERS=1
+else
+    wtl-event HHVM_NUM_WORKERS_CONF_VALUE $WTL_HHVM_NUM_WORKERS
+fi
+
+if [[ "$WTL_RESTBASE_CASSANDRA_HOSTS" == "" ]] ; then
+    wtl-event RESTBASE_CASSANDRA_HOSTS_EMPTY
+    export WTL_RESTBASE_CASSANDRA_HOSTS=""
+fi
+
 . $WTL_SCRIPTS/environments/${WTL_ENV}.sh
 
 if [[ ! -f $WTL_WORKING_DIR/docker-images.conf ]] ; then

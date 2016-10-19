@@ -7,25 +7,6 @@ if ! docker inspect ${WTL_INSTANCE_NAME}-parsoid &> /dev/null ; then
     wtl-event CREATE_DOCKER_PARSOID ${WTL_INSTANCE_NAME}
 fi
 
-if [[ "$WTL_MATHOID_NUM_WORKERS" == "" ]] ; then
-    wtl-event MATHOID_NUM_WORKERS_DEFAULT_VALUE
-    export WTL_MATHOID_NUM_WORKERS=4
-else
-    wtl-event MATHOID_NUM_WORKERS_CONF_VALUE $WTL_MATHOID_NUM_WORKERS
-fi
-
-if [[ "$WTL_RESTBASE_NUM_WORKERS" == "" ]] ; then
-    wtl-event RESTBASE_NUM_WORKERS_DEFAULT_VALUE
-    export WTL_RESTBASE_NUM_WORKERS=4
-else
-    wtl-event RESTBASE_NUM_WORKERS_CONF_VALUE $WTL_RESTBASE_NUM_WORKERS
-fi
-
-if [[ "$WTL_RESTBASE_CASSANDRA_HOSTS" == "" ]] ; then
-    wtl-event RESTBASE_CASSANDRA_HOSTS_EMPTY
-    export WTL_RESTBASE_CASSANDRA_HOSTS=""
-fi
-
 if ! docker inspect ${WTL_INSTANCE_NAME}-mathoid &> /dev/null ; then
     docker create -ti $MORE_ARGS --hostname mathoid --name ${WTL_INSTANCE_NAME}-mathoid -e NUM_WORKERS=$WTL_MATHOID_NUM_WORKERS $WTL_DOCKER_MATHOID
     wtl-event CREATE_DOCKER_MATHOID ${WTL_INSTANCE_NAME} $WTL_MATHOID_NUM_WORKERS
