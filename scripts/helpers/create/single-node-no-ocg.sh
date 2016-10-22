@@ -21,6 +21,7 @@ if ! docker inspect ${WTL_INSTANCE_NAME}-websrv &> /dev/null ; then
         --name ${WTL_INSTANCE_NAME}-websrv \
         -e USER_UID=$WTL_USER_UID \
         -e USER_GID=$WTL_USER_GID \
+        -e HHVM_NUM_WORKERS=$WTL_HHVM_NUM_WORKERS \
         -v $WTL_WORKING_DIR:/var/www/WikiToLearn/ \
         --name ${WTL_INSTANCE_NAME}-websrv \
         --link ${WTL_INSTANCE_NAME}-mysql:mysql \

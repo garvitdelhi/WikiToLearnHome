@@ -35,8 +35,10 @@ if [[ -f $WTL_WORKING_DIR"/mediawiki.version" ]] ; then
         mkdir mediawiki
         cd mediawiki
         wtl-event DOWNLOAD_MEDIAWIKI_EXTENSIONS_CORE_SNAPSHOT $MW_MINOR
-        tar xfz $WTL_CACHE"/download/"$_MW_FILE
-
+        if ! tar xfz $WTL_CACHE"/download/"$_MW_FILE
+        then
+            rm -fv $WTL_CACHE"/download/"$_MW_FILE
+        fi
     else
         export _MW_PATH=$MW_MAJOR"/"
         export _MW_DIR_NAME="mediawiki-"$MW_MAJOR"."$MW_MINOR
@@ -49,7 +51,10 @@ if [[ -f $WTL_WORKING_DIR"/mediawiki.version" ]] ; then
             rm -Rf mediawiki
         fi
         wtl-event DOWNLOAD_MEDIAWIKI_EXTENSIONS_CORE $MW_MAJOR $MW_MINOR
-        tar xfz $WTL_CACHE"/download/"$_MW_FILE
+        if ! tar xfz $WTL_CACHE"/download/"$_MW_FILE
+        then
+            rm -fv $WTL_CACHE"/download/"$_MW_FILE
+        fi
         mv $_MW_DIR_NAME mediawiki
     fi
 fi
@@ -107,6 +112,10 @@ if [[ -f $WTL_WORKING_DIR"/extensions.list.version" ]] ; then
         if test -d $extension ; then
             rm -Rf $extension
         fi
-        tar xfz $WTL_CACHE"/download/extensions/"$extension_filename
+        
+        if ! tar xfz $WTL_CACHE"/download/extensions/"$extension_filename
+        then
+            rm -fv $WTL_CACHE"/download/extensions/"$extension_filename
+        fi
     done
 fi
