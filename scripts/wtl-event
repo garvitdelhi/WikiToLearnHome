@@ -25,12 +25,12 @@ wtl-event () {
 
   if test -f $LOG_MSG_FILE
   then
-    n=1
+    args_count=1
     while [[ "$1" != "" ]]
     do
-      export ARG${n}="$1"
+      export ARG${args_count}="$1"
       shift
-      n=$(($n+1))
+      args_count=$(($args_count+1))
     done
 
     LOG_LEVEL=`cat "$LOG_MSG_FILE" | head -1 | tail -1`
@@ -109,6 +109,13 @@ wtl-event () {
       do
           echo -e "              | "$line
       done
+  done
+
+  count=1
+  while [[ $count -lt $args_count ]]
+  do
+    unset ARG${count}
+    count=$(($count+1))
   done
 }
 if [[ $(basename $0) == "wtl-event" ]] ; then
