@@ -44,7 +44,7 @@ WTL and WTLH have some dependecies:
     - docker ( >= 1.10.3)
     - python3
 
-#### Ubutnu/Debian prerequisites install
+#### Ubuntu/Debian prerequisites install
 
 ``` {.bash}
 sudo apt-get install curl rsync coreutils realpath git python3 pandoc
@@ -65,6 +65,8 @@ Docker is a quickly evolving technology, and it may be possible that the
 your distro official repository do not have yet the docker version
 requierd to run WTL. We thus recommend to install docker following the
 [official guide][docker-install]
+
+Do not forget to add your user to the docker group, so that you do not have to use super user privileges every time you have to manage docker images and volumes. WTLH is intended to work only if your user is added to docekr group, otherwise you get errors related to missing the correct permissions since WTLH is not intended to be executed with super user rights.
 
 #### Pandoc
 
@@ -156,6 +158,36 @@ Sometimes you might want to wipe out the server and for this you can use
 
 Read [the guide to instance.sh](../Instance_Doc) for a deatailed description of how to use WTLH to manage the WTL instance.
 
+### Change the config and restart the dockers
+
+You can also change the configuration of the environment (for example
+changing the number of mathois workers) and restart the containers
+without re-pulling all the images.
+
+Stop the running instance, if you have any.
+
+```{.bash}
+./instance.sh stop
+```
+
+Change the configuration:
+
+```{.bash}
+nano ./create-config.sh
+```
+
+Create the configuration files and update the scripts with the new parameters
+
+```{.bash}
+./create-config.sh -t <github token> -p <protocol> --existing-repo --force-new-config
+./instance.sh create
+```
+
+Start the new instance (with the new parameters)
+```{.bash}
+./instance.sh start
+```
+
 Vagrant Installation for Windows/OSX
 -------------------------------------
 
@@ -224,7 +256,7 @@ Guide, starting from [cloning the git repo][cloning-repo-section].
 [git-official-documentation]: https://git-scm.com/doc
 [git-official-book]: https://git-scm.com/book/en/v2
 
-[docker-install]: https://docs.docker.com/engine/installation/GNU/Linux/
+[docker-install]: https://docs.docker.com/engine/installation/linux/
 
 [GitHub-token]: https://github.com/settings/tokens
 [help]: https://help.github.com/articles/generating-an-ssh-key/
