@@ -154,6 +154,16 @@ case $1 in
         $WTL_SCRIPTS/docker-images-delete-old-images.sh
         $WTL_SCRIPTS/docker-images-clean.sh
     ;;
+    dev)
+        case $2 in
+            confirm-email)
+                $WTL_SCRIPTS/mw-confirm-all-email.sh
+            ;;
+            *)
+                echo "Dev command not found ($@)"
+            ;;
+        esac
+    ;;
     production)
         . $WTL_SCRIPTS/load-productoin-instance.sh
         case $2 in
@@ -173,7 +183,7 @@ case $1 in
                 $WTL_SCRIPTS/mw-dumps-do.sh
             ;;
             *)
-                echo "Production ommand not found ($@)"
+                echo "Production command not found ($@)"
             ;;
         esac
     ;;
