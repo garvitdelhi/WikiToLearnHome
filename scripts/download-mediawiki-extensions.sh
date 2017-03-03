@@ -57,6 +57,20 @@ if [[ -f $WTL_WORKING_DIR"/mediawiki.version" ]] ; then
         fi
         mv $_MW_DIR_NAME mediawiki
     fi
+    if test -d mediawiki
+    then
+      cd mediawiki
+      PATCHES_DIR=$WTL_WORKING_DIR"/mediawiki-patches/"
+      if test -d $PATCHES_DIR
+      then
+        ls $PATCHES_DIR | while read file
+        do
+          echo $file
+          patch -p1 < $PATCHES_DIR$file
+        done
+      fi
+      cd ..
+    fi
 fi
 
 if [[ -f $WTL_WORKING_DIR"/extensions.list.version" ]] ; then
@@ -112,7 +126,7 @@ if [[ -f $WTL_WORKING_DIR"/extensions.list.version" ]] ; then
         if test -d $extension ; then
             rm -Rf $extension
         fi
-        
+
         if ! tar xfz $WTL_CACHE"/download/extensions/"$extension_filename
         then
             rm -fv $WTL_CACHE"/download/extensions/"$extension_filename
