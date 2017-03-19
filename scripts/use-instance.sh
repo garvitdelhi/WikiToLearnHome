@@ -33,6 +33,11 @@ else
         $WTL_DOCKER_HAPROXY
     docker cp ${WTL_CERTS}/wikitolearn.crt wikitolearn-haproxy:/etc/ssl/certs/haproxy.crt
     docker cp ${WTL_CERTS}/wikitolearn.key wikitolearn-haproxy:/etc/ssl/private/haproxy.key
-    docker start wikitolearn-haproxy
-    wtl-event USE_INSTANCE_DONE ${WTL_INSTANCE_NAME}
+    if ! docker start wikitolearn-haproxy
+    then
+      wtl-event USE_INSTANCE_FATAL ${WTL_INSTANCE_NAME}
+      exit 1
+    else
+      wtl-event USE_INSTANCE_DONE ${WTL_INSTANCE_NAME}
+    fi
 fi
