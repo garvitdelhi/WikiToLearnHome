@@ -14,22 +14,28 @@ fi
 . ./load-libs.sh
 
 if docker inspect wikitolearn-haproxy &> /dev/null ; then
-    INSTANCES=$($WTL_SCRIPTS/list-instances.sh | grep -v $(docker inspect -f '{{index .Config.Labels "WTL_INSTANCE_NAME"}}' wikitolearn-haproxy | awk -F'-' '{ print $2 }'))
+    if [[ $($WTL_SCRIPTS/list-instances.sh | wc -l) -gt 1 ]]
+    then
+        INSTANCES=$($WTL_SCRIPTS/list-instances.sh | grep -v $(docker inspect -f '{{index .Config.Labels "WTL_INSTANCE_NAME"}}' wikitolearn-haproxy | awk -F'-' '{ print $2 }'))
+    fi
 else
     INSTANCES=$($WTL_SCRIPTS/list-instances.sh)
 fi
 
-for instance in $INSTANCES
-do
-    if [[ $(ls $WTL_RUNNING | grep ^$instance | wc -l) -eq 1 ]] ; then
-        DIR_NAME=`ls $WTL_RUNNING | grep ^$instance`
-        export WTL_INSTANCE_NAME="wtl-"${DIR_NAME:0:8}
-        export WTL_WORKING_DIR=$WTL_RUNNING"/"$DIR_NAME
-        $WTL_SCRIPTS/stop.sh
-        $WTL_SCRIPTS/delete.sh
-        $WTL_SCRIPTS/delete-volumes.sh
-        if [[ -d $WTL_WORKING_DIR ]] ; then
-            rm -Rf $WTL_WORKING_DIR
+if [[ "$INSTANCES" != "" ]]
+then
+    for instance in $INSTANCES
+    do
+        if [[ $(ls $WTL_RUNNING | grep ^$instance | wc -l) -eq 1 ]] ; then
+            DIR_NAME=`ls $WTL_RUNNING | grep ^$instance`
+            export WTL_INSTANCE_NAME="wtl-"${DIR_NAME:0:8}
+            export WTL_WORKING_DIR=$WTL_RUNNING"/"$DIR_NAME
+            $WTL_SCRIPTS/stop.sh
+            $WTL_SCRIPTS/delete.sh
+            $WTL_SCRIPTS/delete-volumes.sh
+            if [[ -d $WTL_WORKING_DIR ]] ; then
+                rm -Rf $WTL_WORKING_DIR
+            fi
         fi
-    fi
-done
+    done
+fi
